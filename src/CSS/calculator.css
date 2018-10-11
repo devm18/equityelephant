@@ -1,0 +1,41 @@
+/* ********** calculator ********** */
+.main {
+  /* margin: 5px auto;  */
+  /* flex-flow: nowrap column;  */  
+}
+
+.inputGroup {
+  width: 375px;
+  height: auto; 
+  margin: 20px auto; 
+  border: 1px solid black; 
+}
+
+.descAndInput {
+  margin: 1px; 
+  /* border: 1px solid red; */
+  padding: 0px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  border: thin solid black;
+}  
+
+.inputNumber {
+  text-align: right;
+}
+
+.inputText {
+  text-align: center;
+}
+
+.deleteDebtAndSequenceNumber {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ********** summary ********** */
+
+/* ********** details ********** */
