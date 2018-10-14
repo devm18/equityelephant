@@ -17,10 +17,7 @@
 .env.test.local
 .env.production.local
 
-notes.js
 notes-priorities.js 
-db/createInPostico.sql
-
 
 npm-debug.log*
 yarn-debug.log*

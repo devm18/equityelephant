@@ -29,9 +29,7 @@ class App extends Component {
             <NavBar /> 
            
             <div id="main-body">
-
               { routes }
-
             </div>
                         
             <Footer /> 

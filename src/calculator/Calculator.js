@@ -5,8 +5,8 @@ import Debts from './Debts';
 // import TotalDebt from './TotalDebt'; 
 
 class Calculator extends Component {
-  render() {        
-    console.log('UI this.props: ', this.props); 
+  render() {
+    console.log('Calculator.this.props: ', this.props); 
 
     return (
       <div className="main">
@@ -15,22 +15,17 @@ class Calculator extends Component {
 
         <Prepayments />
 
-        {/* <div> Debts: </div><br /> */} 
-
         <Debts /> 
 
         {/* <TotalDebt /> 
         Total debt: 
         Monthly cost: 
         Payoff date:
-        */}
-
-        
+        */}        
 
         {/* <SaveInputs /> */}
 
         <br /> 
-
         <div>RESULTS: </div>  
         
       </div>

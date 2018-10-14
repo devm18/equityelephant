@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { enterRecurringPrepayment, enterOneTimePrepayment,
-  enterOneTimePrepaymentDate } from '../ducks/CalculatorReducer';
+import { enterMonthlyPrepayment, enterYearlyPrepayment, enterYearlyPrepaymentMonth, enterOneTimePrepayment, enterOneTimePrepaymentDate } from '../ducks/CalculatorReducer';
 
 class Prepayments extends Component {
 
   render() {
     const { 
-      enterRecurringPrepayment,
+      enterMonthlyPrepayment,
+      enterYearlyPrepayment,
+      enterYearlyPrepaymentMonth,
       enterOneTimePrepayment,
       enterOneTimePrepaymentDate
     } = this.props; 
@@ -24,36 +25,38 @@ class Prepayments extends Component {
       <div className="inputGroup">
            
         <div className="textAndInput" id="recPaypmtRow">
-          <p className="prepaymentText">Recurring monthly prepayment:</p>
-          <input type="number" className="input inputNumber"
-            onChange={ (e)=>enterRecurringPrepayment(e.target.value) } />
+          <p className="prepaymentText">Monthly prepayment:</p>
+          <input type="number" className="input inputNumber" onChange={ (e)=>enterMonthlyPrepayment(e.target.value) } />
         </div>
-
-        {/* ADD_LATER 
+        
         <div className="textAndInput">
-          <p className="prepaymentText">Recurring yearly prepayment:</p>
-          <input type="number" className="input inputNumber" 
-            onChange={ enterRecurringPrepayment } />
-          <input type="Date" 
+          <p className="prepaymentText">Yearly prepayment:</p>
+          <input type="number" className="input inputNumber" onChange={ (e)=>enterYearlyPrepayment(e.target.value) } />
+        </div>
+        
+        <div className="textAndInput">
+          <p className="prepaymentText">Apply month:</p> 
+          <input type="date" 
             className="input inputDate"
             min={today} max={maxDate}
-            onChange={ enterOneTimePrepaymentDate } /> 
+            onChange={ (e)=>enterYearlyPrepaymentMonth(e.target.value) } /> 
         </div>
-         */}
+        
 
         <div className="textAndInput">
-          <p className="prepaymentText">One time prepayment:</p>  
+          <p className="prepaymentText">One time prepayment:</p> 
           <input type="number" className="input inputNumber"
             onChange={ (e)=>enterOneTimePrepayment(e.target.value) } /> 
-        </div> 
+        </div>
+        
         <div className="textAndInput">
           <p className="prepaymentText">Apply date:</p>  
           <input type="Date" 
               className="input inputDate"
               min={today} max={maxDate}
-              onChange={ (e)=>enterOneTimePrepaymentDate(e.target.value) } /> 
-          
+              onChange={ (e)=>enterOneTimePrepaymentDate(e.target.value) } />   
         </div>
+
       </div>
     )
   }
@@ -61,7 +64,6 @@ class Prepayments extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { enterRecurringPrepayment, 
-  enterOneTimePrepayment, enterOneTimePrepaymentDate
+export default connect(mapStateToProps, { enterMonthlyPrepayment, enterYearlyPrepayment, enterYearlyPrepaymentMonth, enterOneTimePrepayment, enterOneTimePrepaymentDate
 })(Prepayments);
 

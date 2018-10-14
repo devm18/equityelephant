@@ -1,8 +1,11 @@
 import React from 'react';
 import Debt from '../calculator/Debt'; 
+import Debts from '../calculator/Debts'; 
 
 // CONSTANTS
-const ENTER_RECURRING_PREPAYMENT = "ENTER_RECURRING_PREPAYMENT";
+const ENTER_MONTHLY_PREPAYMENT = "ENTER_MONTHLY_PREPAYMENT";
+const ENTER_YEARLY_PREPAYMENT = "ENTER_YEARLY_PREPAYMENT";
+const ENTER_YEARLY_PREPAYMENT_MONTH = "ENTER_YEARLY_PREPAYMENT_MONTH"; 
 const ENTER_ONE_TIME_PREPAYMENT = "ENTER_ONE_TIME_PREPAYMENT";
 const ENTER_ONE_TIME_PREPAYMENT_DATE = "ENTER_ONE_TIME_PREPAYMENT_DATE";
 // 
@@ -16,13 +19,26 @@ const UPDATE_SEQUENCE ="UPDATE_SEQUENCE";
 
 // ACTION CREATORS - Calculator 
 
-// ACTION CREATORS - Prepayment 
-export function enterRecurringPrepayment (e) {
+// ACTION CREATORS - Prepayments 
+export function enterMonthlyPrepayment (e) {
   return {
-    type: ENTER_RECURRING_PREPAYMENT,
+    type: ENTER_MONTHLY_PREPAYMENT,
     payload: e.target.value
   };
 }
+export function enterYearlyPrepayment (e) {
+  return {
+    type: ENTER_YEARLY_PREPAYMENT,
+    payload: e.target.value
+  };
+}
+export function enterYearlyPrepaymentMonth (e) {
+  return {
+    type: ENTER_YEARLY_PREPAYMENT_MONTH,
+    payload: e.target.value
+  };
+}
+
 export function enterOneTimePrepayment (e) {
   return {
     type: ENTER_ONE_TIME_PREPAYMENT,
@@ -73,36 +89,30 @@ export function removeDebt (i) {
     payload: i
   }; 
 }
+export function updateSequence (debts) { 
+  return { 
+    type: UPDATE_SEQUENCE, 
+    payload: debts
+  }; 
+}
 
 // INITIAL STATE 
 const initialState = {
-  // _recurringPrepayment: 0, 
-  // get recurringPrepayment() {
-  //   return this._recurringPrepayment;
-  // },
-  // set recurringPrepayment(value) {
-  //   this._recurringPrepayment = value;
-  // },
-  // recPrepmt: 0,
-  // oneTimePrepmt {
-  //   oneTimePrepmt: 0,
-  //   oneTimePrepmtDate: ''
-  // },
-  OneTimePrepmts: [],
-  // debt: {
-  //   debtName: '',
-  //   principle: 0,
-  //   rate: 0,
-  //   payment: 0,
-  // },  
+  monthlyPrepayment: 0, 
+  yearlyPrepayment: 0,
+  yearlyPrepaymentMonth: '',
+  oneTimePrepayment: 0,
+  oneTimePrepaymentDate: '',
+  // OneTimePrepayments: [],
+  // debt: { debtName: '', principle: 0, rate: 0, payment: 0 }
   debts: [],
-  oriCost: 0,
+  totalDebt: 0,
+  originalCost: 0,
   newCost: 0,
-  eliCost: 0,
-  oriTerm: 0,
+  eliminatedCost: 0,
+  originalTerm: 0,
   newTerm: 0
 }; 
-
 
 // REDUCER 
 export default function CalculatorReducer(state = initialState, action) {
@@ -110,11 +120,22 @@ export default function CalculatorReducer(state = initialState, action) {
 
   switch (action.type) {
     // prepayment
-    case ENTER_RECURRING_PREPAYMENT:
+    case ENTER_MONTHLY_PREPAYMENT:
       return {
         ...state,
-        recurringPrepayment: action.payload,
+        monthlyPrepayment: action.payload,
       };
+    case ENTER_YEARLY_PREPAYMENT:
+      return {
+        ...state,
+        yearlyPrepayment: action.payload,
+      };
+    case ENTER_YEARLY_PREPAYMENT_MONTH:
+      return {
+        ...state,
+        yearlyPrepaymentMonth: action.payload,
+      };
+
     case ENTER_ONE_TIME_PREPAYMENT:
       return {
         ...state,
@@ -148,7 +169,7 @@ export default function CalculatorReducer(state = initialState, action) {
         payment: action.payload,
       };
 
-    // add, remove debt 
+    // add debt, remove debt, updateSequence of debts
     case ADD_DEBT:
       return { 
         ...state, 
@@ -159,6 +180,12 @@ export default function CalculatorReducer(state = initialState, action) {
       return {
         ...state, 
         debts: [...state.debts]
+      };  
+    case UPDATE_SEQUENCE:
+      //state.debts. 
+      return {
+        ...state, 
+        debts: [...action.payload]
       };  
     default:
       return state;

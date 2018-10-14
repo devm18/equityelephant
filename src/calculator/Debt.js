@@ -41,7 +41,13 @@ class Debt extends Component {
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterPayment(e.target.value)} /> 
             </div>  
-        
+            
+            <div className="debtDescAndInput">
+              <span align='left'> Term (in years):</span> 
+              <span align='right'> {  } </span> 
+            </div>  
+            
+
         </div>
       
       </div>
