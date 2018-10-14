@@ -1,26 +1,7 @@
 /* ********** calculator ********** */
-.main {
-  /* margin: 5px auto;  */
-  /* flex-flow: nowrap column;  */  
-}
-
-.inputGroup {
-  width: 375px;
-  height: auto; 
-  margin: 20px auto; 
-  border: 1px solid black; 
-}
-
-.descAndInput {
-  margin: 1px; 
-  /* border: 1px solid red; */
-  padding: 0px; 
-  display: flex;
-  justify-content: space-between;
-}
-
+/* ********** general ********** */
 .input {
-  border: thin solid black;
+  border: 1px solid black;
 }  
 
 .inputNumber {
@@ -31,7 +12,66 @@
   text-align: center;
 }
 
-.deleteDebtAndSequenceNumber {
+/* ********** prepayment.js ********** */
+.prepaymentInputWrapper {
+  /* margin: 5px auto;  */
+  /* flex-flow: nowrap column;  */
+  width: 375px;
+  height: auto; 
+  margin: 1px auto; 
+  padding: 1px; 
+  border: 1px solid black;  
+}
+
+.prepaymentRow {
+  width: 500px;
+  height: auto; 
+  border: 1px solid red;
+  margin: 0px auto; 
+  padding: 1px;
+  display: flex;  
+}
+
+.prepaymentText {
+  width: 215px;
+  /* border: 1px solid red; */
+  text-align: left; 
+}
+
+.inputGroup {
+  width: 375px;
+  height: auto; 
+  margin: 20px auto; 
+  border: 1px solid black; 
+}
+
+.textAndInput {
+  margin: 1px; 
+  /* border: 1px solid red; */
+  padding: 0px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* ********** debt.js ********** */
+.debtInputGroup {
+  width: 375px;
+  height: auto; 
+  margin: 20px auto; 
+  border: 1px solid black; 
+}
+
+.debtDescAndInput {
+  margin: 1px; 
+  /* border: 1px solid red; */
+  padding: 0px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.removeDebtAndSequenceNumber {
   display: flex;
   justify-content: space-between;
 }

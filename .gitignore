@@ -19,7 +19,7 @@
 
 notes.js
 notes-priorities.js 
-db/notes4postico.sql
+db/createInPostico.sql
 
 
 npm-debug.log*

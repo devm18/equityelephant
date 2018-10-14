@@ -11,18 +11,27 @@ class Calculator extends Component {
     return (
       <div className="main">
         <br /> 
-        <p>INPUTS: </p>  
-        
+        <div>INPUTS: </div>  
+
         <Prepayments />
-      
+
+        {/* <div> Debts: </div><br /> */} 
+
         <Debts /> 
+
+        {/* <TotalDebt /> 
+        Total debt: 
+        Monthly cost: 
+        Payoff date:
+        */}
+
+        
 
         {/* <SaveInputs /> */}
 
-        {/* <TotalDebt /> */}
-
         <br /> 
-        <p>RESULTS: </p>  
+
+        <div>RESULTS: </div>  
         
       </div>
     )

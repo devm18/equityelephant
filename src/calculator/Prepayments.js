@@ -20,37 +20,43 @@ class Prepayments extends Component {
     let yyyy = today.getFullYear();
     let maxDate = yyyy+30;
 
-    return (
-      <div className="main">
-        
-          <div className="inputGroup"> 
-            <div className="descAndInput">
-              Recurring monthly prepayment:
-              <input type="number" className="input inputNumber"
-              onChange={ enterRecurringPrepayment } /> 
-            </div>
+  return (
+      <div className="inputGroup">
+           
+        <div className="textAndInput" id="recPaypmtRow">
+          <p className="prepaymentText">Recurring monthly prepayment:</p>
+          <input type="number" className="input inputNumber"
+            onChange={ (e)=>enterRecurringPrepayment(e.target.value) } />
+        </div>
 
-            <div className="descAndInput">
-              One time prepayment:  
-              <input type="number" className="input inputNumber"
-              onChange={ enterOneTimePrepayment } /> 
-            </div>  
+        {/* ADD_LATER 
+        <div className="textAndInput">
+          <p className="prepaymentText">Recurring yearly prepayment:</p>
+          <input type="number" className="input inputNumber" 
+            onChange={ enterRecurringPrepayment } />
+          <input type="Date" 
+            className="input inputDate"
+            min={today} max={maxDate}
+            onChange={ enterOneTimePrepaymentDate } /> 
+        </div>
+         */}
 
-              <div className="descAndInput">
-              One time prepayment entry date:  
-              <input type="Date" 
+        <div className="textAndInput">
+          <p className="prepaymentText">One time prepayment:</p>  
+          <input type="number" className="input inputNumber"
+            onChange={ (e)=>enterOneTimePrepayment(e.target.value) } /> 
+        </div> 
+        <div className="textAndInput">
+          <p className="prepaymentText">Apply date:</p>  
+          <input type="Date" 
               className="input inputDate"
               min={today} max={maxDate}
-              onChange={ enterOneTimePrepaymentDate } 
-              /> 
-            </div>  
-          </div>
-      
+              onChange={ (e)=>enterOneTimePrepaymentDate(e.target.value) } /> 
+          
+        </div>
       </div>
     )
   }
-
-
 }
 
 const mapStateToProps = state => state;

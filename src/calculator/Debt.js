@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { enterDebtName, enterPrinciple, enterRate, enterPayment } from '../ducks/CalculatorReducer';
+import { enterDebtName, enterPrinciple, enterRate, enterPayment, removeDebt } from '../ducks/CalculatorReducer';
 
 class Debt extends Component {
   
   render() {
-    const { enterDebtName, enterPrinciple, enterRate, enterPayment
-     } = this.props; 
+    // console.log("Debt.this.props", this.props); 
+     
+    const { enterDebtName, enterPrinciple, enterRate, enterPayment } = this.props; 
 
     return (
-      <div className="main">
-          <div className="inputGroup"> 
-            
-            <div className="deleteDebtAndSequenceNumber">
-                
-                <button 
-                className="deleteDebt" 
-                onClick={ null }>
-                X</button>
-                
-                <div className="sequenceNumber">
-                  { this.props.sequenceNumber }
-                </div>
-            </div>
+      <div className="debtInputWrapper">
+          <div className="debtInputGroup"> 
 
-            <div className="descAndInput">
+            { this.props.removeDebtButtonEtc }
+
+            <div className="debtDescAndInput">
               Debt:
               <input type="text" className="input inputText"
               onChange={(e)=> {
@@ -33,19 +24,19 @@ class Debt extends Component {
               }} /> 
             </div>
 
-            <div className="descAndInput">
+            <div className="debtDescAndInput">
               Principle:  
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterPrinciple(e.target.value)} /> 
             </div>  
 
-            <div className="descAndInput">
+            <div className="debtDescAndInput">
               Interest rate:  
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterRate(e.target.value)} /> 
             </div>  
 
-            <div className="descAndInput">
+            <div className="debtDescAndInput">
               Monthly payment:  
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterPayment(e.target.value)} /> 

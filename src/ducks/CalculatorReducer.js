@@ -40,42 +40,39 @@ export function enterOneTimePrepaymentDate (e) {
 export function enterDebtName (string) {
   return {
     type: ENTER_DEBT_NAME,
-    string
+    payload: string
   };
 }
 export function enterPrinciple (amount) {
   return {
     type: ENTER_PRINCIPLE,
-    amount
+    payload: amount
   };
 }
 export function enterRate (rate) {
   return {
     type: ENTER_RATE,
-    rate
+    payload: rate
   };
 }
 export function enterPayment (amount) {
   return {
     type: REMOVE_DEBT,
-    amount
+    payload: amount
   };
 }
-
 export function addDebt () {
   return {
     type: ADD_DEBT,
     payload: <Debt /> 
   };
 }
-
-export function removeDebt (sequenceNumber) {
-  return {
-    type: REMOVE_DEBT,
-    sequenceNumber
-  };
+export function removeDebt (i) { 
+  return { 
+    type: REMOVE_DEBT, 
+    payload: i
+  }; 
 }
-
 
 // INITIAL STATE 
 const initialState = {
@@ -86,78 +83,79 @@ const initialState = {
   // set recurringPrepayment(value) {
   //   this._recurringPrepayment = value;
   // },
-  recurringPrepayment: 0, 
-  oneTimePrepayment: 0,
-  oneTimePrepaymentDate: '',
+  // recPrepmt: 0,
+  // oneTimePrepmt {
+  //   oneTimePrepmt: 0,
+  //   oneTimePrepmtDate: ''
+  // },
+  OneTimePrepmts: [],
   // debt: {
-  //   removeDebt: removeDebt(),
-  //   sequenceNumber: 1, 
   //   debtName: '',
   //   principle: 0,
   //   rate: 0,
   //   payment: 0,
   // },  
-  debts: [ ],
-  sequenceNumber: 1, 
-  originalCost: 0,
+  debts: [],
+  oriCost: 0,
   newCost: 0,
-  eliminatedCost: 0,
-  originalTerm: 0,
+  eliCost: 0,
+  oriTerm: 0,
   newTerm: 0
 }; 
 
 
 // REDUCER 
 export default function CalculatorReducer(state = initialState, action) {
-  // console.log('Reducer action:', action);
+  console.log('Reducer action:', action);
 
   switch (action.type) {
     // prepayment
     case ENTER_RECURRING_PREPAYMENT:
       return {
         ...state,
-        recurringPrepayment: action.amount,
+        recurringPrepayment: action.payload,
       };
     case ENTER_ONE_TIME_PREPAYMENT:
       return {
         ...state,
-        oneTimePrepayment: action.amount,
+        oneTimePrepayment: action.payload,
       };
     case ENTER_ONE_TIME_PREPAYMENT_DATE:
       return {
         ...state,
-        oneTimePrepaymentDate: action.date,
+        oneTimePrepaymentDate: action.payload,
       };
 
     //// debt 
     case ENTER_DEBT_NAME:
       return {
         ...state,
-        debtName: action.debtName,
+        debtName: action.payload,
       };
     case ENTER_PRINCIPLE:
       return {
         ...state,
-        principle: action.amount,
+        principle: action.payload,
       };
     case ENTER_RATE:
       return {
         ...state,
-        rate: action.rate,
+        rate: action.payload,
       };
     case ENTER_PAYMENT:
       return {
         ...state,
-        payment: action.amount,
+        payment: action.payload,
       };
 
-    // add debt 
+    // add, remove debt 
     case ADD_DEBT:
       return { 
         ...state, 
         debts: [...state.debts, action.payload ]
       } 
     case REMOVE_DEBT: 
+      state.debts.splice(action.payload,1); 
       return {
         ...state, 
         debts: [...state.debts]

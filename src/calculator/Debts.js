@@ -4,35 +4,59 @@ import Debt from './Debt';
 import { addDebt, removeDebt } from '../ducks/CalculatorReducer';
 
 class Debts extends Component {
-
   render() {
-    console.log(this.state); 
-    //// return at least one Debt field, else list
-    // let sequenceNumber = () => {
-    //   this.props.debts.map((e,i) => i+1)
-    // }
-    // if(this.props.debts.length === 0) {
-    //   debts = <Debt sequenceNumber="1" /> ; 
-    // } else { 
-    //   debts = this.props.debts.map((e,i) => {
-    //     return (
-    //       <Debt key={i+1} sequenceNumber={i} />  
-    //     )
-    //   })
-    // }
+    const { removeDebt } = this.props; 
+
+    //////////////////////
+    let debtsList = this.props.debts.map((elem,i)=>{
+
+      let allowDrop = (e) => e.preventDefault(); 
+      let drag = (e) => e.dataTransfer.setData("text", e.target.i); 
+      let drop = (e) => { 
+        e.preventDefault(); 
+        let data = e.dataTransfer.getData('text'); 
+        e.target.appendChild(document.getElementById(data));
+      } 
+      //////////////////////
+
+
+      //////////////////////
+    
+
+      
+      return(
+        
+        <Debt 
+        key={i} id={'debt'+i+1} 
+        draggable='true' ondragstart="drag(event)"
+        removeDebtButtonEtc={
+          <div className="removeDebtAndSequenceNumber">    
+            <button 
+              className="removeDebt" 
+              onClick={ () => removeDebt(i) }>
+              X </button> 
+            <div className="sequenceNumber">
+              {i+1} </div>
+          </div>
+        }
+        />
+      )
+    });
+
+    let addDebtButton = () => {
+      return (this.props.debts.length >= 6) 
+      ? <p>Maximum of six debts.</p> 
+      : <button onClick={ this.props.addDebt }> Add debt </button>
+    }
   
     return (
       <div className="main">
 
-        {/* { this.state.debts }
-        <button onClick={ this.props.addDebt } > 
-        Add debt in Debts.js
-        </button> */}
+        { debtsList }
 
-        { this.props.debts }
-        <button onClick={ this.props.addDebt } > 
-        Add debt in redux
-        </button>
+        { addDebtButton() }
+        {/* { saveInputsButton() } */}
+        {/* { calculate() } */}
 
       </div>
     )
