@@ -12,41 +12,42 @@ class Debt extends Component {
 
     return (
       <div className="debtInputWrapper">
-          <div className="debtInputGroup"> 
+          <div className="box"> 
 
             { this.props.removeDebtButtonEtc }
 
-            <div className="debtDescAndInput">
-              Debt:
+            <div className="boxRow">
+              <p className="boxRowTextLeft">Debt:</p>
               <input type="text" className="input inputText"
               onChange={(e)=> {
                 return enterDebtName(e.target.value);
               }} /> 
             </div>
 
-            <div className="debtDescAndInput">
-              Principle:  
+            <div className="boxRow">
+              <p className="boxRowTextLeft">Principle:</p>
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterPrinciple(e.target.value)} /> 
             </div>  
 
-            <div className="debtDescAndInput">
-              Interest rate:  
+            <div className="boxRow">
+              <p className="boxRowTextLeft">Interest rate:</p>
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterRate(e.target.value)} /> 
             </div>  
 
-            <div className="debtDescAndInput">
-              Monthly payment:  
+            <div className="boxRow">
+              <p className="boxRowTextLeft">Monthly payment:</p>
               <input type="number" className="input inputNumber"
               onChange={(e)=> enterPayment(e.target.value)} /> 
             </div>  
             
-            <div className="debtDescAndInput">
-              <span align='left'> Term (in years):</span> 
-              <span align='right'> {  } </span> 
+            <div className="boxRow">
+              <span align='left'> Term:</span> 
+              <span align='right'> 
+                { this.props.debts[this.props.key2].term }
+              </span> 
             </div>  
-            
 
         </div>
       

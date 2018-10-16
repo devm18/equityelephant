@@ -1,6 +1,5 @@
 /* ******************** COMPONENT-PARTS ******************** */
 /* ********** general ********** */
-
 .links {
   /* border: 3px solid blue; */
   color: #003300;
@@ -10,9 +9,15 @@
   display: flex;
   justify-content: space-between;  
 }
+.navbar {
+  display: flex;
+  justify-content: space-between; 
+  text-decoration-line: none;
+}
+
 
 /* ********** header ********** */
-.banner {
+.header-banner {
   width: auto;
   height: 80px;
   border: thin solid black;
@@ -22,7 +27,7 @@
   justify-content: left;
 }
 
-#logoTagline {
+#header-logoTagline {
   width: 300px;
   height: auto;
   margin-left: 50px;
@@ -35,8 +40,8 @@
   width: auto;
   height: 30px;
   border: 1px solid black;
-  /* background-color: #336633; */
   background-color: #9c6;
+  /* background-color: #003300; */
   display: flex;
   align-items: center;
   justify-content: space-around; 

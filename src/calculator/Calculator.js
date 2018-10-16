@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Prepayments from './Prepayments';
 import Debts from './Debts';
+import Results from './Results';
 // import TotalDebt from './TotalDebt'; 
 
 class Calculator extends Component {
@@ -11,10 +12,11 @@ class Calculator extends Component {
     return (
       <div className="main">
         <br /> 
-        <div>INPUTS: </div>  
+        <div> INPUTS: </div>  
 
         <Prepayments />
 
+        <div> Debts: </div>
         <Debts /> 
 
         {/* <TotalDebt /> 
@@ -26,8 +28,9 @@ class Calculator extends Component {
         {/* <SaveInputs /> */}
 
         <br /> 
-        <div>RESULTS: </div>  
-        
+        <div> RESULTS: </div>  
+        <Results /> 
+
       </div>
     )
   }

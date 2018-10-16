@@ -104,14 +104,14 @@ const initialState = {
   oneTimePrepayment: 0,
   oneTimePrepaymentDate: '',
   // OneTimePrepayments: [],
-  // debt: { debtName: '', principle: 0, rate: 0, payment: 0 }
+  // debt: { debtName: '', principle: 0, rate: 0, payment: 0, term: '' }
   debts: [],
   totalDebt: 0,
   originalCost: 0,
   newCost: 0,
   eliminatedCost: 0,
-  originalTerm: 0,
-  newTerm: 0
+  originalTerm: '',
+  newTerm: ''
 }; 
 
 // REDUCER 

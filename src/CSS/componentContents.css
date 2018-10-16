@@ -1,10 +1,37 @@
 /* ******************** COMPONENT-CONTENTS ******************** */
+
+
 /* ********** home ********** */
+/* # elephantFront {
+  margin-top: -10px; 
+  margin-bottom: -30px; 
+  width: 430px; 
+  height: auto;  
+  text-align:center;
+} */
+.h2-text {
+  color: #003300;
+}
+
 /* ********** articles ********** */
+
 /* ********** glossary ********** */
+
 /* ********** about ********** */
+# pliny-quote {
+  text-align: left;
+}
+# pliny {
+  text-align: right;
+  padding-right: 10px;
+}
+
 /* ********** contact ********** */
+
 /* ********** calculator ********** */
+
 /* ********** login ********** */
+
 /* ********** privacy policy ********** */
+
 /* ********** terms of use ********** */

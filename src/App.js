@@ -10,7 +10,6 @@ import './CSS/app.css';
 import './CSS/componentParts.css';
 import './CSS/componentContents.css';
 import './CSS/calculator.css'; 
-// import logo from './logo.svg';
 
 import Header from './componentParts/Header'; 
 import NavBar from './componentParts/NavBar'; 

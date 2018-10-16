@@ -12,66 +12,25 @@
   text-align: center;
 }
 
+.box {
+  width: 375px;
+  height: auto; 
+  margin: 20px auto; 
+  border: 1px solid black; 
+}
+/* .textInputRow{ */
+.boxRow {
+  margin: 2px; 
+  /* border: 1px solid red; */
+  padding: 0; 
+  display: flex;
+  justify-content: space-between;
+}
+
 /* ********** prepayment.js ********** */
-.prepaymentInputWrapper {
-  /* margin: 5px auto;  */
-  /* flex-flow: nowrap column;  */
-  width: 375px;
-  height: auto; 
-  margin: 1px auto; 
-  padding: 1px; 
-  border: 1px solid black;  
-}
 
-.prepaymentRow {
-  width: 500px;
-  height: auto; 
-  border: 1px solid red;
-  margin: 0px auto; 
-  padding: 1px;
-  display: flex;  
-}
-
-.prepaymentText {
-  width: 215px;
-  /* border: 1px solid red; */
-  text-align: left; 
-}
-
-.inputGroup {
-  width: 375px;
-  height: auto; 
-  margin: 20px auto; 
-  border: 1px solid black; 
-}
-
-.textAndInput {
-  margin: 1px; 
-  /* border: 1px solid red; */
-  padding: 0px; 
-  display: flex;
-  justify-content: space-between;
-}
-
-
-/* ********** debt.js ********** */
-.debtInputGroup {
-  width: 375px;
-  height: auto; 
-  margin: 20px auto; 
-  border: 1px solid black; 
-}
-
-.debtDescAndInput {
-  margin: 1px; 
-  /* border: 1px solid red; */
-  padding: 0px; 
-  display: flex;
-  justify-content: space-between;
-}
-
-
-.removeDebtAndSequenceNumber {
+/* ********** debts.js & debt.js ********** */
+.boxRowRemDebtSeqNum {
   display: flex;
   justify-content: space-between;
 }
