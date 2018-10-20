@@ -1,10 +1,12 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { oneTimePrepayment, oneTimePrepaymentDate } from '../ducks/CalculatorReducer';
 
 class addOneTimePrepayment extends Component {
-  addOneTimePrepayment = () => {
-    return (
+  
+  render() {
 
+    return (
       <div className="oneTimePrepayment">
         <input type="number"  
         value={oneTimePrepayment}
@@ -20,5 +22,6 @@ class addOneTimePrepayment extends Component {
   }
 }
 
-export class addOneTimePrepayment(); 
-  
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(addOneTimePrepayment);
