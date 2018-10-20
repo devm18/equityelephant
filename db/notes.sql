@@ -1,16 +1,4 @@
 /* 
-4 Tables 
-  users
-  prepayments
-  debts
-  results 
-
-5 axios calls / SQL commands
-  addUser 
-  removeUser 
-  login
-  saveInputs 
-  calculate
 
 addUser / removeUser
   - adds/deletes a row in users table (and gives/denies access to calculator) 
