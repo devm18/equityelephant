@@ -27,10 +27,10 @@
   justify-content: left;
 }
 
-#header-logoTagline {
+.header-logoTagline {
   width: 300px;
   height: auto;
-  margin-left: 50px;
+  margin-left: 35px;
   /* border: thin solid red;  */
   /* background-image: url('./logoTagline.png'); */
 }

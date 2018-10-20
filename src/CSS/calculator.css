@@ -1,23 +1,60 @@
 /* ********** calculator ********** */
+.calc-page-buttons {
+  display: inline;
+  margin: 15px; 
+  /* justify-content: center; */
+  /* border: 1px solid black;  */
+}
+
+.ten-max {
+  font-size: 12px; 
+}
+
 /* ********** general ********** */
+/* block "Please fill out this field" popup  https://stackoverflow.com/questions/5392882/why-is-chrome-showing-a-please-fill-out-this-field-tooltip-on-empty-fields 
+
+https://www.w3.org/TR/html5/sec-forms.html#element-attrdef-form-novalidate
+*/
+::-webkit-validation-bubble-message { display: none; }
+
+
 .input {
   border: 1px solid black;
+  -webkit-border-radius: px;
+  border-radius: 4px;
 }  
-
+.inputName {
+  text-align: center; 
+}
 .inputNumber {
   text-align: right;
 }
 
-.inputText {
-  text-align: center;
+input[type=date] {
+  text-align: right; 
+  width: 126px;
+  /* border: 1px solid red;  */
+  /* -webkit-border-radius: 5px;
+  border-radius: 5px; */
+}
+
+.sequence-number {
+
+}
+output[name=debt-term], output[name=sequence-number] {
+  text-align: right; /* ????????????? */  
 }
 
 .box {
   width: 375px;
   height: auto; 
   margin: 20px auto; 
+  padding: 5px;
   border: 1px solid black; 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
+
 /* .textInputRow{ */
 .boxRow {
   margin: 2px; 
@@ -30,7 +67,7 @@
 /* ********** prepayment.js ********** */
 
 /* ********** debts.js & debt.js ********** */
-.boxRowRemDebtSeqNum {
+.debtBoxTopRow {
   display: flex;
   justify-content: space-between;
 }
@@ -38,3 +75,4 @@
 /* ********** summary ********** */
 
 /* ********** details ********** */
+
