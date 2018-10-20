@@ -1,65 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-import Debt from './Debt';
 import { addDebt, removeDebt } from '../ducks/CalculatorReducer';
+import Debt from './Debt';
 
 class Debts extends Component {
-  // constructor(){
-  //   super(); 
-  //   this.state = {}; 
-  // }
-
-  // firstDebt = () => this.props.debts.length ? addDebt() : null;
-  // componentDidMount() 
-
 
   render() {
-    let { removeDebt, addDebt } = this.props; 
+    let { removeDebt } = this.props; 
     
     let debtsList = this.props.debts.map((elem,i)=>{
-      return(  
+      
+      return (  
         <Debt 
-        key={i} 
-        key2={i}
-        id={'debt'+i+1} 
-        draggable='true' ondragstart="drag(event)"
-        removeDebtButtonEtc={
-          <div className="boxRowRemDebtSeqNum">    
-            <button 
-              className="removeDebt" 
-              onClick={ () => removeDebt(i) }>
-              X </button> 
-            <div className="sequenceNumber">
-              {i+1} </div>
-          </div>
-        }
+          key={i} 
+          key2={i}
+          id={'debt'+i+1} 
+          debtName={ elem.debtName } 
+          beg_bal={ elem.beg_bal } 
+          rate={ elem.rate } 
+          payment={ elem.mpmt } 
+          draggable='true' ondragstart="drag(event)"
+          debtBoxTopRow={
+            <div className="boxRow ">
+              <button 
+                className="boxRoxTextLeft removeDebt"
+                onClick={ () => removeDebt(i) }>
+                X 
+                </button> 
+              <output className="sequence-number">
+                {i+1} 
+              </output>
+            </div>
+          }
         />
       )
     });
 
     let dndDebtsList = () => debtsList.map((e, i) => e );
 
-    let addDebtButton = () => {
-        if (this.props.debts.length >= 10) {
-          return <p> Maximum of ten debts. </p> 
-        } else if (this.props.debts.length === 0) { 
-          addDebt(); 
-          return ( 
-            <button onClick={ addDebt }> 
-            Add debt </button> 
-          )
-        } else {
-          return ( 
-            <button onClick={ this.props.addDebt }> 
-            Add debt </button> 
-          )
-        }
-    }
-
     return (
-      
       <div className="main">
       
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -68,7 +48,7 @@ class Debts extends Component {
               <div
                 ref={provided.innerRef}
               >
-                {dndDebtsList().map((elem, index) => (
+                {dndDebtsList().map((debtElement, index) => (
                   <Draggable key={index} draggableId={index} index={index}>
                     {(provided) => (
                       <div
@@ -76,7 +56,7 @@ class Debts extends Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        { elem }
+                        { debtElement }
                       </div>
                     )}
                   </Draggable>
@@ -86,12 +66,6 @@ class Debts extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        
-        { addDebtButton() }
-        <br /><br />
-        {/* { saveInputsButton() } */}
-        {/* { calculate() } */}
-
       </div>
     )
   }
@@ -99,4 +73,4 @@ class Debts extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { addDebt, removeDebt, })(Debts);
+export default connect(mapStateToProps, { addDebt, removeDebt })(Debts);

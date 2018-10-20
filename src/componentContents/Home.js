@@ -1,7 +1,8 @@
 import React from 'react';
 import elephantFront from '../assets/elephantFront.png';
 
-export default function Home () {
+export default function Home (props) {
+  console.log(props)
   return (
     <div className="home">
     <br />

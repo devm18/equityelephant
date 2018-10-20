@@ -2,35 +2,55 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Prepayments from './Prepayments';
 import Debts from './Debts';
+import SaveInputs from './SaveInputs';
+import AddDebt from './AddDebt';
+// import Calculate from './Calculate';
 import Results from './Results';
-// import TotalDebt from './TotalDebt'; 
 
 class Calculator extends Component {
+
+
+ /// if user is in session, then render
+ // else call login for auth0 
+
   render() {
-    console.log('Calculator.this.props: ', this.props); 
+    console.log('Calculator.this.props: ', 
+    this.props.user 
+    ? console.log("true") 
+    : console.log("false")); 
 
     return (
-      <div className="main">
+      <div className="calculator-page">
         <br /> 
-        <div> INPUTS: </div>  
 
-        <Prepayments />
+        <div> PREPAYMENTS: </div>  
 
-        <div> Debts: </div>
+        <Prepayments /> 
+
+        <div> DEBTS: </div>
+        
         <Debts /> 
+        
+        <div className="addDebt-saveInput-Save&Calc">
+          <AddDebt /> 
+          
+          <SaveInputs /> 
 
-        {/* <TotalDebt /> 
-        Total debt: 
-        Monthly cost: 
-        Payoff date:
-        */}        
-
-        {/* <SaveInputs /> */}
-
+          {/* <Calculate />  */}
+        </div>
         <br /> 
-        <div> RESULTS: </div>  
-        <Results /> 
+        
+        <div className="results-isLoading">
+          { this.props.isLoading ? ( 
+            <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" alt="is loading..."/> 
+            ) : null } 
 
+          <div> RESULTS: </div>  
+
+          <Results /> 
+
+        </div>
+        
       </div>
     )
   }

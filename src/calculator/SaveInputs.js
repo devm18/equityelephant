@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Prepayments from './Prepayments';
-import Debts from './Debts';
-// import TotalDebt from './TotalDebt'; 
+import axios from 'axios'; 
 
 class SaveInputs extends Component {
 
+  saveInputs = (
+    monthlyPrepayment,
+    yearlyPrepayment,
+    yearlyPrepaymentDate,
+    oneTimePrepayment,
+    oneTimePrepaymentDate
+    ) => {
+      axios.post('/api/inputs', {
+        monthlyPrepayment,
+        yearlyPrepayment,
+        yearlyPrepaymentDate,
+        oneTimePrepayment,
+        oneTimePrepaymentDate 
+      })
+      // .then(() => this.props. )
+    }
+
   render() {
+
     return (
-      <div className="main">
-        
+      <div className="calc-page-buttons">
         <button 
-        className="save-inputs"
-        onClick={()=> {/* axios call */} }>
-        Save inputs
+          className="save-inputs"
+          onClick={ () => 
+            this.saveInputs(
+              this.props.monthlyPrepayment,
+              this.props.yearlyPrepayment,
+              this.props.yearlyPrepaymentDate,
+              this.props.oneTimePrepayment,
+              this.props.oneTimePrepaymentDate
+            )
+          } 
+        >
+          Save Inputs 
         </button>
-
-
       </div>
     )
   }
@@ -25,4 +47,3 @@ class SaveInputs extends Component {
 const mapStateToProps = state => state;
 
 export default connect(mapStateToProps)(SaveInputs);
-
