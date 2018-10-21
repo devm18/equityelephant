@@ -8,7 +8,7 @@ import axios from 'axios';
 export function getUser() {
   return {
     type: 'GET_USER',
-    payload: axios.get('/me')
+    payload: axios.get('/getUser')
   }
 }
 
@@ -35,7 +35,7 @@ export function saveInputs (
 ) {
   return {
     type: 'saveInputs',
-    payload: axios.post('/api/inputs', {
+    payload: axios.post('/saveInputs', {
       monthlyPrepayment,
       yearlyPrepayment,
       yearlyPrepaymentDate,
@@ -45,7 +45,6 @@ export function saveInputs (
   };
 }
 
-// export function handleInputChange (t,p) return { t, p }; 
 export function handleInputChange (eTargetName, eTargetValue) {
 //console.log('handleInputChange', eTargetName, eTargetValue);
   return {
@@ -57,7 +56,7 @@ export function handleInputChange (eTargetName, eTargetValue) {
 // INITIAL STATE 
 const initialState = {
   user: {},
-  isAuthed: false, 
+  isAuthenticated: false, 
   monthlyPrepayment: 0, 
   yearlyPrepayment: 0,
   yearlyPrepaymentDate: '',
@@ -85,20 +84,20 @@ const initialState = {
 }; 
 
 // REDUCER 
-export default function CalculatorReducer(state = initialState, action) {
-  console.log('action:', action.type, action.payload);
+export default function CalcReducer(state = initialState, action) {
+  console.log('CalcReducer.action:', action.type, action.payload);
 
   switch (action.type) {
     case `GET_USER_FULFILLED`:
       return {
         ...state,
-        isAuthed: true,
+        isAuthenticated: true,
         user: action.payload
       };
     case `GET_USER_REJECTED`:
       return {
         ...state,
-        isAuthed: false
+        isAuthenticated: false
       };
     case 'addDebt':
       return { 

@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
-import CalculatorReducer from './ducks/CalculatorReducer';
+import CalcReducer from './ducks/CalcReducer';
 import promiseMiddleware from 'redux-promise-middleware';
 
 export default createStore(
-  CalculatorReducer, 
+  CalcReducer, 
   applyMiddleware(promiseMiddleware())
 );
 

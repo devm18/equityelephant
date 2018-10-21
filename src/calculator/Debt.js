@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { handleInputChange } from '../ducks/CalculatorReducer';
+import { handleInputChange } from '../ducks/CalcReducer';
 
 class Debt extends Component {
   
   render() {
     // console.log("Debt.this.props", this.props); 
 
-        {/* novalidate  */}  
+        // novalidate 
 
+        // value={this.props.debt_name}
     return (
       <div className="box"> 
 
@@ -27,7 +28,7 @@ class Debt extends Component {
               type="text" 
               className="input inputName"
               placeholder="name of debt"
-              value={this.props.debt_name}
+              
               autoFocus
               name="debtName"
               onChange={(e) => handleInputChange(e.target.name, e.target.value) } /> 
@@ -74,7 +75,7 @@ class Debt extends Component {
             Term:
             </label>
             <output className="debt-term">
-              { this.props.debts[this.props.key2].term }
+              {/* { this.props.debts[this.props.key2].term } */}
             </output>
           </div>   
           {/* 

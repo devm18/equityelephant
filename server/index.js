@@ -37,7 +37,7 @@ app.use(passport.session());
 passport.use(strategy); 
 
 passport.serializeUser((user, done) => {
-  console.log(user);
+  console.log('passport.serializerUser', user);
   const db = app.get('db'); 
   db.getUserByAuthId([user.id])
   .then(response => {
@@ -62,21 +62,21 @@ passport.deserializeUser((obj, done) => {
 
 app.get( '/login', 
   passport.authenticate('auth0', { 
-    // successRedirect: '/me', 
+    // successRedirect: '/getUser', 
     successRedirect: 'http://localhost:3000/calculator', 
     failureRedirect: '/login'
     // failureFlash: true 
   })
 );
-app.get('/me', getUser);
+app.get('/getUser', getUser);
 app.get('/logout', logout);
 /* end of auth0 *************************************** */
 
 
 
 // endpoints
-app.get("/api/test", test); // test endpoint // good 
-app.post("/api/inputs", saveInputs);
+app.get("/test", test); // postman check 
+app.post("/saveInputs", saveInputs);
 
 // app.get("/api/items", getItems);
 // app.delete("/api/item/:id", removeItem);

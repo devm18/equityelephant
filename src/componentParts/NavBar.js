@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUser } from '../ducks/CalculatorReducer';
+import { getUser } from '../ducks/CalcReducer';
 
 class NavBar extends Component {
   componentDidMount() {
@@ -26,9 +26,10 @@ class NavBar extends Component {
         {/* <Link to="/about/contact" className="links">
         Contact</Link> */}
         
-        {/* user.isAuthed ? go to calculator : go to login */}
-        { this.props.isAuthed
+        {/* user.isAuthenticated ? go to Calculator : go to Login */}
+        { this.props.isAuthenticated
         ? (
+          console.log(this.props.user),
           <Link to="/calculator" className="links navbar"> 
           Calculator</Link>
           )
@@ -42,8 +43,8 @@ class NavBar extends Component {
           )
         }
 
-        {/* user.isAuthed ? display logout : display login */}
-        { this.props.isAuthed
+        {/* user.isAuthenticated ? display logout : display login */}
+        { this.props.isAuthenticated
         ? (
           <a 
           href={"http://localhost:3001/logout"} 

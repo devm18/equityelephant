@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { oneTimePrepayment, oneTimePrepaymentDate } from '../ducks/CalculatorReducer';
+import { oneTimePrepayment, oneTimePrepaymentDate } from '../ducks/CalcReducer';
 
 class addOneTimePrepayment extends Component {
   

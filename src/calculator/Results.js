@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { enterDebtName, enterBegBal, enterRate, enterMonthlyPayment, removeDebt } from '../ducks/CalculatorReducer';
+import { enterDebtName, enterBegBal, enterRate, enterMonthlyPayment, removeDebt } from '../ducks/CalcReducer';
 
 export default class Results extends Component {
   render() {

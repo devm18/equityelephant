@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { addDebt } from '../ducks/CalculatorReducer';
+import { addDebt } from '../ducks/CalcReducer';
 
 class AddDebt extends Component {
   

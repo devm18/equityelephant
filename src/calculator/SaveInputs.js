@@ -11,7 +11,7 @@ class SaveInputs extends Component {
     oneTimePrepayment,
     oneTimePrepaymentDate
     ) => {
-      axios.post('/api/inputs', {
+      axios.post('/inputs', {
         monthlyPrepayment,
         yearlyPrepayment,
         yearlyPrepaymentDate,
@@ -22,18 +22,18 @@ class SaveInputs extends Component {
     }
 
   render() {
+    
 
     return (
       <div className="calc-page-buttons">
         <button 
           className="save-inputs"
-          onClick={ () => 
-            this.saveInputs(
-              this.props.monthlyPrepayment,
-              this.props.yearlyPrepayment,
-              this.props.yearlyPrepaymentDate,
-              this.props.oneTimePrepayment,
-              this.props.oneTimePrepaymentDate
+          onClick={ () => this.saveInputs(
+            this.props.monthlyPrepayment,
+            this.props.yearlyPrepayment,
+            this.props.yearlyPrepaymentDate,
+            this.props.oneTimePrepayment,
+            this.props.oneTimePrepaymentDate
             )
           } 
         >

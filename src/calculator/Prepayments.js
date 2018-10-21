@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleInputChange } from '../ducks/CalculatorReducer';
+import { handleInputChange } from '../ducks/CalcReducer';
 
 class Prepayments extends Component {
 
