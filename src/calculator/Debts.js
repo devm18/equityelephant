@@ -36,9 +36,6 @@ class Debts extends Component {
               </output>
             </div>
           }
-          
-
-
         />
       )
     });
@@ -57,19 +54,19 @@ class Debts extends Component {
 
               <div
                 ref={provided.innerRef} >
-                {dndDebtsList().map((debtElement, index) => (
+                
+                { dndDebtsList().map((debtElement, dnd_index) => (
                   
                   <Draggable 
-                  key={index} 
-                  draggableId={index} 
-                  index={index}>
+                  key={dnd_index} 
+                  draggableId={dnd_index} 
+                  index={dnd_index}>
 
                     {(provided) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
+                        {...provided.dragHandleProps} >
                         { debtElement }
                       </div>
                     )}

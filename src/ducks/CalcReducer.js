@@ -27,20 +27,24 @@ export function removeDebt (index) {
 }
 
 export function saveInputs (
+  auth_id,
   monthlyPrepayment,
   yearlyPrepayment,
   yearlyPrepaymentDate,
   oneTimePrepayment,
-  oneTimePrepaymentDate
+  oneTimePrepaymentDate,
+  debts
 ) {
   return {
     type: 'saveInputs',
     payload: axios.post('/saveInputs', {
+      auth_id,
       monthlyPrepayment,
       yearlyPrepayment,
       yearlyPrepaymentDate,
       oneTimePrepayment,
-      oneTimePrepaymentDate
+      oneTimePrepaymentDate,
+      debts
     })
   };
 }
@@ -53,15 +57,20 @@ export function handleInputChange (eTargetName, eTargetValue) {
   }
 }
 
+let today = new Date();
+// let dd = today.getDate();
+// let mm = today.getMonth()+1; //January is 0!
+let yyyy = today.getFullYear();
+
 // INITIAL STATE 
 const initialState = {
   user: {},
   isAuthenticated: false, 
   monthlyPrepayment: 0, 
   yearlyPrepayment: 0,
-  yearlyPrepaymentDate: '',
+  yearlyPrepaymentDate: '', /* date default? */
   oneTimePrepayment: 0,
-  oneTimePrepaymentDate: '',
+  oneTimePrepaymentDate: '', 
   // OneTimePrepayments: [],
   // debt: {
   //   debt_name: '', 
@@ -115,7 +124,8 @@ export default function CalcReducer(state = initialState, action) {
     case 'saveInputs': 
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        // items: action.payload.data//jonw
       }
     case action.type:
       return {

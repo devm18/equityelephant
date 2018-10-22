@@ -25,6 +25,7 @@ CREATE TABLE debts (
   term FLOAT, /* calculate from bal, rate, mpmt */
   ipmt FLOAT,
   ppmt FLOAT,
+  preendpmt FLOAT,
   end_bal FLOAT
   -- foreign key (user_id) references users (user_id) integer,
   -- foreign key (auth_id) references users (auth_id) integer,
