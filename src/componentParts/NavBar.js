@@ -29,7 +29,6 @@ class NavBar extends Component {
         {/* user.isAuthenticated ? go to Calculator : go to Login */}
         { this.props.isAuthenticated
         ? (
-          console.log(this.props.user),
           <Link to="/calculator" className="links navbar"> 
           Calculator</Link>
           )
@@ -70,9 +69,4 @@ class NavBar extends Component {
 const mapStateToProps = state => state;
 
 export default connect(mapStateToProps, { getUser })(NavBar);
-
-/* DOES NOT WORK: 
-  href={ process.env.REACT_APP_LOGIN } > Login/Signup </a> 
-  href={ process.env.REACT_APP_LOGOUT } > Logout </a>  
-*/
 

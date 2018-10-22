@@ -1,41 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { addDebt, removeDebt } from '../ducks/CalcReducer';
+import { /* addDebt, */ removeDebt } from '../ducks/CalcReducer';
 import Debt from './Debt';
+import AddDebt from './AddDebt'; 
 
 class Debts extends Component {
 
   render() {
-  
-    // let { debtName, beg_bal, rate, payment, term } = this.props.debts[index]; 
     
-    // debtName={ this.props.debts[i].elem.debtName } 
-
     let debtsList = this.props.debts.map((elem,i)=>{
-      
+
       return (  
         <Debt 
           key={i} 
-          key3={i}
-          id={'debt'+i+1} 
-          
-          beg_bal={ elem.beg_bal } 
+          seqNum={i+1} // { elem.SeqNum }
+          debtName={ elem.debtName }
+          begBal={ elem.begBal } 
           rate={ elem.rate } 
-          payment={ elem.mpmt } 
-          draggable='true' ondragstart="drag(event)"
-          debtBoxTopRow={
-            <div className="boxRow ">
-              <button 
-                className="boxRoxTextLeft removeDebt"
-                onClick={ () => this.props.removeDebt(i) }>
-                X 
-                </button> 
-              <output className="sequence-number">
-                {i+1} 
-              </output>
-            </div>
-          }
+          mPmt={ elem.mPmt } 
+          userId = { elem.userId } 
+          draggable='true' 
+          ondragstart='drag(event)'
         />
       )
     });
@@ -77,6 +63,7 @@ class Debts extends Component {
             )}
           </Droppable>
         </DragDropContext>
+        
       </div>
     )
   }
@@ -84,4 +71,4 @@ class Debts extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { addDebt, removeDebt })(Debts);
+export default connect(mapStateToProps, { /* addDebt, */ removeDebt })(Debts);

@@ -9,7 +9,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, saveInputs } = require("./calcCtrl");
+const { test, getInputs,/* addDebt,*//*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
 
 const app = express();
 
@@ -26,7 +26,8 @@ massive(process.env.CONNECTION_STRING)
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: 864000000 } /* 24 hours */
     // cookie: { maxAge: 864000000 } /* 24 hours */
     /* 1000ms * 60sec * 60min * 24hrs */
   })
@@ -66,22 +67,28 @@ app.get( '/login', passport.authenticate('auth0', {
   failureRedirect: '/login'
 }));
 
-app.get('/getUser', getUser);
-app.get('/logout', logout);
+function authenticated (req, res, next) {
+  if (req.user) { 
+    console.log("req.user", req.user); 
+    next(); 
+  } else {
+    res.sendStatus(403); 
+  }
+}; 
 
+app.get('/getUser', authenticated, getUser);
+app.get('/logout', logout);
 
 /* end of auth0 *************************************** */
 
 
-
 // endpoints
 app.get("/test", test); // postman check 
-app.post("/saveInputs", saveInputs);
-
-// app.get("/api/items", getItems);
-// app.delete("/api/item/:id", removeItem);
-// app.put("/api/item/:id", updatePrice);
-
+app.get('/getInputs/:userId', getInputs); // get data when user clicks on calculator 
+// app.post('/addDebt', addDebt); 
+// app.delete('/removeDebt/:seqNum', removeDebt); 
+app.put("/saveInputs", saveInputs);
+// app.put('/calculate', calculate); 
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening to port ${port}`));

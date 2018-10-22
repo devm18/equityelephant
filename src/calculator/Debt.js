@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { handleInputChange } from '../ducks/CalcReducer';
+import { handleInputChange, removeDebt } from '../ducks/CalcReducer';
 
 class Debt extends Component {
   
   render() {
     // console.log("Debt.this.props", this.props); 
-
         // novalidate 
 
         // value={this.props.debt_name}
     return (
       <div className="box"> 
 
-        {/* <form 
-        action=""
-        method="post"
-        > */}
-
-          { this.props.debtBoxTopRow } 
+          <div className="boxRow ">
+              <button 
+                className="boxRoxTextLeft removeDebt"
+                onClick={ () => this.props.removeDebt(this.props.i) }>
+                X 
+                </button> 
+              <output className="sequence-number">
+                { this.props.seqNum } 
+              </output>
+            </div>
+          
         
           <div className="boxRow">
             <label className="boxRowTextLeft">
@@ -27,12 +31,12 @@ class Debt extends Component {
             <input 
               type="text" 
               className="input inputName"
+              value={this.props.debts.debtName}
               placeholder="name of debt"
-              
               autoFocus
               name="debtName"
               onChange={(e) => handleInputChange(e.target.name, e.target.value) } /> 
-            </div> 
+          </div> 
           
           <div className="boxRow">
             <label className="boxRowTextLeft">
@@ -41,7 +45,7 @@ class Debt extends Component {
             <input 
               type="number" 
               className="input inputNumber" 
-              value={this.props.debts.beg_bal}
+              value={this.props.debts.begBal}
               name="beg-bal"
               onChange={(e) => handleInputChange(e.target.name, e.target.value) } />
           </div>  
@@ -65,8 +69,8 @@ class Debt extends Component {
             <input 
               type="number" 
               className="input inputNumber" 
-              value={this.props.debts.mpmt} 
-              name="mpmt"
+              value={this.props.debts.mPmt} 
+              name="mPmt"
               onChange={(e) => handleInputChange(e.target.name, e.target.value) } /> 
           </div>  
           
@@ -74,22 +78,11 @@ class Debt extends Component {
             <label className="boxRowTextLeft">
             Term:
             </label>
-            <output className="debt-term">
+            <output 
+            className="debt-term">
               {/* { this.props.debts[this.props.key2].term } */}
             </output>
           </div>   
-          {/* 
-          ALT: 
-          <div className="boxRow">
-            <span align='left'> 
-              Term: </span> 
-            <span align='right'> 
-              { this.props.debts[this.props.key2].term }
-            </span>
-          </div> 
-          */}
-
-        {/* </form> */}
 
       </div>
     )
@@ -98,5 +91,5 @@ class Debt extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { handleInputChange })(Debt);
+export default connect(mapStateToProps, { handleInputChange, removeDebt })(Debt);
 

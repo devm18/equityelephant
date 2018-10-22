@@ -14,13 +14,12 @@ class Calculator extends Component {
  // else call login for auth0 
 
   render() {
-    console.log('Calculator.this.props: ', 
-    this.props.user 
-    ? console.log("true") 
-    : console.log("false")); 
-
     return (
       <div className="calculator-page">
+        <br /> 
+
+          
+
         <br /> 
 
         <div> PREPAYMENTS: </div>  
@@ -32,6 +31,8 @@ class Calculator extends Component {
         <Debts /> 
         
         <div className="addDebt-saveInput-Save&Calc">
+          <br /> 
+          
           <AddDebt /> 
           
           <SaveInputs /> 
