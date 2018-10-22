@@ -1,14 +1,39 @@
+
 /*
 npm i express express-session body-parser massive axios react-router-dom dotenv redux react-redux redux-promise-middleware passport passport-auth0 
 https://github.com/steven-isbell/bcrypt-demo
 
+
 PRIORITIES 
   FIRST - top priorities: 
-  - redux 
-  - axios, massive 
-  - calculator 
-  Add a isLoading gif - sim-Fullstack_app_demo
+    addUser (create)
+      - post a row in users 
+      - post a row in prepayments 
+      - post a row in debts
+      - enables access to calculator
 
+    removeUser (delete)
+      - delete row in users 
+      - delete row in prepayments 
+      - delete row(s) in debts
+      - disables access to calculator
+
+    login (get)
+      - gets user_id from row in user, where ??????.auth_id = users.auth_id
+      - gets info from row in prepayments, where users.user_id = prepayments.user_id
+      - gets info from row(s) in debts, where users.user_id = debts.user_id
+      - gets info from row in results, where users.user_id = results.user_id
+        
+    saveInputs (put) 
+      - update row in prepayments, where users.user_id = prepayments.user_id
+      - update row(s) in debts, where users.user_id = debts.user_id
+
+    calculate (put, get)
+      - update row in prepayments, where users.user_id = prepayments.user_id
+      - update row(s) in debts, where users.user_id = debts.user_id
+      - update row(s) in results, where users.user_id = results.user_id
+    
+    Add a isLoading gif, eg sim-Fullstack_app_demo
 
   SECOND 
   - mediaQuery for iphone 
@@ -18,83 +43,21 @@ PRIORITIES
   - links
 
   - graph (placeholder)
-  
-  THIRD (low priorities)
-    - AddAnotherOneTimePrepayment Component (for now just provide two inputs for this)
-    - 
- 
-  Jerry Chen  
-    FIRE (Financial Independent Retire Early)
-    Burn Rate 
-
+   
+/// Need to read docs on massive.query. 
 
 USE balance instead of principle bc: 
 beg balance
 end balance 
 
-Q: 
+Jerry Chen  
+    FIRE (Financial Independent Retire Early)
+    Burn Rate 
 
-<form method="get" id="form1" action="something.php">
-
-</form>
-
-<!-- External button-->
-<button type="submit" form="form1">Click me!</button>
-
+Anthony Magnu 
 https://github.com/anthony62490/personal-project-photo-manager/blob/master/server/controller.js
-
-controller.js 
-33 searchQuery
-
-editPicInfoController.js 
-151 QueryStr 
-
-
-"auth_id": "auth0|5bb4f869bdd7bf2d95bd6ed7",
-"monthlyPrepayment": 111,
-"yearlyPrepayment": 111,
-"yearlyPrepaymentDate" : "2018/12/12",
-"oneTimePrepayment" : 111,
-"oneTimePrepaymentDate" : "2018/12/12"
-"debts": [{
-  "debt_name" : "Visa",
-  "beg_bal" : 100,
-  "rate" : 1,
-  "mpmt" : 10,
-  "term" : "",
-  "ipmt" : 0,
-  "ppmt" : 0,
-  "prepmt" : 0,
-  "end_bal" : 0,
-  "user_id" : 1,
-  "auth_id": "auth0|5bb4f869bdd7bf2d95bd6ed7" 
-  },
-  {
-  "debt_name" : "MC",
-  "beg_bal" : 200,
-  "rate" : 2,
-  "mpmt" : 20,
-  "term" : "",
-  "ipmt" : 0,
-  "ppmt" : 0,
-  "prepmt" : 0,
-  "end_bal" : 0,
-  "user_id" : 1,
-  "auth_id": "auth0|5bb4f869bdd7bf2d95bd6ed7" 
-  },
-  {
-  "debt_name" : "Visa",
-  "beg_bal" : 300,
-  "rate" : 3,
-  "mpmt" : 30,
-  "term" : "",
-  "ipmt" : 0,
-  "ppmt" : 0,
-  "prepmt" : 0,
-  "end_bal" : 0,
-  "user_id" : 1,
-  "auth_id": "auth0|5bb4f869bdd7bf2d95bd6ed7",	
-}]
+controller.js  33 searchQuery
+editPicInfoController.js  151 QueryStr 
 
 
 */

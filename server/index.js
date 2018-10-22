@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
@@ -6,7 +7,7 @@ const massive = require("massive");
 const session = require("express-session");
 const passport = require('passport'); 
 
-const { strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
+const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
 const { test, saveInputs } = require("./calcCtrl");
 
@@ -60,16 +61,15 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 }); 
 
-app.get( '/login', 
-  passport.authenticate('auth0', { 
-    // successRedirect: '/getUser', 
-    successRedirect: 'http://localhost:3000/calculator', 
-    failureRedirect: '/login'
-    // failureFlash: true 
-  })
-);
+app.get( '/login', passport.authenticate('auth0', { 
+  successRedirect: process.env.REACT_APP_CALCULATOR,
+  failureRedirect: '/login'
+}));
+
 app.get('/getUser', getUser);
 app.get('/logout', logout);
+
+
 /* end of auth0 *************************************** */
 
 
