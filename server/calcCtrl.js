@@ -10,33 +10,45 @@ const test = (req, res) => {
 }; 
 
 const getInputs = (req, res, next) => {
-  console.log('req.body', req.body); 
-  const { userId } = req.params;
-  let db = req.app.get("db");
-  db.getInputs().then(response => {
+  console.log('req.params', req.params); 
+
+ let db = req.app.get("db");
+  db.getInputs(req.params.userId)
+  .then(response => {
     res.status(200).json(response);
-  }); 
+  })
+  .catch(error => console.log(error))
 }
 
-  // const {
-  //   userId,
-  //   monthlyPrepayment,
-  //   yearlyPrepayment,
-  //   yearlyPrepaymentDate,
-  //   oneTimePrepayment,
-  //   oneTimePrepaymentDate,
-  //   debts
-  // } = req.body;
-  
-  // // let db
+const addDebt = (req, res, next) => {
+  // console.log('req.body', req.body); 
+  const { 
+    debtName,
+    begBal,
+    rate,
+    mPmt,
+    term,
+    userId,
+    seqNum
+  } = req.body;  
+  let db = req.app.get("db");
+  db.addDebt([
+    debtName,
+    begBal,
+    rate,
+    mPmt,
+    term,
+    userId,
+    seqNum
+  ])
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => console.log(error)) 
+}
 
 
-
-
-
-
-
-// const saveInputs = sync (req, res => {
+// USE db.query to loop thru array of this.props.debt to insert into db. 
 const saveInputs = (req, res) => {
   // console.log('calcCtrl.req.body', req.body); 
   const {
@@ -53,13 +65,14 @@ const saveInputs = (req, res) => {
   
   let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, yearly_prepayment_date, one_time_prepayment, one_time_prepayment_date) VALUES (${monthlyPrepayment}, ${yearlyPrepayment}, '${yearlyPrepaymentDate}', ${oneTimePrepayment}, '${oneTimePrepaymentDate}') WHERE user_id = '${userId}';`
 
-  let query2 = `INSERT INTO debts (debt_name, beg_bal, rate, mpmt, term, ipmt, ppmt, prepmt, end_bal) VALUES ` 
+  let query2 = `INSERT INTO debts (debt_name, beg_bal, rate, mpmt, term, seq_num, user_id) VALUES ` 
   + debts.map(obj => {
     return (
-      `('${obj.debt_name}', ${obj.beg_bal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}', ${obj.ipmt}, ${obj.ppmt}, ${obj.prepmt}, ${obj.end_bal}) WHERE user_id = '${obj.userId} AND seq_num = '${obj.debts.seqNum}'`
+      `('${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}', ${obj.seqNum}, ${obj.userId}) WHERE user_id = '${obj.userId} AND seq_num = '${obj.debts.seqNum}'`
     )
   }).join(',')+";";
-  console.log('calcCtrl.req.body.queries', query1, query2); 
+  
+  //console.log('calcCtrl.req.body.queries', query1, query2); 
 
   // const saveTheInputs = await db.query(query1 + query1)
   db.query(query1 + query2)
@@ -70,10 +83,11 @@ const saveInputs = (req, res) => {
   })
 }
 
+
 module.exports = {
   test, 
   getInputs,
-  // addDebt,
+  addDebt,
   // removeDebt,
   saveInputs//, 
   // calculate

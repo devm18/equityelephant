@@ -1,8 +1,7 @@
 import React from 'react';
-import Debt from '../calculator/Debt'; 
 import axios from 'axios'; 
+import Debt from '../calculator/Debt'; 
 
-// CONSTANTS 
 
 // ACTION CREATORS - LOGIN, LOGOUT, 
 export function getUser() {
@@ -11,6 +10,7 @@ export function getUser() {
     payload: axios.get('/getUser')
   }
 }
+
 export function logout() {
   return {
     type: 'LOG_OUT',
@@ -19,30 +19,29 @@ export function logout() {
 }
 
 // ACTION CREATORS - CALCULATOR
-export function getInputs () { 
-  const { userId } = this.props.user; 
+export function getInputs (userId) {
   return { 
     type: "getInputs", 
-    payload: axios.get(`/getInputs/:${userId}`) 
+    payload: axios.post(`/getInputs/:${userId}`)
   }; 
 }
 
+
+// v1 
 export function addDebt () { 
   return { 
     type: "addDebt", 
     payload: <Debt /> 
   }; 
 }
-
-// export function addDebt2 () {
+// v2
+// export function addDebt () {
 //   return {
-//     type: "ADD_DEBT",
-//     payload: axios.get('/addDebt2')
+//     type: "addDebt",
+//     // payload: axios.post("/api/item", { name, price })
+//     payload: axios.get('/addDebt', {})
 //   }
 // }
-
-
-
 
 export function removeDebt (index) { 
   return { 
@@ -67,6 +66,7 @@ let yyyy = today.getFullYear();
 // INITIAL STATE 
 const initialState = {
   user: {},
+  // example of user object: 
   // user: {
   //   userId: 1,
   //   name: "johnmacisaac@protonmail.com",
@@ -79,20 +79,18 @@ const initialState = {
   yearlyPrepaymentDate: '',
   oneTimePrepayment: 0,
   oneTimePrepaymentDate: '', 
-  // OneTimePrepayments: [],
-  // debt: {
-  //   seqNum: 1,
-  //   debtName: '', 
-  //   begBal: 0, 
-  //   rate: 0, 
-  //   mPmt: 0, 
-  //   term: '',
-  //   iPmt: 0,
-  //   pPmt: 0,
-  //   prePmt: 0,
-  //   endBal: 0
+  // example of debt object: 
+  // debt ={ 
+  //   debtName,
+  //   begBal,
+  //   rate,
+  //   mPmt,
+  //   term,
+  //   userId,
+  //   seqNum
   // }
   debts: [],
+  debtComps: [],
   totalDebt: 0,
   originalCost: 0,
   newCost: 0,
@@ -117,7 +115,7 @@ export default function CalcReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false
       };
-    case `GET_INPUTS`:
+    case `getInputs`:
       return {
         ...state,
         // state: action.payload.data, 
@@ -131,26 +129,22 @@ export default function CalcReducer(state = initialState, action) {
         // newCost: 0,
         // eliminatedCost: 0,
         // originalTerm: '',
-        // newTerm: 
+        // newTerm: ''
       };
     case 'addDebt':
       return { 
         ...state,
-        // isLoading: false, // do I need this? 
         debts: [...state.debts, action.payload ]
       };
     case 'removeDebt': 
       state.debts.splice(action.payload, 1); 
       return {
         ...state,
-        // isLoading: false, // do I need this? 
         debts: [...state.debts]
       };  
     case action.type:
-      // axios.post('/${action.type}')
       return {
         ...state,
-        // update action.type prop in state
         [action.type]: action.payload 
       };
     default:

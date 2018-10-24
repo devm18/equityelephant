@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { handleInputChange } from '../ducks/CalcReducer';
 
 class Prepayments extends Component {
-
   
   render() {
     // console.log("Prepayments.this.props:", this.props) 
@@ -14,7 +13,7 @@ class Prepayments extends Component {
     // let dd = today.getDate();
     // let mm = today.getMonth()+1; //January is 0!
     let yyyy = today.getFullYear();
-    let maxDate = yyyy+30;
+    let maxDate = yyyy + 30;
   
     // <form action="The URI of a program that processes the form information." ></form> 
 

@@ -9,7 +9,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getInputs,/* addDebt,*//*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
+const { test, getInputs, addDebt, /*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
 
 const app = express();
 
@@ -85,7 +85,8 @@ app.get('/logout', logout);
 // endpoints
 app.get("/test", test); // postman check 
 app.get('/getInputs/:userId', getInputs); // get data when user clicks on calculator 
-// app.post('/addDebt', addDebt); 
+
+app.post('/addDebt', addDebt); 
 // app.delete('/removeDebt/:seqNum', removeDebt); 
 app.put("/saveInputs", saveInputs);
 // app.put('/calculate', calculate); 

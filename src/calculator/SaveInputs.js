@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios'; 
-// import { saveInputs } from '../ducks/CalcReducer';
+// import { saveInputs } from '../ducks/CalcReducer'; // NEED TO CREATE 
 
 class SaveInputs extends Component {
 
@@ -52,4 +52,4 @@ class SaveInputs extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, /*{saveInputs}*/)(SaveInputs);
+export default connect(mapStateToProps, /* { saveInputs } */)(SaveInputs);

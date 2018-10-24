@@ -19,8 +19,7 @@
 
 db.notes.sql
 db.createInPostico.sql
-notes.js
-
+ErikG.js
 
 npm-debug.log*
 yarn-debug.log*

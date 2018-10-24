@@ -3,18 +3,32 @@ import { connect } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { /* addDebt, */ removeDebt } from '../ducks/CalcReducer';
 import Debt from './Debt';
-import AddDebt from './AddDebt'; 
+
 
 class Debts extends Component {
+  // Perhaps I should create debt obj here and then push it to redux: 
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     debtName: '', 
+  //     begBal: 0,
+  //     rate: 0,
+  //     mPmt: 0,
+  //     term: ''
+  //   }
+  // } 
+  // onChangeHandler = (name, value) => this.setState({ [name]: value }); 
+
 
   render() {
     
-    let debtsList = this.props.debts.map((elem,i)=>{
 
+    let debtsList = this.props.debts.map((elem,i)=>{
       return (  
         <Debt 
           key={i} 
-          seqNum={i+1} // { elem.SeqNum }
+          key2={i} // key is reserved by redux 
+          seqNum={ i + 1 } // { elem.SeqNum }
           debtName={ elem.debtName }
           begBal={ elem.begBal } 
           rate={ elem.rate } 
