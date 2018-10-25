@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
@@ -81,14 +80,12 @@ app.get('/logout', logout);
 
 /* end of auth0 *************************************** */
 
-
 // endpoints
 app.get("/test", test); // postman check 
-app.get('/getInputs/:userId', getInputs); // get data when user clicks on calculator 
-
+app.get('/getInputs/:userId', getInputs); // need to trigger on login 
+app.put("/saveInputs/:userId", saveInputs);
 app.post('/addDebt', addDebt); 
-// app.delete('/removeDebt/:seqNum', removeDebt); 
-app.put("/saveInputs", saveInputs);
+// app.delete('/removeDebt/:userId/:seqNum', removeDebt); // syntax ???
 // app.put('/calculate', calculate); 
 
 const port = process.env.PORT || 3001;

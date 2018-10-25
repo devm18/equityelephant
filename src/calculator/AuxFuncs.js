@@ -1,4 +1,11 @@
 /*********************************************************************/
+
+
+let today = new Date();
+// let dd = today.getDate();
+// let mm = today.getMonth()+1; //January is 0!
+let yyyy = today.getFullYear();
+
 /* round precisely */ 
 /* http://www.jacklmoore.com/notes/rounding-in-javascript/ */
 let round = (value, decimals) => {

@@ -27,6 +27,14 @@ export function getInputs (userId) {
   }; 
 }
 
+// need the in & out for this: 
+export function saveInputs (userId) {
+  return { 
+    type: "saveInputs", 
+    payload: axios.post(`/saveInputs/:${userId}`)
+  }; 
+}
+
 export function addDebt (blankDebtObj) { 
   return { 
     type: "addDebt", 
@@ -43,6 +51,16 @@ export function removeDebt (index) {
   }; 
 }
 
+// TODO 
+// export function calculate () { 
+//   return { 
+//     type: "calculate", 
+//     payload: "???"
+//   }; 
+// }
+
+
+// ACTION CREATORS - UPDATING STATE (no axios calls)
 export function onChangeHandlerPrepayments (eTargetName, eTargetValue) {
   // console.log('onChangeHandlerPrepayments', eTargetName, eTargetValue);
   return {
@@ -62,12 +80,6 @@ export function onChangeHandlerDebt (seqNum, eTargetName, eTargetValue) {
   }
 }
 
-let today = new Date();
-// let dd = today.getDate();
-// let mm = today.getMonth()+1; //January is 0!
-let yyyy = today.getFullYear();
-
-
 // INITIAL STATE 
 const initialState = {
   user: {}, 
@@ -79,13 +91,15 @@ const initialState = {
     //   authId: "auth0|5bb4f869bdd7bf2d95bd6ed7"
     // }
   isAuthenticated: false, 
+  
   // Used by prepayments component:  
   monthlyPrepayment: 0, 
   yearlyPrepayment: 0,
   yearlyPrepaymentDate: '',
   oneTimePrepayment: 0,
   oneTimePrepaymentDate: '', 
-  // Used by debts, debt, addAdd, and calculate? components: 
+
+  // Used by debts, debt, addAdd components: 
     // example of debt object: 
     // debt = { 
     //   debtName: 'visa',
@@ -97,9 +111,9 @@ const initialState = {
     //   seqNum: 0
     // }
   debts: [],
-  debtComps: [], // array for holding/displaying <Debt /> Components 
-                 // ??? do I need this. How else could I do it? 
-  // Used by calculate? and results components: 
+  debtComps: [], // array for holding/displaying <Debt /> Components --- ??? do I need this. How else could I do it? 
+
+  // Used by results component: 
   totalDebt: 0,
   originalCost: 0,
   newCost: 0,
@@ -111,8 +125,9 @@ const initialState = {
 // REDUCER 
 export default function CalcReducer(state = initialState, action) {
   console.log('CalcReducer.action:', action.type, action.payload);
-
   switch (action.type) {
+
+    // ACTION CREATIONS - LOGIN & AUTHENTICATE, and LOGOUT 
     case `GET_USER_FULFILLED`:
       return {
         ...state,
@@ -124,6 +139,8 @@ export default function CalcReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false
       };
+     
+    // ACTION CREATIONS - CALCULATOR 
     case `getInputs`:
       return {
         ...state,
@@ -142,6 +159,11 @@ export default function CalcReducer(state = initialState, action) {
         // originalTerm: '',
         // newTerm: ''
       };
+    case `saveInputs`: 
+      return {
+        ...state,
+        // TODO ??? 
+      }; 
     case 'addDebt':
       return { 
         ...state,
@@ -156,13 +178,24 @@ export default function CalcReducer(state = initialState, action) {
         debts: [...state.debts],
         debtComps: [...state.debtComps]
       };  
+
+    // TODO
+    // case 'calculate': 
+    //    ??? 
+    //   return {
+    //     ...state,
+    //     ???
+    //   };  
+      
+
+     // ACTION CREATIONS - UPDATING STATE (no axios calls)  
     case "onChangeHandlerPrepayments":        
       return {
         ...state,
         [action.payload1]: action.payload2 
       };
     case "onChangeHandlerDebt":
-      // Loop over debt object to find seqNum, then update prop:value pair.
+      // Loop over debts to find seqNum, then update prop:value pair.
       // ??? Not sure if this code will work, I still NEED TO figure out how to assign seqNum to inputs in Debt.js 
       this.state.forEach((e,i) => {
         if (e.seqNum === action.payload1) {

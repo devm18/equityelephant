@@ -11,7 +11,6 @@ INSERT INTO debts (
   SELECT * FROM debts 
   WHERE user_id = $6; 
 
-
 -- {
 --   "debtName": "visa",
 --   "begBal": 200,
