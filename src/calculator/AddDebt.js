@@ -23,6 +23,7 @@ class AddDebt extends Component {
       term: 'n/a'
     }  
 
+    
     let addDebtButton = () => {
       if (this.props.debts.length === 0) { 
         addDebt(blankDebtObj); 

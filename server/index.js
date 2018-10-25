@@ -61,7 +61,7 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 }); 
 
-app.get( '/login', passport.authenticate('auth0', { 
+app.get('/login', passport.authenticate('auth0', { 
   successRedirect: process.env.REACT_APP_CALCULATOR,
   failureRedirect: '/login'
 }));
@@ -81,10 +81,10 @@ app.get('/logout', logout);
 /* end of auth0 *************************************** */
 
 // endpoints
-app.get("/test", test); // postman check 
+app.get('/test', test); // postman check 
 app.get('/getData/:userId', getData); // todo: Need to trigger on login!
-app.put("/saveInputs/:userId", saveInputs);
-app.post('/addDebt/:userId', addDebt); // Dont need if saveInputs posts & puts.
+app.put('/saveInputs/:userId', saveInputs);
+app.post('/addDebt', addDebt); 
 app.delete('/removeDebt/:userId/:seqNum', removeDebt); 
 // app.post('/calculate/:userId', calculate); 
 

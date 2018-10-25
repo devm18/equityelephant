@@ -38,10 +38,11 @@ export function saveInputs (userId) {
 }
 
 // used by <AddDebt /> component 
-export function addDebt (blankDebtObj) { 
+export function addDebt(blankDebtObj) { 
   return { 
     type: "addDebt", 
-    payload1: blankDebtObj,
+    // payload0: blankDebtObj, //Wrong bc it skips the db
+    payload1: axios.post(`/addDebt`, blankDebtObj),
     payload2: <Debt /> 
   }; 
 }
@@ -174,7 +175,8 @@ export default function CalcReducer(state = initialState, action) {
     case 'addDebt':
       return { 
         ...state,
-        debts: [...state.debts, action.payload1 ],
+        // debts: [...state.debts, action.payload1 ], //Wrong bc it skips db
+        debts: action.payload1.data, //Right bc get data back from db
         debtComps: [...state.debtComps, action.payload2 ]
       };
     case 'removeDebt': 
@@ -194,7 +196,6 @@ export default function CalcReducer(state = initialState, action) {
     //     ...state,
     //     ???
     //   };  
-      
 
      // ACTION CREATIONS - UPDATING STATE (no axios calls)  
     case "onChangeHandlerPrepayments":        

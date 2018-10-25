@@ -36,10 +36,10 @@ const saveInputs = (req, res) => {
   
   let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, yearly_prepayment_date, one_time_prepayment, one_time_prepayment_date) VALUES (${monthlyPrepayment}, ${yearlyPrepayment}, '${yearlyPrepaymentDate}', ${oneTimePrepayment}, '${oneTimePrepaymentDate}') WHERE user_id = '${userId}';`
 
-  let query2 = `INSERT INTO debts (user_id, seq_num, debt_name, beg_bal, rate, mpmt, term) VALUES ` 
+  let query2 = `INSERT INTO debts (debt_name, beg_bal, rate, mpmt, term) VALUES ` 
   + debts.map(obj => {
     return (
-      `(${obj.userId}, ${obj.seqNum}, '${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}') WHERE user_id = '${obj.userId} AND seq_num = '${obj.seqNum}'` 
+      `('${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}') WHERE user_id = '${obj.userId} AND seq_num = '${obj.seqNum}'` 
     )
   }).join(',')+";";
   
@@ -55,9 +55,9 @@ const saveInputs = (req, res) => {
 }
 
 
-//// DONT NEED THIS if saveInputs can post as well as put!  
+//// I NEED THIS bc saveInputs needs user_id and seq_num to pre-exist. Duh!
 const addDebt = (req, res, next) => {
-  // console.log('req.body', req.body); 
+  console.log('req.body', req.body); 
   const { 
     userId,
     seqNum,

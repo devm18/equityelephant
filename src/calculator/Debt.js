@@ -23,7 +23,7 @@ class Debt extends Component {
               name="seqNum"
               >
               {/* { this.props.seqNum }  */}
-              {/* This ^ DOES NOT WORK YET, SO USE THIS v. */}
+              {/* seqNum DOES NOT WORK YET, SO USE key2 + 1 */}
               { this.props.key2 + 1 } 
               </output>  
           </div>

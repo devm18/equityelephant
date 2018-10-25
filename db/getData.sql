@@ -17,7 +17,5 @@ JOIN debts d ON u.user_id = d.user_id
 JOIN results r ON u.user_id = r.user_id
 WHERE u.user_id = $1; 
 
-
--- NOTE: postico only returns columns if every column has a value. 
-
+-- NOTE: postico only returns columns if every column has a value. WHAT ??? 
 
