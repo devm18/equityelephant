@@ -13,56 +13,29 @@ class AddDebt extends Component {
   render() {
     let { addDebt } = this.props; 
     
-    let debtName = '', 
-    begBal = 0, 
-    rate = 0, 
-    mPmt = 0, 
-    term = '',
-    userId = this.props.user.userId,
-    seqNum = this.props.debts.length + 1; 
-    
+    let blankDebtObj = {
+      debtName: '', 
+      begBal: 0, 
+      rate: 0, 
+      mPmt: 0, 
+      term: '',
+      userId: this.props.user.userId,
+      seqNum: this.props.debts.length + 1 
+    }  
 
     let addDebtButton = () => {
       if (this.props.debts.length === 0) { 
-        addDebt(
-            {/* debtName,
-            begBal,
-            rate,
-            mPmt,
-            term,
-            userId,
-            seqNum,
-            <Debt /> */}
-        ); 
+        addDebt(blankDebtObj); 
         return ( 
           <button 
-          onClick={ () => addDebt(
-            {/* debtName,
-            begBal,
-            rate,
-            mPmt,
-            term,
-            userId,
-            seqNum,
-            <Debt /> */}
-
-          ) } > 
+          onClick={ () => addDebt(blankDebtObj) } > 
             Add Debt </button> 
         )
       } else {
         return ( 
           <button 
           onClick={
-            () => addDebt(
-            {/* debtName,
-            begBal,
-            rate,
-            mPmt,
-            term,
-            userId,
-            seqNum,
-            <Debt /> */}
-            ) } > 
+            () => addDebt(blankDebtObj) } > 
             Add Debt </button> 
         )
       }

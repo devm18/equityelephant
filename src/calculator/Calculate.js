@@ -9,7 +9,6 @@ class Calculate extends Component {
       <div className="calc-page-buttons">    
         <button 
         className="calculate"
-        onClick={ {/* axios call */} }
         >
         Save & Calculate
         </button>

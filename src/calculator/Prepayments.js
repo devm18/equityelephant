@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleInputChange } from '../ducks/CalcReducer';
+import { onChangeHandlerPrepayments } from '../ducks/CalcReducer';
 
 class Prepayments extends Component {
   
   render() {
     // console.log("Prepayments.this.props:", this.props) 
     
-    const { handleInputChange } = this.props; 
+    const { onChangeHandlerPrepayments } = this.props; 
     
     let today = new Date();
     // let dd = today.getDate();
@@ -30,7 +30,7 @@ class Prepayments extends Component {
           className="input inputNumber" 
           autoFocus
           name="monthlyPrepayment"
-          onChange={ (e) => handleInputChange(e.target.name, e.target.value) }
+          onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) }
           />
       </div>
       
@@ -43,7 +43,7 @@ class Prepayments extends Component {
           type="number" 
           className="input inputNumber" 
           name="yearlyPrepayment"
-          onChange={ (e) => handleInputChange(e.target.name, e.target.value) } 
+          onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
           />
       </div>
       
@@ -56,7 +56,7 @@ class Prepayments extends Component {
           className="input inputDate"
           min={today} max={maxDate}
           name="yearlyPrepaymentDate"
-          onChange={ (e) => handleInputChange(e.target.name, e.target.value) } /> 
+          onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
       </div>
       
       <div className="boxRow">
@@ -67,7 +67,7 @@ class Prepayments extends Component {
           type="number" 
           className="input inputNumber"
           name="oneTimePrepayment"
-          onChange={(e) => handleInputChange(e.target.name, e.target.value) } /> 
+          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
       </div>
       
       <div className="boxRow">
@@ -79,7 +79,7 @@ class Prepayments extends Component {
           className="input inputDate"
           min={today} max={maxDate}
           name="oneTimePrepaymentDate"
-          onChange={(e) => handleInputChange(e.target.name, e.target.value) } />   
+          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } />   
       </div>
 
     </div>
@@ -89,5 +89,5 @@ class Prepayments extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { handleInputChange })(Prepayments);
+export default connect(mapStateToProps, { onChangeHandlerPrepayments })(Prepayments);
 
