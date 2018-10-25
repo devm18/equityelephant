@@ -57,7 +57,7 @@ const saveInputs = (req, res) => {
 
 //// I NEED THIS bc saveInputs needs user_id and seq_num to pre-exist. Duh!
 const addDebt = (req, res, next) => {
-  console.log('req.body', req.body); 
+  console.log('calcCtrl-addDebt-req.body', req.body); 
   const { 
     userId,
     seqNum,
