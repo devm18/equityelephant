@@ -6,19 +6,6 @@ import Debt from './Debt';
 
 
 class Debts extends Component {
-  // Perhaps I should create debt obj here and then push it to redux: 
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     debtName: '', 
-  //     begBal: 0,
-  //     rate: 0,
-  //     mPmt: 0,
-  //     term: ''
-  //   }
-  // } 
-  // onChangeHandler = (name, value) => this.setState({ [name]: value }); 
-
 
   render() {
     
@@ -28,7 +15,8 @@ class Debts extends Component {
         <Debt 
           key={i} // redux reserved keyword
           key2={i} 
-          seqNum={ i + 1 } // { elem.SeqNum }
+          // seqNum={ i + 1 } 
+          seqNum={ elem.SeqNum }
           debtName={ elem.debtName }
           begBal={ elem.begBal } 
           rate={ elem.rate } 

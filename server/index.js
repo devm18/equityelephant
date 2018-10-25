@@ -8,7 +8,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getData, addDebt, /*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
+const { test, getData, addDebt, removeDebt, saveInputs/*, calculate*/ } = require("./calcCtrl");
 
 const app = express();
 
@@ -85,7 +85,7 @@ app.get("/test", test); // postman check
 app.get('/getData/:userId', getData); // todo: Need to trigger on login!
 app.put("/saveInputs/:userId", saveInputs);
 app.post('/addDebt/:userId', addDebt); // Dont need if saveInputs posts & puts.
-// app.delete('/removeDebt/:userId/:seqNum', removeDebt); // syntax ???
+app.delete('/removeDebt/:userId/:seqNum', removeDebt); 
 // app.post('/calculate/:userId', calculate); 
 
 const port = process.env.PORT || 3001;

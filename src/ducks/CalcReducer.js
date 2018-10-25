@@ -47,13 +47,13 @@ export function addDebt (blankDebtObj) {
 }
 
 // dual action: removes a debt from debts and a <Debt /> from debtComps.
-// used by <Debt /> component 
+// used by parent <Debts /> and child <Debt /> components 
 // if saveInputs can both post & put then I may not need payload1: 
-export function removeDebt (index) { 
+export function removeDebt (userId, seqNum) { 
   return { 
     type: "removeDebt", 
-    payload1: axios.delete(`/removeDebt/:${this.state.user.userId}/:${index}`),
-    payload2: index
+    payload1: axios.delete(`/removeDebt/${userId}/${seqNum}`),
+    payload2: seqNum
   }; 
 }
 
@@ -178,7 +178,7 @@ export default function CalcReducer(state = initialState, action) {
         debtComps: [...state.debtComps, action.payload2 ]
       };
     case 'removeDebt': 
-      // payload2 = index, which should work for both arrays
+      // payload2 = seqNum, which should work for both arrays
       state.debts.splice(action.payload2, 1); 
       state.debtComps.splice(action.payload2, 1); 
       return {
