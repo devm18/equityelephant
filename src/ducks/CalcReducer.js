@@ -19,8 +19,7 @@ export function logout() {
 }
 
 // ACTION CREATORS - CALCULATOR 
-// Todo: call getInputs upon login, 
-// NEEDS fixin/testing:
+// Todo: call getInputs upon login, NEEDS fixin/testing:
 export function getInputs (userId) {
   return { 
     type: "getInputs", 
@@ -36,7 +35,7 @@ export function addDebt (blankDebtObj) {
   }; 
 }
 
-// remove debt from debts, <Debt /> from debtComps
+// dual action: removes a debt from debts and a <Debt /> from debtComps.
 export function removeDebt (index) { 
   return { 
     type: "removeDebt", 

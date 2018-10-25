@@ -55,8 +55,9 @@ class Debts extends Component {
               <div
                 ref={provided.innerRef} >
                 
+                {/******** MY CODE INSERT ********/}
                 { dndDebtsList().map((debtElement, dnd_index) => (
-                  
+
                   <Draggable 
                   key={dnd_index} 
                   draggableId={dnd_index} 
@@ -67,7 +68,10 @@ class Debts extends Component {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps} >
-                        { debtElement }
+                        
+                        {/******** MY CODE INSERT ********/}
+                        { debtElement }  
+                        
                       </div>
                     )}
                   </Draggable>

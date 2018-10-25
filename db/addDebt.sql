@@ -12,7 +12,6 @@ INSERT INTO debts (
   WHERE user_id = $6; 
 
 
-
 -- {
 --   "debtName": "visa",
 --   "begBal": 200,
