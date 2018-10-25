@@ -4,6 +4,8 @@ saveInputs (put) is performed in server/calcCtrljs:
   - updates a row in prepayments, where users.user_id = prepayments.user_id
   - updates rows in debts, where users.user_id = debts.user_id 
  
+
+ 
  -- EXAMPLE INPUT: 
  {
   "monthlyPrepayment": 111,

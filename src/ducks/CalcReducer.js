@@ -19,7 +19,7 @@ export function logout() {
 }
 
 // ACTION CREATORS - CALCULATOR 
-// Todo: call getInputs upon login, NEEDS fixin/testing:
+// Todo: call getInputs upon login, NEEDS fixing/testing:
 export function getInputs (userId) {
   return { 
     type: "getInputs", 
@@ -91,7 +91,7 @@ const initialState = {
     //   authId: "auth0|5bb4f869bdd7bf2d95bd6ed7"
     // }
   isAuthenticated: false, 
-  
+
   // Used by prepayments component:  
   monthlyPrepayment: 0, 
   yearlyPrepayment: 0,
