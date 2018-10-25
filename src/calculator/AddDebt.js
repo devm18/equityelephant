@@ -15,12 +15,12 @@ class AddDebt extends Component {
     
     let blankDebtObj = {
       userId: this.props.user.userId,
+      seqNum: this.props.debts.length + 1,
       debtName: 'debt name', 
       begBal: 0, 
       rate: 0, 
       mPmt: 0, 
-      term: 'n/a',
-      seqNum: this.props.debts.length + 1 
+      term: 'n/a'
     }  
 
     let addDebtButton = () => {

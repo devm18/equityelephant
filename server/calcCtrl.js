@@ -60,22 +60,22 @@ const addDebt = (req, res, next) => {
   // console.log('req.body', req.body); 
   const { 
     userId,
+    seqNum,
     debtName,
     begBal,
     rate,
     mPmt,
-    term,
-    seqNum
+    term
   } = req.body;  
   let db = req.app.get("db");
   db.addDebt([
     userId,
+    seqNum,
     debtName,
     begBal,
     rate,
     mPmt,
-    term,
-    seqNum
+    term
   ])
   .then(response => {
     res.status(200).json(response);

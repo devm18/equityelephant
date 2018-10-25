@@ -18,10 +18,12 @@ class Debt extends Component {
               </button> 
             <output 
               className="sequence-number"
+              // ??? SHOULD BE: this.props.debts.???.seqNum
               value={ this.props.debts.seqNum } 
               seqNum={null}
               name="seqNum"
               >
+              {/* ??? SHOULD BE: this.props.debts.???.seqNum */}
               { this.props.seqNum } 
               </output>  
           </div>
