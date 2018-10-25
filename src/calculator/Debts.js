@@ -26,8 +26,8 @@ class Debts extends Component {
     let debtsList = this.props.debts.map((elem,i)=>{
       return (  
         <Debt 
-          key={i} 
-          key2={i} // key is reserved by redux 
+          key={i} // redux reserved keyword
+          key2={i} 
           seqNum={ i + 1 } // { elem.SeqNum }
           debtName={ elem.debtName }
           begBal={ elem.begBal } 
@@ -41,10 +41,11 @@ class Debts extends Component {
     });
 
     let dndDebtsList = () => debtsList.map((e, i) => e );
-
+    
     return (
       <div className="main">
-      
+
+        {/***** BEAUTIFUL-DND except for MY CODE INSERTS *****/}
         <DragDropContext 
         onDragEnd={this.onDragEnd}>
           
