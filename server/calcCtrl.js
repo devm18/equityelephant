@@ -12,7 +12,7 @@ const test = (req, res) => {
 const getData = (req, res, next) => {
   console.log('req.params', req.params); 
   let db = req.app.get("db");
-  db.getInputs(req.params.userId)
+  db.getData(req.params.userId)
   .then(response => {
     res.status(200).json(response);
   })

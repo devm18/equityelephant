@@ -84,7 +84,7 @@ app.get('/logout', logout);
 app.get("/test", test); // postman check 
 app.get('/getData/:userId', getData); // todo: Need to trigger on login!
 app.put("/saveInputs/:userId", saveInputs);
-app.post('/addDebt/:userId', addDebt); // Dont need if saveInputs posts&puts.
+app.post('/addDebt/:userId', addDebt); // Dont need if saveInputs posts & puts.
 // app.delete('/removeDebt/:userId/:seqNum', removeDebt); // syntax ???
 // app.post('/calculate/:userId', calculate); 
 

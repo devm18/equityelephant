@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getInputs, removeDebt } from '../ducks/CalcReducer';
+import { getData, removeDebt } from '../ducks/CalcReducer';
 import Prepayments from './Prepayments';
 import Debts from './Debts';
 import SaveInputs from './SaveInputs';
@@ -14,11 +14,11 @@ class Calculator extends Component {
   // NEEDS FIXIN: 
   // componentDidMount() {
   //   // need && to prevent logging out 
-  //   this.props.getInputs(this.props.user.data && this.props.user.data.id);
+  //   this.props.getData(this.props.user.data && this.props.user.data.id);
   // }
   // HARD CODE: 
   // componentDidMount() {
-  //   axios.get('/getInputs/2')
+  //   axios.get('/getData/2')
   //   .then(response => console.log(response)); 
   // }
 
@@ -70,5 +70,5 @@ class Calculator extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { getInputs })(Calculator);
+export default connect(mapStateToProps, { getData })(Calculator);
 

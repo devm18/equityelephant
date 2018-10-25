@@ -20,7 +20,7 @@ export function logout() {
 
 // ACTION CREATORS - CALCULATOR 
 // Todo: call getData upon login, NEEDS fixing/testing:
-// used by ... component 
+// used by <Calculator /> component 
 export function getData (userId) {
   return { 
     type: "getData", 
@@ -28,7 +28,8 @@ export function getData (userId) {
   }; 
 }
 
-// need the in & out for this: 
+// need the in & out for this:
+// used by <SaveInputs /> component  
 export function saveInputs (userId) {
   return { 
     type: "saveInputs", 
@@ -36,7 +37,7 @@ export function saveInputs (userId) {
   }; 
 }
 
-// used by AddDebt component 
+// used by <AddDebt /> component 
 export function addDebt (blankDebtObj) { 
   return { 
     type: "addDebt", 
@@ -46,6 +47,7 @@ export function addDebt (blankDebtObj) {
 }
 
 // dual action: removes a debt from debts and a <Debt /> from debtComps.
+// used by <Debts /> component 
 export function removeDebt (index) { 
   return { 
     type: "removeDebt", 
