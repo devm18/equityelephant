@@ -14,12 +14,12 @@ class AddDebt extends Component {
     let { addDebt } = this.props; 
     
     let blankDebtObj = {
-      debtName: '', 
+      userId: this.props.user.userId,
+      debtName: 'debt name', 
       begBal: 0, 
       rate: 0, 
       mPmt: 0, 
-      term: '',
-      userId: this.props.user.userId,
+      term: 'n/a',
       seqNum: this.props.debts.length + 1 
     }  
 

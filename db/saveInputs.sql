@@ -5,9 +5,10 @@ saveInputs (put) is performed in server/calcCtrljs:
   - updates rows in debts, where users.user_id = debts.user_id 
  
 
- 
+
  -- EXAMPLE INPUT: 
  {
+  "user_id" : 1, 
   "monthlyPrepayment": 111,
   "yearlyPrepayment": 111,
   "yearlyPrepaymentDate" : "2018/12/12",
@@ -15,31 +16,31 @@ saveInputs (put) is performed in server/calcCtrljs:
   "oneTimePrepaymentDate" : "2018/12/12",
   "debts": [
     {
+      "user_id" : 1,
       "debt_name" : "Visa",
       "beg_bal" : 100,
       "rate" : 1,
       "mpmt" : 10,
-      "term" : "",
-      "seq_num": 1,
-      "user_id" : 1
+      "term" : " ",
+      "seq_num": 1
     }, 
     {
+      "user_id" : 1,
       "debt_name" : "MC",
       "beg_bal" : 200,
       "rate" : 2,
       "mpmt" : 20,
-      "term" : "",
-      "seq_num": 1,
-      "user_id" : 1
+      "term" : " ",
+      "seq_num": 1
     },
     {
+      "user_id" : 1,
       "debt_name" : "Loan shark",
       "beg_bal" : 300,
       "rate" : 3,
       "mpmt" : 30,
-      "term" : "",
-      "seq_num": 1,
-      "user_id" : 1
+      "term" : " ",
+      "seq_num": 1
     }
   ]
 } 

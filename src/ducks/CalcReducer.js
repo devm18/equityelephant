@@ -19,11 +19,12 @@ export function logout() {
 }
 
 // ACTION CREATORS - CALCULATOR 
-// Todo: call getInputs upon login, NEEDS fixing/testing:
-export function getInputs (userId) {
+// Todo: call getData upon login, NEEDS fixing/testing:
+// used by ... component 
+export function getData (userId) {
   return { 
-    type: "getInputs", 
-    payload: axios.post(`/getInputs/:${userId}`)
+    type: "getData", 
+    payload: axios.post(`/getData/:${userId}`)
   }; 
 }
 
@@ -35,6 +36,7 @@ export function saveInputs (userId) {
   }; 
 }
 
+// used by AddDebt component 
 export function addDebt (blankDebtObj) { 
   return { 
     type: "addDebt", 
@@ -95,19 +97,19 @@ const initialState = {
   // Used by prepayments component:  
   monthlyPrepayment: 0, 
   yearlyPrepayment: 0,
-  yearlyPrepaymentDate: '',
+  yearlyPrepaymentDate: ' ',
   oneTimePrepayment: 0,
-  oneTimePrepaymentDate: '', 
+  oneTimePrepaymentDate: ' ', 
 
   // Used by debts, debt, addAdd components: 
     // example of debt object: 
     // debt = { 
+    //   userId: 0,
     //   debtName: 'visa',
     //   begBal: 0,
     //   rate: 0,
     //   mPmt: 0,
     //   term: 0,
-    //   userId: 0,
     //   seqNum: 0
     // }
   debts: [],
@@ -118,8 +120,8 @@ const initialState = {
   originalCost: 0,
   newCost: 0,
   eliminatedCost: 0,
-  originalTerm: '',
-  newTerm: ''
+  originalTerm: ' ',
+  newTerm: ' '
 }; 
 
 // REDUCER 
@@ -141,7 +143,7 @@ export default function CalcReducer(state = initialState, action) {
       };
      
     // ACTION CREATIONS - CALCULATOR 
-    case `getInputs`:
+    case `getData`:
       return {
         ...state,
         // ??? NOT SURE HOW TO DO THIS: 

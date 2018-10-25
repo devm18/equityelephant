@@ -9,7 +9,7 @@ const test = (req, res) => {
   .then(response => res.status(200).json(response)); 
 }; 
 
-const getInputs = (req, res, next) => {
+const getData = (req, res, next) => {
   console.log('req.params', req.params); 
   let db = req.app.get("db");
   db.getInputs(req.params.userId)
@@ -36,10 +36,10 @@ const saveInputs = (req, res) => {
   
   let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, yearly_prepayment_date, one_time_prepayment, one_time_prepayment_date) VALUES (${monthlyPrepayment}, ${yearlyPrepayment}, '${yearlyPrepaymentDate}', ${oneTimePrepayment}, '${oneTimePrepaymentDate}') WHERE user_id = '${userId}';`
 
-  let query2 = `INSERT INTO debts (debt_name, beg_bal, rate, mpmt, term, seq_num, user_id) VALUES ` 
+  let query2 = `INSERT INTO debts (user_id, debt_name, beg_bal, rate, mpmt, term, seq_num) VALUES ` 
   + debts.map(obj => {
     return (
-      `('${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}', ${obj.seqNum}, ${obj.userId}) WHERE user_id = '${obj.userId} AND seq_num = '${obj.debts.seqNum}'`
+      `(${obj.userId}, '${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}', ${obj.seqNum}) WHERE user_id = '${obj.userId} AND seq_num = '${obj.debts.seqNum}'`
     )
   }).join(',')+";";
   
@@ -54,25 +54,27 @@ const saveInputs = (req, res) => {
   })
 }
 
+
+//// DONT NEED THIS if saveInputs can post as well as put!  
 const addDebt = (req, res, next) => {
   // console.log('req.body', req.body); 
   const { 
+    userId,
     debtName,
     begBal,
     rate,
     mPmt,
     term,
-    userId,
     seqNum
   } = req.body;  
   let db = req.app.get("db");
   db.addDebt([
+    userId,
     debtName,
     begBal,
     rate,
     mPmt,
     term,
-    userId,
     seqNum
   ])
   .then(response => {
@@ -84,9 +86,9 @@ const addDebt = (req, res, next) => {
 
 module.exports = {
   test, 
-  getInputs,
+  getData,
   saveInputs, 
-  addDebt,
+  // addDebt,
   // removeDebt,
   // calculate
 }

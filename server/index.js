@@ -8,7 +8,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getInputs, addDebt, /*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
+const { test, getData, addDebt, /*removeDebt,*/ saveInputs/*, calculate*/ } = require("./calcCtrl");
 
 const app = express();
 
@@ -82,11 +82,11 @@ app.get('/logout', logout);
 
 // endpoints
 app.get("/test", test); // postman check 
-app.get('/getInputs/:userId', getInputs); // need to trigger on login 
+app.get('/getData/:userId', getData); // todo: Need to trigger on login!
 app.put("/saveInputs/:userId", saveInputs);
-app.post('/addDebt', addDebt); 
+app.post('/addDebt/:userId', addDebt); // Dont need if saveInputs posts&puts.
 // app.delete('/removeDebt/:userId/:seqNum', removeDebt); // syntax ???
-// app.put('/calculate', calculate); 
+// app.post('/calculate/:userId', calculate); 
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening to port ${port}`));
