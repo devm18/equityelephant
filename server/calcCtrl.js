@@ -84,7 +84,7 @@ const addDebt = (req, res, next) => {
 }
 
 const removeDebt = (req, res, next) => {
-  console.log('req.params', req.params)
+  console.log('calcCtrl-req.params', req.params)
   const { userId, seqNum } = req.params; 
   let db = req.app.get("db");
   db.removeDebt(userId, seqNum)
