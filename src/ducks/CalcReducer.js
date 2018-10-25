@@ -166,7 +166,7 @@ export default function CalcReducer(state = initialState, action) {
         // originalTerm: '',
         // newTerm: ''
       };
-    case `saveInputs`: 
+    case 'saveInputs': 
       return {
         ...state,
         // TODO ??? 
@@ -178,7 +178,7 @@ export default function CalcReducer(state = initialState, action) {
         debtComps: [...state.debtComps, action.payload2 ]
       };
     case 'removeDebt': 
-      // payload2 = index
+      // payload2 = index, which should work for both arrays
       state.debts.splice(action.payload2, 1); 
       state.debtComps.splice(action.payload2, 1); 
       return {

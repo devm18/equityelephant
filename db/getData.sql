@@ -5,12 +5,12 @@ SELECT
   p.yearly_prepayment_date,
   p.one_time_prepayment,
   p.one_time_prepayment_date,
+  d.seq_num,
   d.debt_name,
   d.beg_bal,
   d.rate,
   d.mpmt,
-  d.term,
-  d.seq_num
+  d.term
 FROM users u
 JOIN prepayments p ON u.user_id = p.user_id
 JOIN debts d ON u.user_id = d.user_id

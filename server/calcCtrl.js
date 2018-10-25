@@ -36,10 +36,10 @@ const saveInputs = (req, res) => {
   
   let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, yearly_prepayment_date, one_time_prepayment, one_time_prepayment_date) VALUES (${monthlyPrepayment}, ${yearlyPrepayment}, '${yearlyPrepaymentDate}', ${oneTimePrepayment}, '${oneTimePrepaymentDate}') WHERE user_id = '${userId}';`
 
-  let query2 = `INSERT INTO debts (user_id, debt_name, beg_bal, rate, mpmt, term, seq_num) VALUES ` 
+  let query2 = `INSERT INTO debts (user_id, seq_num, debt_name, beg_bal, rate, mpmt, term) VALUES ` 
   + debts.map(obj => {
     return (
-      `(${obj.userId}, '${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}', ${obj.seqNum}) WHERE user_id = '${obj.userId} AND seq_num = '${obj.debts.seqNum}'`
+      `(${obj.userId}, ${obj.seqNum}, '${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}') WHERE user_id = '${obj.userId} AND seq_num = '${obj.seqNum}'` 
     )
   }).join(',')+";";
   
