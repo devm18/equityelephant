@@ -7,6 +7,7 @@ saveInputs (put) is performed in server/calcCtrljs:
 
 
  -- EXAMPLE INPUT: 
+ -- ??? should user_id be: "user.userId"? 
  {
   "user_id" : 1, 
   "monthlyPrepayment": 111,

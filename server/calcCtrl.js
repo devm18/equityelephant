@@ -83,12 +83,23 @@ const addDebt = (req, res, next) => {
   .catch(error => console.log(error)) 
 }
 
+const removeDebt = (req, res, next) => {
+  console.log('req.params', req.params)
+  const { userId, seqNum } = req.params; 
+  let db = req.app.get("db");
+  db.removeDebt(userId, seqNum)
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => console.log(error))
+}
+
 
 module.exports = {
   test, 
   getData,
   saveInputs, 
-  // addDebt,
-  // removeDebt,
+  addDebt,
+  removeDebt
   // calculate
 }

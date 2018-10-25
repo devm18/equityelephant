@@ -47,15 +47,18 @@ export function addDebt (blankDebtObj) {
 }
 
 // dual action: removes a debt from debts and a <Debt /> from debtComps.
-// used by <Debts /> component 
+// used by <Debt /> component 
+// if saveInputs can both post & put then I may not need payload1: 
 export function removeDebt (index) { 
   return { 
     type: "removeDebt", 
-    payload: index
+    payload1: axios.delete(`/removeDebt/:${this.state.user.userId}/:${index}`),
+    payload2: index
   }; 
 }
 
 // TODO 
+// used by <Calculate /> component
 // export function calculate () { 
 //   return { 
 //     type: "calculate", 
@@ -175,8 +178,9 @@ export default function CalcReducer(state = initialState, action) {
         debtComps: [...state.debtComps, action.payload2 ]
       };
     case 'removeDebt': 
-      state.debts.splice(action.payload, 1); 
-      state.debtComps.splice(action.payload, 1); 
+      // payload2 = index
+      state.debts.splice(action.payload2, 1); 
+      state.debtComps.splice(action.payload2, 1); 
       return {
         ...state,
         debts: [...state.debts],
