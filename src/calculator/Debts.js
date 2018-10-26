@@ -11,6 +11,9 @@ class Debts extends Component {
     
 
     let debtsList = this.props.debts.map((elem,i)=>{
+      
+      console.log(elem);
+      
       return (  
         <Debt 
           key={i} // redux reserved keyword

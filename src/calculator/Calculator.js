@@ -15,7 +15,7 @@ class Calculator extends Component {
   componentDidMount() {
     // Use the && to prevent logging out ~jonw.
     // if(this.props.user.userId) {
-    // IF ALREADY AUTHENTICATED,
+    // IF ALREADY AUTHENTICATED, to exe the call for getDebt/getPrepayments
     if (this.props.user.userId && this.props.user.userId) {
       this.props.getPrepayments(this.props.user.userId);
       this.props.getDebts(this.props.user.userId);
@@ -26,7 +26,7 @@ class Calculator extends Component {
   componentDidUpdate(prevProps) {
     // Use the && to prevent logging out ~jonw.
     // if(this.props.user.userId) {
-    // IF AWAITING AUTHENTICATION
+    // IF AWAITING AUTHENTICATION,
     if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
       this.props.getPrepayments(this.props.user.userId);
       this.props.getDebts(this.props.user.userId);
@@ -35,7 +35,11 @@ class Calculator extends Component {
 
   render() {
     return (
+      // conditional render page until getPrepayments and getDebts are complete
+      this.props.gotPrepayments && this.props.gotDebts ? 
+
       <div className="calculator-page">
+      
         <br />
         <br />
 
@@ -43,6 +47,9 @@ class Calculator extends Component {
         <br />
         <div>PREPAYMENTS: </div>
 
+        
+        
+        
         <Prepayments />
 
         <div> DEBTS: </div>
@@ -58,13 +65,16 @@ class Calculator extends Component {
 
           <Calculate />
         </div>
-        
+
         <br />
 
         <div> RESULTS: </div>
 
         <Results />
-      </div>
+
+        
+        </div>
+      : null 
     );
   }
 }

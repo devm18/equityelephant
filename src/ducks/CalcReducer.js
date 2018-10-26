@@ -21,14 +21,14 @@ export function logout() {
 export function getDebts (userId) {
   return { 
     type: "getDebts", 
-    payload: axios.post(`/getDebts/:${userId}`)
+    payload: axios.get(`/getDebts/${userId}`)
   }; 
 }
 
 export function getPrepayments (userId) {
   return { 
     type: "getPrepayments", 
-    payload: axios.post(`/getPrepayments/:${userId}`)
+    payload: axios.get(`/getPrepayments/${userId}`)
   }; 
 }
 
@@ -128,7 +128,9 @@ const initialState = {
   newCost: 0,
   eliminatedCost: 0,
   originalTerm: ' ',
-  newTerm: ' '
+  newTerm: ' ',
+  gotPrepayments: false,
+  gotDebts: false
 }; 
 
 // REDUCER 
@@ -154,7 +156,8 @@ export default function CalcReducer(state = initialState, action) {
     case 'getPrepayments_FULFILLED': 
       return {
         ...state,
-        prepayments: action.payload.data[0]
+        prepayments: action.payload.data[0],
+        gotPrepayments: true
       }; 
    case 'getPrepayments_REJECTED': 
       console.log('Error in getPrepayments_REJECTED'); 
@@ -164,7 +167,8 @@ export default function CalcReducer(state = initialState, action) {
     case 'getDebts_FULFILLED': 
       return {
         ...state,
-        debts: action.payload.data
+        debts: action.payload.data,
+        gotDebts: true
       }; 
    case 'getDebts_REJECTED': 
       console.log('Error in getDebts_REJECTED'); 
