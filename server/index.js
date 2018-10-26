@@ -8,7 +8,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getData, addDebt, removeDebt, saveInputs/*, calculate*/ } = require("./calcCtrl");
+const { test, getPrepayments, getDebts, addDebt, removeDebt, saveInputs/*, calculate*/ } = require("./calcCtrl");
 
 const app = express();
 
@@ -38,7 +38,7 @@ app.use(passport.session());
 passport.use(strategy); 
 
 passport.serializeUser((user, done) => {
-  console.log('passport.serializerUser', user);
+  console.log('\n PASSPORT.SERIALIZERUSER', user);
   const db = app.get('db'); 
   db.getUserByAuthId([user.id])
   .then(response => {
@@ -68,21 +68,24 @@ app.get('/login', passport.authenticate('auth0', {
 
 function authenticated (req, res, next) {
   if (req.user) { 
-    console.log("req.user", req.user); 
+    console.log("\nAUTHENTICATED.REQ.USER", req.user); 
     next(); 
   } else {
     res.sendStatus(403); 
   }
 }; 
 
-app.get('/getUser', authenticated, getUser);
+app.get('/getUser', authenticated, getUser); 
 app.get('/logout', logout);
 
 /* end of auth0 *************************************** */
 
 // endpoints
 app.get('/test', test); // postman check 
-app.get('/getData/:userId', getData); // todo: Need to trigger on login!
+
+app.get('/getDebts/:userId', getDebts); 
+app.get('/getPrepayments/:userId', getPrepayments); 
+
 app.put('/saveInputs/:userId', saveInputs);
 app.post('/addDebt', addDebt); 
 app.delete('/removeDebt/:userId/:seqNum', removeDebt); 

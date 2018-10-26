@@ -5,17 +5,13 @@ import Debt from './Debt';
 
 class AddDebt extends Component {
 
-  // addDebtToDB = (userId, seqNum) => {
-  //   // axios.post
-  //   console.log(seqNum) 
-  // }
-  
+
   render() {
     let { addDebt } = this.props; 
     
     let blankDebtObj = {
       userId: this.props.user.userId,
-      seqNum: this.props.debts.length + 1,
+      seqnum: this.props.debts.length + 1,
       debtName: 'debt name', 
       begBal: 0, 
       rate: 0, 
@@ -23,9 +19,9 @@ class AddDebt extends Component {
       term: 'n/a'
     }  
 
-    
     let addDebtButton = () => {
-      if (this.props.debts.length === 0) { 
+      // if(!this.props.user.userId) return; 
+      if(this.props.debts.length === 0) { 
         addDebt(blankDebtObj); 
         return ( 
           <button 

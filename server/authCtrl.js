@@ -21,8 +21,12 @@ const strategy = new Auth0Strategy({
 }); 
 
 const getUser = (req, res) => {
-  if (req.user) { res.status(200).json(req.user) }
-  else { res.status(400).json({ message: 'Not logged in'}) }
+  if (req.user) { 
+    console.log('\n GETUSER', req.user)
+    res.status(200).json(req.user);
+  } else { 
+    res.status(400).json({ message: 'Not logged in'}) 
+  }
 };
 
 const logout = (req, res) => {

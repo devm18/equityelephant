@@ -4,8 +4,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { /* addDebt, */ removeDebt } from '../ducks/CalcReducer';
 import Debt from './Debt';
 
-
 class Debts extends Component {
+
 
   render() {
     
@@ -16,14 +16,14 @@ class Debts extends Component {
           key={i} // redux reserved keyword
           key2={i} 
           // seqNum={ i + 1 } 
-          seqNum={ elem.SeqNum }
-          debtName={ elem.debtName }
-          begBal={ elem.begBal } 
-          rate={ elem.rate } 
-          mPmt={ elem.mPmt } 
-          userId = { elem.userId } 
-          draggable='true' 
-          ondragstart='drag(event)'
+          // seqNum={ elem.SeqNum }
+          // debtName={ elem.debtName }
+          // begBal={ elem.begBal } 
+          // rate={ elem.rate } 
+          // mPmt={ elem.mPmt } 
+          // userId = { elem.userId } 
+          // draggable='true' 
+          // ondragstart='drag(event)'
         />
       )
     });
@@ -44,11 +44,11 @@ class Debts extends Component {
               <div
                 ref={provided.innerRef} >
                 
-                {/******** MY CODE INSERT ********/}
+                { /******** MY CODE INSERT ********/ }
                 { dndDebtsList().map((debtElement, dnd_index) => (
 
                   <Draggable 
-                  key={dnd_index} 
+                  key={dnd_index} //// 
                   draggableId={dnd_index} 
                   index={dnd_index}>
 

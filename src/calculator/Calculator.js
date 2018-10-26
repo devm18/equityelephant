@@ -1,74 +1,77 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getData, removeDebt } from '../ducks/CalcReducer';
-import Prepayments from './Prepayments';
-import Debts from './Debts';
-import SaveInputs from './SaveInputs';
-import AddDebt from './AddDebt';
-import Calculate from './Calculate';
-import Results from './Results';
+import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+// import { withRouter } from 'react-router-dom';
+import { getPrepayments, getDebts, removeDebt } from "../ducks/CalcReducer";
+import Prepayments from "./Prepayments";
+import Debts from "./Debts";
+import SaveInputs from "./SaveInputs";
+import AddDebt from "./AddDebt";
+import Calculate from "./Calculate";
+import Results from "./Results";
 
 class Calculator extends Component {
+  // will run first
+  componentDidMount() {
+    // Use the && to prevent logging out ~jonw.
+    // if(this.props.user.userId) {
+    // IF ALREADY AUTHENTICATED,
+    if (this.props.user.userId && this.props.user.userId) {
+      this.props.getPrepayments(this.props.user.userId);
+      this.props.getDebts(this.props.user.userId);
+    }
+  }
 
+  // will run second
+  componentDidUpdate(prevProps) {
+    // Use the && to prevent logging out ~jonw.
+    // if(this.props.user.userId) {
+    // IF AWAITING AUTHENTICATION
+    if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
+      this.props.getPrepayments(this.props.user.userId);
+      this.props.getDebts(this.props.user.userId);
+    }
+  }
 
-  // NEEDS FIXIN: 
-  // componentDidMount() {
-  //   // need && to prevent logging out 
-  //   this.props.getData(this.props.user.data && this.props.user.data.id);
-  // }
-  // HARD CODE: 
-  // componentDidMount() {
-  //   axios.get('/getData/2')
-  //   .then(response => console.log(response)); 
-  // }
-
-
-  // if user is in session, then render, else call login for auth0 
   render() {
-  console.log(this.props)
-  console.log(this.props.user.data && this.props.user.data.id)
+    return (
+      <div className="calculator-page">
+        <br />
+        <br />
 
-  return (
-    <div className="calculator-page">
-      <br /> 
-      <br /> 
+        <div> {this.props.user.userId || `NO USER ID`} </div>
+        <br />
+        <div>PREPAYMENTS: </div>
 
-      <div> PREPAYMENTS: </div>  
+        <Prepayments />
 
-      <Prepayments /> 
+        <div> DEBTS: </div>
 
-      <div> DEBTS: </div>
-      
-      <Debts /> 
-      
-      <div className="addDebt-saveInput-Save&Calc">
-        <br /> 
+        <Debts />
+
+        <div className="addDebt-saveInput-Save&Calc">
+          <br />
+
+          <AddDebt />
+
+          <SaveInputs />
+
+          <Calculate />
+        </div>
         
-        <AddDebt /> 
-        
-        <SaveInputs /> 
+        <br />
 
-        <Calculate /> 
+        <div> RESULTS: </div>
+
+        <Results />
       </div>
-      <br /> 
-      
-      <div className="results-isLoading">
-        { this.props.isLoading ? ( 
-          <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" alt="is loading..."/> 
-          ) : null } 
-
-        <div> RESULTS: </div>  
-
-        <Results /> 
-
-      </div>
-      
-    </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { getData })(Calculator);
-
+export default connect(
+  mapStateToProps,
+  { getPrepayments, getDebts }
+)(Calculator);

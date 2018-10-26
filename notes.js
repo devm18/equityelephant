@@ -54,10 +54,12 @@ Jerry Chen
     FIRE (Financial Independent Retire Early)
     Burn Rate 
 
-Anthony Magnu 
+Anthony Magno  
 https://github.com/anthony62490/personal-project-photo-manager/blob/master/server/controller.js
 controller.js  33 searchQuery
 editPicInfoController.js  151 QueryStr 
+
+Object.keys(obj) // returns an array of key from obj, and then map key:value pairs to state. 
 
 
 */

@@ -2,22 +2,39 @@ const express = require("express");
 const app = express(); 
 
 const test = (req, res) => { 
-  res.status(200).json("Success!!!!");
+  res.status(200).json("Postman test passes.");
   app
   .get('db')
   .users.find({})
   .then(response => res.status(200).json(response)); 
 }; 
 
-const getData = (req, res, next) => {
-  console.log('req.params', req.params); 
+const getDebts = (req, res, next) => {
+  console.log(req.params.userId); 
+
   let db = req.app.get("db");
-  db.getData(req.params.userId)
+  db.getDebts(req.params.userId)
   .then(response => {
     res.status(200).json(response);
   })
   .catch(error => console.log(error))
 }
+
+const getPrepayments = (req, res, next) => {
+  console.log(req.params.userId)
+
+  let db = req.app.get("db");
+  db.getPrepayments(req.params.userId)
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => console.log(error))
+}
+
+
+
+
+
 
 // USE db.query to loop thru array of this.props.debt to insert into db. 
 const saveInputs = (req, res) => {
@@ -84,7 +101,7 @@ const addDebt = (req, res, next) => {
 }
 
 const removeDebt = (req, res, next) => {
-  console.log('calcCtrl-req.params', req.params)
+  // console.log('calcCtrl-removeDebt-req.params', req.params)
   const { userId, seqNum } = req.params; 
   let db = req.app.get("db");
   db.removeDebt(userId, seqNum)
@@ -97,7 +114,8 @@ const removeDebt = (req, res, next) => {
 
 module.exports = {
   test, 
-  getData,
+  getPrepayments,
+  getDebts,
   saveInputs, 
   addDebt,
   removeDebt

@@ -19,12 +19,12 @@ class Debt extends Component {
             <output 
               className="sequence-number"
               value={ this.props.seqNum } 
-              seqNum={null}
+              // seqNum={null}
               name="seqNum"
               >
               {/* { this.props.seqNum }  */}
               {/* seqNum DOES NOT WORK YET, SO USE key2 + 1 */}
-              { this.props.key2 + 1 } 
+              { this.props.seqNum } 
               </output>  
           </div>
 
@@ -38,7 +38,7 @@ class Debt extends Component {
               value={ this.props.debts.debtName }
               placeholder="name of debt"
               autoFocus
-              seqNum={null}
+              // seqNum={null}
               name="debtName"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } /> 
           </div> 
@@ -51,7 +51,7 @@ class Debt extends Component {
               type="number" 
               className="input inputNumber" 
               value={this.props.debts.begBal}
-              seqNum={null}
+              // seqNum={null}
               name="begBal"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } />
           </div>  
@@ -64,7 +64,7 @@ class Debt extends Component {
               type="number" 
               className="input inputNumber" 
               value={ this.props.debts.rate } 
-              seqNum={null}
+              // seqNum={null}
               name="rate"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } /> 
           </div>  
@@ -77,7 +77,7 @@ class Debt extends Component {
               type="number" 
               className="input inputNumber" 
               value={this.props.debts.mPmt} 
-              seqNum={null}
+              // seqNum={null}
               name="mPmt"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } />
           </div>  

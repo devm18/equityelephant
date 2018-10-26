@@ -1,16 +1,15 @@
 import React from 'react';
 import axios from 'axios'; 
 import Debt from '../calculator/Debt'; 
-import AddDebt from '../calculator/AddDebt';
+import AddDebt from '../calculator/AddDebt'; 
 
-// ACTION CREATORS - LOGIN & AUTHENTICATE, and LOGOUT 
+// ACTION CREATORS - LOGIN & AUTHENTICATE, AND LOGOUT 
 export function getUser() {
   return {
     type: 'GET_USER',
     payload: axios.get('/getUser')
   }
 }
-
 export function logout() {
   return {
     type: 'LOG_OUT',
@@ -19,12 +18,17 @@ export function logout() {
 }
 
 // ACTION CREATORS - CALCULATOR 
-// Todo: call getData upon login, NEEDS fixing/testing:
-// used by <Calculator /> component 
-export function getData (userId) {
+export function getDebts (userId) {
   return { 
-    type: "getData", 
-    payload: axios.post(`/getData/:${userId}`)
+    type: "getDebts", 
+    payload: axios.post(`/getDebts/:${userId}`)
+  }; 
+}
+
+export function getPrepayments (userId) {
+  return { 
+    type: "getPrepayments", 
+    payload: axios.post(`/getPrepayments/:${userId}`)
   }; 
 }
 
@@ -93,30 +97,27 @@ const initialState = {
   user: {}, 
     // example of user object: 
     // user: {
-    //   userId: 1,
+    //   user_id: 1,
     //   name: "johnmacisaac@protonmail.com",
     //   email: "johnmacisaac@protonmail.com", 
     //   authId: "auth0|5bb4f869bdd7bf2d95bd6ed7"
     // }
   isAuthenticated: false, 
-
+  
   // Used by prepayments component:  
-  monthlyPrepayment: 0, 
-  yearlyPrepayment: 0,
-  yearlyPrepaymentDate: ' ',
-  oneTimePrepayment: 0,
-  oneTimePrepaymentDate: ' ', 
+  prepayments: {}, 
 
   // Used by debts, debt, addAdd components: 
     // example of debt object: 
     // debt = { 
+    //   debtId: 0,
     //   userId: 0,
+    //   seqNum: 0
     //   debtName: 'visa',
     //   begBal: 0,
     //   rate: 0,
     //   mPmt: 0,
     //   term: 0,
-    //   seqNum: 0
     // }
   debts: [],
   debtComps: [], // array for holding/displaying <Debt /> Components --- ??? do I need this. How else could I do it? 
@@ -133,14 +134,15 @@ const initialState = {
 // REDUCER 
 export default function CalcReducer(state = initialState, action) {
   console.log('CalcReducer.action:', action.type, action.payload);
+  
   switch (action.type) {
-
+    
     // ACTION CREATIONS - LOGIN & AUTHENTICATE, and LOGOUT 
     case `GET_USER_FULFILLED`:
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload
+        user: { ...state.user, userId: action.payload.data.user_id }
       };
     case `GET_USER_REJECTED`:
       return {
@@ -149,24 +151,28 @@ export default function CalcReducer(state = initialState, action) {
       };
      
     // ACTION CREATIONS - CALCULATOR 
-    case `getData`:
+    case 'getPrepayments_FULFILLED': 
       return {
         ...state,
-        // ??? NOT SURE HOW TO DO THIS: 
-        // state: action.payload.data, 
-        // or 
-        // yearlyPrepayment: 0,
-        // yearlyPrepaymentDate: '',
-        // oneTimePrepayment: 0,
-        // oneTimePrepaymentDate: '', 
-        // debts: [ ...state, action.payload.data. ],
-        // totalDebt: 0,
-        // originalCost: 0,
-        // newCost: 0,
-        // eliminatedCost: 0,
-        // originalTerm: '',
-        // newTerm: ''
-      };
+        prepayments: action.payload.data[0]
+      }; 
+   case 'getPrepayments_REJECTED': 
+      console.log('Error in getPrepayments_REJECTED'); 
+      return {
+        ...state
+      }; 
+    case 'getDebts_FULFILLED': 
+      return {
+        ...state,
+        debts: action.payload.data
+      }; 
+   case 'getDebts_REJECTED': 
+      console.log('Error in getDebts_REJECTED'); 
+      return {
+        ...state
+      }; 
+
+
     case 'saveInputs': 
       return {
         ...state,
@@ -175,8 +181,8 @@ export default function CalcReducer(state = initialState, action) {
     case 'addDebt':
       return { 
         ...state,
-        // debts: [...state.debts, action.payload1 ], //Wrong bc it skips db
-        debts: action.payload1.data, //Right bc get data back from db
+        debts: [...state.debts, action.payload1 ], //Wrong bc it skips db
+        // debts: action.payload1.data, //Right bc get data back from db
         debtComps: [...state.debtComps, action.payload2 ]
       };
     case 'removeDebt': 
@@ -189,14 +195,7 @@ export default function CalcReducer(state = initialState, action) {
         debtComps: [...state.debtComps]
       };  
 
-    // TODO
-    // case 'calculate': 
-    //    ??? 
-    //   return {
-    //     ...state,
-    //     ???
-    //   };  
-
+    
      // ACTION CREATIONS - UPDATING STATE (no axios calls)  
     case "onChangeHandlerPrepayments":        
       return {
