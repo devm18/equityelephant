@@ -6,27 +6,27 @@ import Debt from './Debt';
 
 class Debts extends Component {
 
+  componentDidUpdate(prevProps) {
+    console.log("PREVPROPS", prevProps.debts, this.props.debts )
+  }
 
   render() {
-    
-
+    // console.log("THIS.PROPS", this.props); 
     let debtsList = this.props.debts.map((elem,i)=>{
-      
-      console.log(elem);
+      console.log('elem: ', elem);
       
       return (  
         <Debt 
           key={i} // redux reserved keyword
           key2={i} 
-          // seqNum={ i + 1 } 
-          // seqNum={ elem.SeqNum }
-          // debtName={ elem.debtName }
-          // begBal={ elem.begBal } 
-          // rate={ elem.rate } 
-          // mPmt={ elem.mPmt } 
-          // userId = { elem.userId } 
-          // draggable='true' 
-          // ondragstart='drag(event)'
+          debt_id={elem.debt_id}
+          user_id={elem.user_id}
+          seq_num={ elem.seq_num } 
+          debt_name= {elem.debt_name}
+          beg_bal={elem.beg_bal}
+          rate={elem.rate}
+          mpmt={elem.mpmt}
+          term={elem.term}
         />
       )
     });

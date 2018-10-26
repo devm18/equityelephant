@@ -28,7 +28,7 @@ class Prepayments extends Component {
         <input 
           type="number" 
           className="input inputNumber" 
-          autoFocus
+          value={this.props.prepayments.monthly_prepayment}
           name="monthlyPrepayment"
           onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) }
           />
@@ -42,6 +42,7 @@ class Prepayments extends Component {
         <input 
           type="number" 
           className="input inputNumber" 
+          value={this.props.prepayments.yearly_prepayment}
           name="yearlyPrepayment"
           onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
           />
@@ -55,6 +56,7 @@ class Prepayments extends Component {
           type="date" 
           className="input inputDate"
           min={today} max={maxDate}
+          value={this.props.prepayments.yearly_prepayment_date}
           name="yearlyPrepaymentDate"
           onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
       </div>
@@ -66,6 +68,7 @@ class Prepayments extends Component {
         <input 
           type="number" 
           className="input inputNumber"
+          value={this.props.prepayments.one_time_prepayment}
           name="oneTimePrepayment"
           onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
       </div>
@@ -78,6 +81,7 @@ class Prepayments extends Component {
           type="Date"     
           className="input inputDate"
           min={today} max={maxDate}
+          value={this.props.prepayments.one_time_prepayment_date}
           name="oneTimePrepaymentDate"
           onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } />   
       </div>

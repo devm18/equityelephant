@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { onChangeHandlerDebt, removeDebt } from '../ducks/CalcReducer';
 
 class Debt extends Component {
-  // NEED TO assign a index and/or seqNum to each input field !!! 
   // NEEDS FIXIN: dragNdrop doesnt work, the object just return to old positions: This is clear when you enter a debtName or balance. 
 
   render() {  
@@ -13,18 +12,16 @@ class Debt extends Component {
           <div className="boxRow ">
             <button 
               className="boxRoxTextLeft removeDebt" 
-              onClick={ () => this.props.removeDebt(this.props.i) } >
+              onClick={ () => this.props.removeDebt(this.props.user_id, this.props.seq_num) } >
               X 
               </button> 
             <output 
               className="sequence-number"
-              value={ this.props.seqNum } 
-              // seqNum={null}
+              // value={ this.props.key2 } 
+              value={ this.props.seq_num } 
               name="seqNum"
               >
-              {/* { this.props.seqNum }  */}
-              {/* seqNum DOES NOT WORK YET, SO USE key2 + 1 */}
-              { this.props.seqNum } 
+              { this.props.seq_num} 
               </output>  
           </div>
 
@@ -35,10 +32,9 @@ class Debt extends Component {
             <input 
               type="text" 
               className="input inputName"
-              value={ this.props.debts.debtName }
               placeholder="name of debt"
+              value={ this.props.debt_name }
               autoFocus
-              // seqNum={null}
               name="debtName"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } /> 
           </div> 
@@ -50,8 +46,7 @@ class Debt extends Component {
             <input 
               type="number" 
               className="input inputNumber" 
-              value={this.props.debts.begBal}
-              // seqNum={null}
+              value={ this.props.beg_bal }
               name="begBal"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } />
           </div>  
@@ -63,8 +58,7 @@ class Debt extends Component {
             <input 
               type="number" 
               className="input inputNumber" 
-              value={ this.props.debts.rate } 
-              // seqNum={null}
+              value={ this.props.rate }
               name="rate"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } /> 
           </div>  
@@ -76,14 +70,15 @@ class Debt extends Component {
             <input 
               type="number" 
               className="input inputNumber" 
-              value={this.props.debts.mPmt} 
-              // seqNum={null}
+              value={this.props.mpmt} 
               name="mPmt"
               onChange={(e) => onChangeHandlerDebt(e.target.name, e.target.value) } />
           </div>  
           
           <div className="boxRow">
-            <label className="boxRowTextLeft">
+            <label 
+            className="boxRowTextLeft"
+            term={this.props.debts.term}>
               Term:
               </label>
             <output 

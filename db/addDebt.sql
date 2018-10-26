@@ -11,15 +11,3 @@ INSERT INTO debts (
   
 SELECT * FROM debts WHERE user_id = $1; 
 
-
-
-
--- {
---   "userId": 1, 
---   "seqNum": 1,
---   "debtName": "visa",
---   "begBal": 100,
---   "rate": 1,
---   "mPmt": 11,
---   "term": "n/a"
---   }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Debt from '../calculator/Debt'; 
 import AddDebt from '../calculator/AddDebt'; 
 
-// ACTION CREATORS - LOGIN & AUTHENTICATE, AND LOGOUT 
+// ACTION CREATORS 
 export function getUser() {
   return {
     type: 'GET_USER',
@@ -16,8 +16,6 @@ export function logout() {
     payload: axios.get('/logout')
   }
 }
-
-// ACTION CREATORS - CALCULATOR 
 export function getDebts (userId) {
   return { 
     type: "getDebts", 
@@ -29,15 +27,6 @@ export function getPrepayments (userId) {
   return { 
     type: "getPrepayments", 
     payload: axios.get(`/getPrepayments/${userId}`)
-  }; 
-}
-
-// need the in & out for this:
-// used by <SaveInputs /> component  
-export function saveInputs (userId) {
-  return { 
-    type: "saveInputs", 
-    payload: axios.post(`/saveInputs/:${userId}`)
   }; 
 }
 
@@ -57,20 +46,18 @@ export function addDebt(blankDebtObj) {
 export function removeDebt (userId, seqNum) { 
   return { 
     type: "removeDebt", 
-    payload1: axios.delete(`/removeDebt/${userId}/${seqNum}`),
-    payload2: seqNum
+    payload: axios.delete(`/removeDebt/${userId}/${seqNum}`)
   }; 
 }
 
-// TODO 
-// used by <Calculate /> component
-// export function calculate () { 
-//   return { 
-//     type: "calculate", 
-//     payload: "???"
-//   }; 
-// }
-
+// need the in & out for this:
+// used by <SaveInputs /> component  
+export function saveInputs (userId) {
+  return { 
+    type: "saveInputs", 
+    payload: axios.post(`/saveInputs/:${userId}`)
+  }; 
+}
 
 // ACTION CREATORS - UPDATING STATE (no axios calls)
 export function onChangeHandlerPrepayments (eTargetName, eTargetValue) {
@@ -86,7 +73,7 @@ export function onChangeHandlerDebt (seqNum, eTargetName, eTargetValue) {
   console.log('onChangeHandlerDebt', seqNum, eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerDebt",
-    payload1: seqNum, // sequence Number 
+    payload1: seqNum, 
     payload2: eTargetName,
     payload3: eTargetValue
   }
@@ -95,34 +82,26 @@ export function onChangeHandlerDebt (seqNum, eTargetName, eTargetValue) {
 // INITIAL STATE 
 const initialState = {
   user: {}, 
-    // example of user object: 
     // user: {
     //   user_id: 1,
     //   name: "johnmacisaac@protonmail.com",
     //   email: "johnmacisaac@protonmail.com", 
     //   authId: "auth0|5bb4f869bdd7bf2d95bd6ed7"
     // }
-  isAuthenticated: false, 
-  
-  // Used by prepayments component:  
+  isAuthenticated: false,   
   prepayments: {}, 
-
-  // Used by debts, debt, addAdd components: 
-    // example of debt object: 
-    // debt = { 
+  debtComps: [], 
+  debts: [],
+    // debt: { 
     //   debtId: 0,
     //   userId: 0,
     //   seqNum: 0
-    //   debtName: 'visa',
+    //   debtName: ' ',
     //   begBal: 0,
     //   rate: 0,
     //   mPmt: 0,
-    //   term: 0,
+    //   term: ' ,
     // }
-  debts: [],
-  debtComps: [], // array for holding/displaying <Debt /> Components --- ??? do I need this. How else could I do it? 
-
-  // Used by results component: 
   totalDebt: 0,
   originalCost: 0,
   newCost: 0,
@@ -135,71 +114,109 @@ const initialState = {
 
 // REDUCER 
 export default function CalcReducer(state = initialState, action) {
-  console.log('CalcReducer.action:', action.type, action.payload);
+  console.log('action.type:', action.type);console.log('action.payload:', action.payload);
   
-  switch (action.type) {
-    
-    // ACTION CREATIONS - LOGIN & AUTHENTICATE, and LOGOUT 
+  switch (action.type) {  
+    case `GET_USER_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `GET_USER_FULFILLED`:
       return {
         ...state,
+        isLoading: false,
         isAuthenticated: true,
         user: { ...state.user, userId: action.payload.data.user_id }
       };
     case `GET_USER_REJECTED`:
+      console.log('Error in getUser'); 
       return {
         ...state,
         isAuthenticated: false
       };
-     
-    // ACTION CREATIONS - CALCULATOR 
+
+
+    case 'getPrepayments_PENDING': 
+      return {
+        ...state,
+        isLoading: true
+      };
     case 'getPrepayments_FULFILLED': 
       return {
         ...state,
+        isLoading: false,
         prepayments: action.payload.data[0],
         gotPrepayments: true
       }; 
    case 'getPrepayments_REJECTED': 
-      console.log('Error in getPrepayments_REJECTED'); 
+      console.log('Error in getPrepayments'); 
       return {
         ...state
       }; 
+    
+
+    case 'getDebts_PENDING': 
+      return {
+        ...state,
+        isLoading: true
+      };
     case 'getDebts_FULFILLED': 
       return {
         ...state,
+        isLoading: false,
         debts: action.payload.data,
         gotDebts: true
       }; 
    case 'getDebts_REJECTED': 
-      console.log('Error in getDebts_REJECTED'); 
+      console.log('Error in getDebts'); 
       return {
         ...state
       }; 
 
 
-    case 'saveInputs': 
-      return {
-        ...state,
-        // TODO ??? 
-      }; 
-    case 'addDebt':
+
+    case 'addDebt_PENDING':
       return { 
         ...state,
-        debts: [...state.debts, action.payload1 ], //Wrong bc it skips db
-        // debts: action.payload1.data, //Right bc get data back from db
-        debtComps: [...state.debtComps, action.payload2 ]
+        isLoading: true
       };
-    case 'removeDebt': 
-      // payload2 = seqNum, which should work for both arrays
-      state.debts.splice(action.payload2, 1); 
-      state.debtComps.splice(action.payload2, 1); 
+    case 'addDebt_FULFILLED':
+      return { 
+        ...state,
+        isLoading: false,
+        debts: [...state.debts, action.payload1 ], 
+        // //Wrong bc it skips db
+        // // debts: action.payload1.data, //Right bc get data back from db
+        // debtComps: [...state.debtComps, action.payload2 ]
+      };
+    case 'addDebt_REJECTED':
+        console.log('Error in addDebts'); 
+        return {
+          ...state
+        }; 
+    
+
+    case 'removeDebt_PENDING': 
       return {
         ...state,
-        debts: [...state.debts],
-        debtComps: [...state.debtComps]
-      };  
-
+        isLoading: true
+      };
+    case 'removeDebt_FULFILLED': 
+    // state.debts.splice(action.payload2, 1); 
+    // state.debtComps.splice(action.payload2, 1); 
+      return {
+        ...state,
+        isLoading: false,
+        debts: action.payload.data
+      };
+    case 'removeDebt_REJECTED': 
+      console.log('Error in removeDebt'); 
+      return {
+        ...state
+      }; 
     
+
      // ACTION CREATIONS - UPDATING STATE (no axios calls)  
     case "onChangeHandlerPrepayments":        
       return {

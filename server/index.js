@@ -32,6 +32,7 @@ app.use(session({
   })
 );
 
+
 /* beg of Auth0 *************************************** */
 app.use(passport.initialize());
 app.use(passport.session()); 
@@ -77,8 +78,9 @@ function authenticated (req, res, next) {
 
 app.get('/getUser', authenticated, getUser); 
 app.get('/logout', logout);
-
 /* end of auth0 *************************************** */
+
+
 
 // endpoints
 app.get('/test', test); // postman check 

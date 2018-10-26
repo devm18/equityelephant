@@ -11,31 +11,34 @@ import Calculate from "./Calculate";
 import Results from "./Results";
 
 class Calculator extends Component {
-  // will run first
+
+  // componentDidMount executes before data is retrieved, 
+  // so use both DidMount and DidUpdate to get data 
+  // runs first
   componentDidMount() {
     // Use the && to prevent logging out ~jonw.
-    // if(this.props.user.userId) {
-    // IF ALREADY AUTHENTICATED, to exe the call for getDebt/getPrepayments
+    // IF ALREADY AUTHENTICATED, call getDebt/getPrepayments
     if (this.props.user.userId && this.props.user.userId) {
       this.props.getPrepayments(this.props.user.userId);
       this.props.getDebts(this.props.user.userId);
     }
   }
-
-  // will run second
+  // runs second
   componentDidUpdate(prevProps) {
-    // Use the && to prevent logging out ~jonw.
-    // if(this.props.user.userId) {
-    // IF AWAITING AUTHENTICATION,
+    // IF AWAITING AUTHENTICATION, call getDebt/getPrepayments
     if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
       this.props.getPrepayments(this.props.user.userId);
       this.props.getDebts(this.props.user.userId);
     }
   }
 
+
   render() {
+    console.log("THIS.PROPS", this.props)
     return (
-      // conditional render page until getPrepayments and getDebts are complete
+      // {this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" /> ) : null}
+
+      // render page only after getPrepayments and getDebts are completed: 
       this.props.gotPrepayments && this.props.gotDebts ? 
 
       <div className="calculator-page">
@@ -46,9 +49,6 @@ class Calculator extends Component {
         <div> {this.props.user.userId || `NO USER ID`} </div>
         <br />
         <div>PREPAYMENTS: </div>
-
-        
-        
         
         <Prepayments />
 
@@ -71,7 +71,6 @@ class Calculator extends Component {
         <div> RESULTS: </div>
 
         <Results />
-
         
         </div>
       : null 
