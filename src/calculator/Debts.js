@@ -13,16 +13,18 @@ class Debts extends Component {
   render() {
     console.log("THIS.PROPS", this.props);
     let debtsList = this.props.debts.map((elem, i) => {
-      // console.log('elem: ', elem);
+      console.log('elem and i: ', elem, i);
 
       return (
         <Debt
           key={i} // redux reserved keyword
           key2={i}
-          debtId={elem.debt_id}
+          index={i}
           userId={elem.user_id}
-          debtName={elem.debt_name}
-          begBal={elem.beg_bal}
+          debtId={elem.debt_id}
+          // un-used?:
+          debtName={elem.debtName} 
+          begBal={elem.begBal}
           rate={elem.rate}
           mpmt={elem.mpmt}
           term={elem.term}

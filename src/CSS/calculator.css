@@ -49,7 +49,7 @@ output[name=debt-term], output[name=sequence-number] {
   width: 375px;
   height: auto; 
   margin: 20px auto; 
-  padding: 5px;
+  padding: 15px;
   border: 1px solid black; 
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -57,9 +57,9 @@ output[name=debt-term], output[name=sequence-number] {
 
 /* .textInputRow{ */
 .boxRow {
-  margin: 2px; 
+  margin: 0px; 
   /* border: 1px solid red; */
-  padding: 0; 
+  padding: 0px; 
   display: flex;
   justify-content: space-between;
 }

@@ -60,7 +60,7 @@ const addDebt = (req, res, next) => {
 }
 
 const removeDebt = (req, res, next) => {
-  console.log('calcCtrl-removeDebt-req.params', req.params); 
+  console.log('\nREMOVE-DEBT-req.params', req.params); 
   let { userId, debtId } = req.params; 
   let db = req.app.get("db");
   db.removeDebt([userId, debtId])

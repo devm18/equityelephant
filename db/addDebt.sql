@@ -1,4 +1,5 @@
 INSERT INTO debts ( 
+  -- // addDebt.sql doesnt insert debt_id, but retrieves it.  
   user_id,  
   key2,  
   debt_name,  

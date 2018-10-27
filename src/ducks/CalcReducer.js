@@ -32,7 +32,7 @@ export function getDebts(userId) {
 }
 
 export function addDebt(blankDebtObj) {
-  console.log('BLANK DEBT OBJ: ', blankDebtObj);
+  console.log("BLANK DEBT OBJ: ", blankDebtObj);
   return {
     type: "addDebt",
     payload: axios.post(`/addDebt`, blankDebtObj)
@@ -40,6 +40,7 @@ export function addDebt(blankDebtObj) {
 }
 
 export function removeDebt(userId, debtId) {
+  console.log(userId, debtId)
   return {
     type: "removeDebt",
     payload: axios.delete(`/removeDebt/${userId}/${debtId}`)
@@ -55,7 +56,7 @@ export function saveInputs(userId) {
 
 // ACTION CREATORS - UPDATING STATE (no axios calls)
 export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
-  console.log('onChangeHandlerPrepayments', eTargetName, eTargetValue);
+  console.log("onChangeHandlerPrepayments", eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerPrepayments",
     payload1: eTargetName,
@@ -96,6 +97,17 @@ const initialState = {
   //   mPmt: 0,
   //   term: ' ',
   // }
+
+  // x: {
+  //   debt_id: 0,
+  //   user_d: 0,
+  //   key2: 0,
+  //   debtName: ' ',
+  //   begBal: 0,
+  //   rate: 0,
+  //   mPmt: 0,
+  //   term: ' ',
+  // }
   totalDebt: 0,
   originalCost: 0,
   newCost: 0,
@@ -108,7 +120,11 @@ const initialState = {
 
 // REDUCER
 export default function CalcReducer(state = initialState, action) {
-  console.log(action.payload1, action.payload2)
+  console.log(
+    action.payload, 
+    action.payload1, 
+    action.payload2
+    );
 
   switch (action.type) {
     case `GET_USER_PENDING`:
@@ -172,18 +188,31 @@ export default function CalcReducer(state = initialState, action) {
         isLoading: true
       };
     case "addDebt_FULFILLED":
+      // convert to JS camelCase
+      let payloadData = action.payload.data.map((e, i) => {
+        return {
+          // addDebt.sql doesnt insert debt_id, but get get it back 
+          debtId: e.debt_id,
+          userId: e.user_id,
+          key2: e.key2,
+          debtName: e.debt_name,
+          begBal: e.beg_bal,
+          rate: e.rate,
+          mPmt: e.mpmt,
+          term: e.term
+        };
+      });
       return {
         ...state,
         isLoading: false,
-        debts: action.payload.data
-        // Wrong bc it bypasses data circle:
-        // debtComps: [...state.debtComps, action.payload2 ]
+        debts: payloadData
       };
     case "addDebt_REJECTED":
       console.log("Error in addDebts");
       return {
         ...state
       };
+    
     case "removeDebt_PENDING":
       return {
         ...state,
@@ -199,8 +228,8 @@ export default function CalcReducer(state = initialState, action) {
       };
     case "removeDebt_REJECTED":
       console.log("Error in removeDebt");
-      return { 
-        ...state 
+      return {
+        ...state
       };
 
     // ACTION CREATIONS - UPDATING STATE (no axios calls)

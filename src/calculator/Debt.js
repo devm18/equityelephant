@@ -3,23 +3,24 @@ import { connect } from "react-redux";
 import { onChangeHandlerDebt, removeDebt } from "../ducks/CalcReducer";
 
 class Debt extends Component {
+  
   render() {
-    console.log(this.props.debts);
+    console.log('THIS.PROPS.DEBTS',this.props.debts);
+    console.log('THIS.PROPS',this.props);
+
 
     return (
       <div className="box">
         <div className="boxRow ">
           <button
             className="boxRoxTextLeft removeDebt"
-            onClick={() => {
-              this.props.removeDebt(this.props.userId, this.props.debtId);
-            }}
+            onClick={() => { this.props.removeDebt( this.props.userId, this.props.debtId);
+       }}
           >
             X
           </button>
           <output
             className="sequence-number"
-            value={this.props.key2}
             key2={this.props.key2}
             name="key2"
           >
@@ -32,11 +33,13 @@ class Debt extends Component {
           <input
             type="text"
             className="input inputName"
-            placeholder="name of debt"
-            value={this.props.beg_bal}
             autoFocus
+            placeholder="name of debt"
+            key2={this.props.key2}
             name="debtName"
-            onChange={e => onChangeHandlerDebt(e.target.name, e.target.value)}
+            onChange={e =>
+              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+            }
           />
         </div>
 
@@ -45,9 +48,11 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            value={this.props.beg_bal}
+            key2={this.props.key2}
             name="begBal"
-            onChange={e => onChangeHandlerDebt(e.target.name, e.target.value)}
+            onChange={e =>
+              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+            }
           />
         </div>
 
@@ -56,9 +61,11 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            value={this.props.rate}
+            key2={this.props.key2}
             name="rate"
-            onChange={e => onChangeHandlerDebt(e.target.name, e.target.value)}
+            onChange={e =>
+              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+            }
           />
         </div>
 
@@ -67,19 +74,18 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            value={this.props.mpmt}
+            key2={this.props.key2}
             name="mPmt"
-            onChange={e => onChangeHandlerDebt(e.target.name, e.target.value)}
+            onChange={e =>
+              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+            }
           />
         </div>
 
         <div className="boxRow">
-          <label className="boxRowTextLeft" term={this.props.debts.term}>
-            Term:
-          </label>
+          <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            {/* needs fixin:  */}
-            {/* { this.props.debts[this.props.key2].term } */}
+            {this.props.debts[this.props.key2].term}
           </output>
         </div>
       </div>
