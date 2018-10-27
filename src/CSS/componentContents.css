@@ -1,6 +1,12 @@
 /* ******************** COMPONENT-CONTENTS ******************** */
 
 
+p { 
+  text-align: justify;
+  padding: .25vh 5vh;
+
+}
+
 /* ********** home ********** */
 /* # elephantFront {
   margin-top: -10px; 
@@ -16,14 +22,29 @@
 /* ********** articles ********** */
 
 /* ********** glossary ********** */
+#glossary {
+  /* border: 1px solid red;  */
+}
+
+dl { 
+  /* border: 1px solid red;  */
+  text-align: justify; 
+  padding: 2.2vw;  
+} 
+dt {
+  /* border: 1px solid black;  */
+  font-weight: bold;
+  padding: 1vh; 
+}
+/* dd { } */
 
 /* ********** about ********** */
-# pliny-quote {
-  text-align: left;
+/* #pliny-box { } */
+#pliny-quote {
+  padding: 0 3vw; 
 }
-# pliny {
+#pliny-the-elder {
   text-align: right;
-  padding-right: 10px;
 }
 
 /* ********** contact ********** */

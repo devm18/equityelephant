@@ -5,24 +5,24 @@ import Debt from './Debt';
 
 class AddDebt extends Component {
 
-
   render() {
+  
     let { addDebt } = this.props; 
     
     let blankDebtObj = {
       userId: this.props.user.userId,
-      seqnum: this.props.debts.length + 1,
-      debtName: 'debt name', 
+      key2: this.props.debts.length + 1,
+      debtName: ' ', 
       begBal: 0, 
       rate: 0, 
       mPmt: 0, 
-      term: 'n/a'
+      term: ' '
     }  
 
     let addDebtButton = () => {
-      // if(!this.props.user.userId) return; 
+      
       if(this.props.debts.length === 0) { 
-        addDebt(blankDebtObj); 
+        // addDebt(blankDebtObj); 
         return ( 
           <button 
           onClick={ () => addDebt(blankDebtObj) } > 
@@ -41,7 +41,9 @@ class AddDebt extends Component {
     return( 
       <div className="calc-page-buttons"> 
         { addDebtButton() }  
-      </div>
+      </div> 
+      
+  
     )
   }
 }

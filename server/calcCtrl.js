@@ -31,19 +31,45 @@ const getPrepayments = (req, res, next) => {
   .catch(error => console.log(error))
 }
 
+const addDebt = (req, res, next) => {
+  console.log('calcCtrl-addDebt-req.body', req.body); 
+  const { 
+    userId,  
+    key2,  
+    debtName,  
+    begBal,  
+    rate,  
+    mPmt,  
+    term 
+  } = req.body;  
+
+  let db = req.app.get("db");
+  db.addDebt([
+    userId,  
+    key2,  
+    debtName,  
+    begBal,  
+    rate,  
+    mPmt,  
+    term 
+  ])
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => console.log(error)) 
+}
+
 const removeDebt = (req, res, next) => {
   console.log('calcCtrl-removeDebt-req.params', req.params); 
-  let { userId, seqNum } = req.params; 
+  let { userId, debtId } = req.params; 
   let db = req.app.get("db");
-  db.removeDebt(userId, seqNum)
+  db.removeDebt([userId, debtId])
   .then(response => {
     console.log(response); 
     res.status(200).json(response);
   })
   .catch(error => console.log(error))
 }
-
-
 
 
 // USE db.query to loop thru array of this.props.debt to insert into db. 
@@ -66,7 +92,7 @@ const saveInputs = (req, res) => {
   let query2 = `INSERT INTO debts (debt_name, beg_bal, rate, mpmt, term) VALUES ` 
   + debts.map(obj => {
     return (
-      `('${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}') WHERE user_id = '${obj.userId} AND seq_num = '${obj.seqNum}'` 
+      `('${obj.debtName}', ${obj.begBal}, ${obj.rate}, ${obj.mpmt}, '${obj.term}') WHERE user_id = '${obj.userId} AND key2 = '${obj.key2}'` 
     )
   }).join(',')+";";
   
@@ -81,43 +107,12 @@ const saveInputs = (req, res) => {
   })
 }
 
-
-//// I NEED THIS bc saveInputs needs user_id and seq_num to pre-exist. Duh!
-const addDebt = (req, res, next) => {
-  console.log('calcCtrl-addDebt-req.body', req.body); 
-  const { 
-    userId,
-    seqNum,
-    debtName,
-    begBal,
-    rate,
-    mPmt,
-    term
-  } = req.body;  
-  let db = req.app.get("db");
-  db.addDebt([
-    userId,
-    seqNum,
-    debtName,
-    begBal,
-    rate,
-    mPmt,
-    term
-  ])
-  .then(response => {
-    res.status(200).json(response);
-  })
-  .catch(error => console.log(error)) 
-}
-
-
-
 module.exports = {
   test, 
   getPrepayments,
   getDebts,
-  saveInputs, 
   addDebt,
-  removeDebt
+  removeDebt,
+  saveInputs
   // calculate
 }

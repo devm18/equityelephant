@@ -32,7 +32,6 @@ class Calculator extends Component {
     }
   }
 
-
   render() {
     console.log("THIS.PROPS", this.props)
     return (

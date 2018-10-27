@@ -1,6 +1,6 @@
 INSERT INTO debts ( 
   user_id,  
-  seq_num,  
+  key2,  
   debt_name,  
   beg_bal,  
   rate,  

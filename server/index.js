@@ -88,9 +88,9 @@ app.get('/test', test); // postman check
 app.get('/getDebts/:userId', getDebts); 
 app.get('/getPrepayments/:userId', getPrepayments); 
 
-app.put('/saveInputs/:userId', saveInputs);
 app.post('/addDebt', addDebt); 
-app.delete('/removeDebt/:userId/:seqNum', removeDebt); 
+app.delete('/removeDebt/:userId/:debtId', removeDebt); 
+app.put('/saveInputs/:userId', saveInputs);
 // app.post('/calculate/:userId', calculate); 
 
 const port = process.env.PORT || 3001;

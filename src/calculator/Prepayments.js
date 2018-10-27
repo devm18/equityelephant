@@ -5,7 +5,7 @@ import { onChangeHandlerPrepayments } from '../ducks/CalcReducer';
 class Prepayments extends Component {
   
   render() {
-    // console.log("Prepayments.this.props:", this.props) 
+    console.log("Prepayments.this.props:", this.props) 
     
     const { onChangeHandlerPrepayments } = this.props; 
     
@@ -24,7 +24,7 @@ class Prepayments extends Component {
       <div className="boxRow">
         <label 
         className="boxRowTextLeft">
-        Monthly prepayment:</label>
+        Monthly prepayments:</label>
         <input 
           type="number" 
           className="input inputNumber" 
@@ -34,10 +34,11 @@ class Prepayments extends Component {
           />
       </div>
       
+      {/*       
       <div className="boxRow">
         <label 
           className="boxRowTextLeft">
-          Yearly prepayment:</label>
+          Yearly prepayments:</label>
           
         <input 
           type="number" 
@@ -85,6 +86,7 @@ class Prepayments extends Component {
           name="oneTimePrepaymentDate"
           onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } />   
       </div>
+       */}
 
     </div>
     )
