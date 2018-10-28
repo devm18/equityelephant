@@ -25,6 +25,7 @@ https://www.w3.org/TR/html5/sec-forms.html#element-attrdef-form-novalidate
 }  
 .inputName {
   text-align: center; 
+
 }
 .inputNumber {
   text-align: right;
@@ -38,14 +39,14 @@ input[type=date] {
   border-radius: 5px; */
 }
 
-.sequence-number {
+/* .sequence-number {} */
 
-}
 output[name=debt-term], output[name=sequence-number] {
   text-align: right; /* ????????????? */  
 }
 
 .box {
+  border: 2px solid red;
   width: 375px;
   height: auto; 
   margin: 20px auto; 
@@ -68,6 +69,7 @@ output[name=debt-term], output[name=sequence-number] {
 
 /* ********** debts.js & debt.js ********** */
 .debtBoxTopRow {
+  border: 2px solid red;
   display: flex;
   justify-content: space-between;
 }

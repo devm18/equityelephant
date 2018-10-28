@@ -10,15 +10,15 @@ export default function About() {
       <h2>About Equity Elephant</h2>
       <br />
       <div id="pliny-box">
-        <blockquote id="pliny-quote">
-          <p>The elephant is the largest land animal and approaches in intelligence
+        <blockquote >
+          <p id="pliny-quote">The elephant is the largest land animal and approaches in intelligence
           nearest to man. It understands language, obeys commands, and remembers
           duties it has been taught. It knows alike the pleasures of love and
           glory, and, to a degree rare even among men, possesses notions of
           honesty, prudence, and equity.
           </p>
         <p id="pliny-the-elder">
-          ~ Pliny the Elder, In Praise of Elephants, 77 A.D.
+          ~ Pliny the Elder, <i>In Praise of Elephants, 77 A.D.</i>
         </p>
         </blockquote>
       </div>

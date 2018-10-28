@@ -3,9 +3,9 @@ import React from 'react';
 export default function Articles () {
   return (
     <div className="articles">
-      
+      <br /> <br /> 
       <h3><strong>Beware of <em>Debt Shuffle</em> programs</strong></h3>
-      
+      <br /> 
       <p>There are numerous companies selling <em>“debt elimination”</em> <em>“debt elimination”</em> and <em>“mortgage amortization acceleration” software products</em> at exorbitant prices: United First Financial (also known as: U1st or UFirst Financial); Sydney Financial Group, Harj Gill, Equity Genie, among others. Their <em>products</em> go by various names: Money Merge Account (MMA); Mortgage Checking Account (MCA); Mortgage Elimination System, etc.</p>
 
       <p>They all recommend shuffling debt from a mortgage account to an HELOC account (some even recommend using a credit card!), and using the HELOC account as a checking account in order to “take advantage” of the average daily balance. (They also often describe the <em>average daily balance</em> as the <em>"key banking principle"</em> as if it were some sort of banking secret.)</p>
@@ -25,6 +25,7 @@ export default function Articles () {
       <p>In the best case scenario, eliminating $3,000 over ten years doesn't even cover the cost for their $3,500 calculator.</p>
 
       <p>It gets worse.</p>
+
       <p>Using a HELOC in this scheme is more likely to cost money than save money <b>because of the average daily balance</b> (ADB). In the real world, the costs of living (rent, food, cars, etc) occur before income is received. Most people pay the mortgage on the 1st of the month and other bills throughout the month, and receive income on the 15th of the month and on the 1st of the next month (most receive income <i>after</i> working for 2 weeks). The only thing reducing the balance, and truly lowering the ADB, is the discretionary (or surplus) income.</p>
 
       <p>In most cases, <i>using</i> an HELOC actually <b><i>siphons off</i></b> some of the discretionary (surplus) income that could have been used for pre-payments against the primary mortgage.</p>
@@ -36,6 +37,7 @@ export default function Articles () {
       <p>These companies convince their clients that using an HELOC account with their $3,500 calculator helps them save money. But the real reason their clients save money is because they are using discretionary income (minus the expense of the HELOC) to make pre-payments.</p>
 
       <p>These companies also make one or more the following claims about their programs:</p>
+      <div className="enumerated_list_beware">
       <ol>
         <li>that it doesn't require extra  payments or pre-payments, 
       </li>
@@ -45,6 +47,8 @@ export default function Articles () {
         <li>that it and their online software is easy to use,</li>
         <li>that it eliminates interest by making debt transfers mid-month.</li>
       </ol>
+      </div>
+      
 
       <p>All of these claims are misleading, deceptive, or false.</p> 
       <ol>

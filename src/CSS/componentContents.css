@@ -32,13 +32,21 @@ dt {
 /* dd { } */
 
 /* ********** about ********** */
-/* #pliny-box { } */
+#pliny-box {
+  /* border: 1px solid red; */
+  margin-top: -1.5em;  
+ }
 #pliny-quote {
-  padding: 0 3vw; 
+  /* border: 1px solid red; */
+  padding: 0 3vw;
+  font-size: 1.1em; 
+  line-height: 1.3em; 
 }
 #pliny-the-elder {
   text-align: right;
+  font-size: 1.1em; 
 }
+
 
 /* ********** contact ********** */
 

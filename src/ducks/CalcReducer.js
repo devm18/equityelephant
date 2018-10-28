@@ -1,5 +1,5 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
 import Debt from "../calculator/Debt";
 import AddDebt from "../calculator/AddDebt";
 
@@ -17,17 +17,17 @@ export function logout() {
   };
 }
 
-export function getPrepayments(userId) {
+export function getPrepayments(user_id) {
   return {
     type: "getPrepayments",
-    payload: axios.get(`/getPrepayments/${userId}`)
+    payload: axios.get(`/getPrepayments/${user_id}`)
   };
 }
 
-export function getDebts(userId) {
+export function getDebts(user_id) {
   return {
     type: "getDebts",
-    payload: axios.get(`/getDebts/${userId}`)
+    payload: axios.get(`/getDebts/${user_id}`)
   };
 }
 
@@ -39,18 +39,18 @@ export function addDebt(blankDebtObj) {
   };
 }
 
-export function removeDebt(userId, debtId) {
-  console.log(userId, debtId)
+export function removeDebt(user_id, debt_id) {
+  console.log(user_id, debt_id);
   return {
     type: "removeDebt",
-    payload: axios.delete(`/removeDebt/${userId}/${debtId}`)
+    payload: axios.delete(`/removeDebt/${user_id}/${debt_id}`)
   };
 }
 
-export function saveInputs(userId) {
+export function saveInputs(user_id, prepayments/* , debts */) {
   return {
     type: "saveInputs",
-    payload: axios.post(`/saveInputs/:${userId}`)
+    payload: axios.put(`/saveInputs/${user_id}`, { prepayments/* , debts */ })
   };
 }
 
@@ -81,50 +81,48 @@ const initialState = {
   //   user_id: 1,
   //   name: "johnmacisaac@protonmail.com",
   //   email: "johnmacisaac@protonmail.com",
-  //   authId: "auth0|5bb4f869bdd7bf2d95bd6ed7"
+  //   auth_id: "auth0|5bb4f869bdd7bf2d95bd6ed7"
   // }
   isAuthenticated: false,
   debtComps: [],
   prepayments: {},
+  // {
+  //   user_id: 1,
+  //   monthly_prepayment: 0,
+  //   yearly_prepayment: 0,
+  //   yearly_prepayment_date: yyy/mm/dd,
+  //   one_time_prepayment: 0,
+  //   one_time_prepayment_date: yyy/mm/dd
+  // }
   debts: [],
-  // debt: {
-  //   debtId: 0,
-  //   userId: 0,
+  // 0: {
+  //   debt_id: 1,
+  //   user_id: 1,
   //   key2: 0,
-  //   debtName: ' ',
-  //   begBal: 0,
+  //   debt_name: ' ',
+  //   beg_bal: 0,
   //   rate: 0,
-  //   mPmt: 0,
   //   term: ' ',
+  //   mpmt: 0
   // }
-
-  // x: {
-  //   debt_id: 0,
-  //   user_d: 0,
-  //   key2: 0,
-  //   debtName: ' ',
-  //   begBal: 0,
-  //   rate: 0,
-  //   mPmt: 0,
-  //   term: ' ',
+  results: {},
+  // {
+  //   result_id: 1,
+  //   user_id: 1,
+  //   total_debt: ' ',
+  //   original_term: '' ,
+  //   new_term: ' ',
+  //   original_cost: 0,
+  //   new_cost: 0,
+  //   eliminated_cost: 0
   // }
-  totalDebt: 0,
-  originalCost: 0,
-  newCost: 0,
-  eliminatedCost: 0,
-  originalTerm: " ",
-  newTerm: " ",
   gotPrepayments: false,
   gotDebts: false
 };
 
 // REDUCER
 export default function CalcReducer(state = initialState, action) {
-  console.log(
-    action.payload, 
-    action.payload1, 
-    action.payload2
-    );
+  console.log(state);
 
   switch (action.type) {
     case `GET_USER_PENDING`:
@@ -137,7 +135,7 @@ export default function CalcReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: { ...state.user, userId: action.payload.data.user_id }
+        user: { ...state.user, user_id: action.payload.data.user_id }
       };
     case `GET_USER_REJECTED`:
       console.log("Error in getUser");
@@ -191,15 +189,15 @@ export default function CalcReducer(state = initialState, action) {
       // convert to JS camelCase
       let payloadData = action.payload.data.map((e, i) => {
         return {
-          // addDebt.sql doesnt insert debt_id, but get get it back 
-          debtId: e.debt_id,
-          userId: e.user_id,
+          // addDebt's payload includes debt_id
+          debt_id: e.debt_id,
+          user_id: e.user_id,
           key2: e.key2,
-          debtName: e.debt_name,
-          begBal: e.beg_bal,
+          debt_name: e.debt_name,
+          beg_bal: e.beg_bal,
           rate: e.rate,
-          mPmt: e.mpmt,
-          term: e.term
+          term: e.term,
+          mpmt: e.mpmt
         };
       });
       return {
@@ -212,7 +210,7 @@ export default function CalcReducer(state = initialState, action) {
       return {
         ...state
       };
-    
+
     case "removeDebt_PENDING":
       return {
         ...state,
@@ -236,11 +234,13 @@ export default function CalcReducer(state = initialState, action) {
     case "onChangeHandlerPrepayments":
       return {
         ...state,
-        [action.payload1]: action.payload2
+        prepayments: {
+          ...state.prepayments,
+          [action.payload1]: action.payload2
+        }
       };
     case "onChangeHandlerDebt":
-      // Loop over debts to find key2, then update prop:value pair.
-      // ??? Not sure if this code will work, I still NEED TO figure out how to assign key2 to inputs in Debt.js
+      // Loop debts, find key2 , update key:value.
       this.state.debts.forEach((e, i) => {
         if (e.debt_id === action.payload1) {
           return {

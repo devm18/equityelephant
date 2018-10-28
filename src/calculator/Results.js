@@ -1,71 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { enterDebtName, enterBegBal, enterRate, enterMonthlyPayment, removeDebt } from '../ducks/CalcReducer';
+import {
+  enterDebtName,
+  enterBegBal,
+  enterRate,
+  enterMonthlyPayment,
+  removeDebt
+} from "../ducks/CalcReducer";
 
 export default class Results extends Component {
   render() {
     return (
       <div className="results">
         <div className="box">
-
           <div className="boxRow">
-            <p className="boxRowTextLeft">
-              Total Debt:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.totalDebt }
-            </p>
-          </div>
-          
-          <div className="boxRow">
-            <p className="boxRowTextLeft">
-              Original term:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.originalTerm }
-            </p>
+            <label className="boxRowTextLeft">Total debt:</label>
+            <output className="boxRowTextRight">{this.props.total_debt}</output>
           </div>
 
           <div className="boxRow">
-            <p className="boxRowTextLeft">
-              New term:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.newTerm }
-            </p>
-          </div>
-
-          <br /> 
-          <div className="boxRow">
-            <p className="boxRowTextLeft">
-              Original cost:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.originalCost }
-            </p>
+            <label className="boxRowTextLeft">Original term:</label>
+            <output className="boxRowTextRight">
+              {this.props.original_term}
+            </output>
           </div>
 
           <div className="boxRow">
-            <p className="boxRowTextLeft">
-              New cost:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.newCost }
-            </p>
+            <label className="boxRowTextLeft">New term:</label>
+            <output className="boxRowTextRight">{this.props.new_term}</output>
+          </div>
+
+          <br />
+          <div className="boxRow">
+            <label className="boxRowTextLeft">Original cost:</label>
+            <output className="boxRowTextRight">{this.props.original_cost}</output>
           </div>
 
           <div className="boxRow">
-            <p className="boxRowTextLeft">
-              Eliminated cost:
-            </p>
-            <p className="boxRowTextRight">
-              { this.props.eliminatedCost }
-            </p>
+            <label className="boxRowTextLeft">New cost:</label>
+            <output className="boxRowTextRight">{this.props.new_cost}</output>
           </div>
-          
+
+          <div className="boxRow">
+            <label className="boxRowTextLeft">Eliminated cost:</label>
+            <output className="boxRowTextRight">{this.props.eliminated_cost}</output>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 }

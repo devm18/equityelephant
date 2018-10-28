@@ -14,13 +14,13 @@ class Debt extends Component {
         <div className="boxRow ">
           <button
             className="boxRoxTextLeft removeDebt"
-            onClick={() => { this.props.removeDebt( this.props.userId, this.props.debtId);
+            onClick={() => { this.props.removeDebt( this.props.user_id, this.props.debt_id);
        }}
           >
             X
           </button>
           <output
-            className="sequence-number"
+            className="boxRowTextRight sequence-number"
             key2={this.props.key2}
             name="key2"
           >
@@ -36,10 +36,11 @@ class Debt extends Component {
             autoFocus
             placeholder="name of debt"
             key2={this.props.key2}
-            name="debtName"
+            name="debt_name"
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
+            value={this.props.debts.debt_name}
           />
         </div>
 
@@ -49,10 +50,11 @@ class Debt extends Component {
             type="number"
             className="input inputNumber"
             key2={this.props.key2}
-            name="begBal"
+            name="beg_bal"
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
+            value={this.props.debts.beg_bal}
           />
         </div>
 
@@ -66,6 +68,7 @@ class Debt extends Component {
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
+            value={this.props.debts.rate}
           />
         </div>
 
@@ -75,10 +78,11 @@ class Debt extends Component {
             type="number"
             className="input inputNumber"
             key2={this.props.key2}
-            name="mPmt"
+            name="mpmt"
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
+            value={this.props.debts.mpmt}
           />
         </div>
 
@@ -88,6 +92,7 @@ class Debt extends Component {
             {this.props.debts[this.props.key2].term}
           </output>
         </div>
+        
       </div>
     );
   }

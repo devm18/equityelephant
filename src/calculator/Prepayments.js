@@ -27,14 +27,14 @@ class Prepayments extends Component {
         Monthly prepayments:</label>
         <input 
           type="number" 
-          className="input inputNumber" 
-          value={this.props.prepayments.monthly_prepayment}
-          name="monthlyPrepayment"
+          className="input inputNumber"
+          name="monthly_prepayment"
           onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) }
+          value={this.props.prepayments.monthly_prepayment} 
           />
       </div>
       
-      {/*       
+            
       <div className="boxRow">
         <label 
           className="boxRowTextLeft">
@@ -43,9 +43,9 @@ class Prepayments extends Component {
         <input 
           type="number" 
           className="input inputNumber" 
-          value={this.props.prepayments.yearly_prepayment}
-          name="yearlyPrepayment"
+          name="yearly_prepayment"
           onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
+          value={this.props.prepayments.yearly_prepayment} 
           />
       </div>
       
@@ -57,9 +57,10 @@ class Prepayments extends Component {
           type="date" 
           className="input inputDate"
           min={today} max={maxDate}
-          value={this.props.prepayments.yearly_prepayment_date}
-          name="yearlyPrepaymentDate"
-          onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
+          name="yearly_prepayment_date"
+          onChange={ (e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
+          value={this.props.prepayments.yearly_prepayment_date} 
+          /> 
       </div>
       
       <div className="boxRow">
@@ -69,9 +70,9 @@ class Prepayments extends Component {
         <input 
           type="number" 
           className="input inputNumber"
-          value={this.props.prepayments.one_time_prepayment}
-          name="oneTimePrepayment"
-          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } /> 
+          name="one_time_prepayment"
+          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
+          value={this.props.prepayments.one_time_prepayment}/> 
       </div>
       
       <div className="boxRow">
@@ -82,11 +83,12 @@ class Prepayments extends Component {
           type="Date"     
           className="input inputDate"
           min={today} max={maxDate}
+          name="one_time_prepayment_date"
+          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } 
           value={this.props.prepayments.one_time_prepayment_date}
-          name="oneTimePrepaymentDate"
-          onChange={(e) => onChangeHandlerPrepayments(e.target.name, e.target.value) } />   
+          />   
       </div>
-       */}
+      
 
     </div>
     )

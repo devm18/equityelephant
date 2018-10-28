@@ -85,13 +85,14 @@ app.get('/logout', logout);
 // endpoints
 app.get('/test', test); // postman check 
 
-app.get('/getDebts/:userId', getDebts); 
-app.get('/getPrepayments/:userId', getPrepayments); 
+app.get('/getDebts/:user_id', getDebts); 
+app.get('/getPrepayments/:user_id', getPrepayments); 
 
 app.post('/addDebt', addDebt); 
-app.delete('/removeDebt/:userId/:debtId', removeDebt); 
-app.put('/saveInputs/:userId', saveInputs);
-// app.post('/calculate/:userId', calculate); 
+app.delete('/removeDebt/:user_id/:debt_id', removeDebt); 
+
+app.put('/saveInputs/:user_id', saveInputs);
+// app.post('/calculate/:user_id', calculate); 
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening to port ${port}`));

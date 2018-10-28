@@ -35,9 +35,12 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
-	list-style: none;
+/* ol, ul {} */
+/* li { } */
+.enumerated_list_beware {
+	
 }
+
 blockquote, q {
 	quotes: none;
 }

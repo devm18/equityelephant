@@ -20,14 +20,14 @@ class Debts extends Component {
           key={i} // redux reserved keyword
           key2={i}
           index={i}
-          userId={elem.user_id}
-          debtId={elem.debt_id}
+          user_id={elem.user_id}
+          debt_id={elem.debt_id}
           // un-used?:
-          debtName={elem.debtName} 
-          begBal={elem.begBal}
+          debt_name={elem.debt_name} 
+          beg_bal={elem.beg_bal}
           rate={elem.rate}
-          mpmt={elem.mpmt}
           term={elem.term}
+          mpmt={elem.mpmt}
         />
       );
     });

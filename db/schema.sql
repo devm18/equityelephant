@@ -6,13 +6,12 @@ CREATE TABLE users (
 ); 
 
 CREATE TABLE prepayments (
-  prepayment_id SERIAL PRIMARY KEY, 
+  user_id PRIMARY KEY, 
   monthly_pmt FLOAT,
   yearly_pmt FLOAT,
   yearly_pmt_date DATE,
   one_time_pmt FLOAT,
   one_time_pmt_date DATE
-  -- foreign key (user_id) references users (user_id) integer,
 );
 
 CREATE TABLE debts (
@@ -21,14 +20,14 @@ CREATE TABLE debts (
   debt_name VARCHAR(20),
   beg_bal FLOAT,
   rate FLOAT,
-  mpmt FLOAT,
   term FLOAT, /* calculate from bal, rate, mpmt */
+  mpmt FLOAT,
   ipmt FLOAT,
   ppmt FLOAT,
   prepmt FLOAT,
   end_bal FLOAT
   -- foreign key (user_id) references users (user_id) integer,
-  -- foreign key (prepayment_id) references prepayments (prepayment_id) integer,
+  integer,
 ); 
 
 CREATE TABLE results (
@@ -40,6 +39,4 @@ CREATE TABLE results (
   new_cost FLOAT,
   eliminated_cost FLOAT
   -- foreign key (user_id) references users (user_id) integer,
-  -- foreign key (prepayment_id) references prepayments (prepayment_id) integer,
-  -- foreign key (debt_id) references debts (debt_id) integer,
 );

@@ -18,17 +18,17 @@ class Calculator extends Component {
   componentDidMount() {
     // Use the && to prevent logging out ~jonw.
     // IF ALREADY AUTHENTICATED, call getDebt/getPrepayments
-    if (this.props.user.userId && this.props.user.userId) {
-      this.props.getPrepayments(this.props.user.userId);
-      this.props.getDebts(this.props.user.userId);
+    if (this.props.user.user_id && this.props.user.user_id) {
+      this.props.getPrepayments(this.props.user.user_id);
+      this.props.getDebts(this.props.user.user_id);
     }
   }
   // runs second
   componentDidUpdate(prevProps) {
     // IF AWAITING AUTHENTICATION, call getDebt/getPrepayments
     if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
-      this.props.getPrepayments(this.props.user.userId);
-      this.props.getDebts(this.props.user.userId);
+      this.props.getPrepayments(this.props.user.user_id);
+      this.props.getDebts(this.props.user.user_id);
     }
   }
 
@@ -37,7 +37,7 @@ class Calculator extends Component {
     return (
       // {this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" /> ) : null}
 
-      // render page only after getPrepayments and getDebts are completed: 
+      // render only after getPrepayments & getDebts are exe: 
       this.props.gotPrepayments && this.props.gotDebts ? 
 
       <div className="calculator-page">
@@ -45,7 +45,7 @@ class Calculator extends Component {
         <br />
         <br />
 
-        <div> {this.props.user.userId || `NO USER ID`} </div>
+        <div> {this.props.user.user_id || `NO USER ID`} </div>
         <br />
         <div>PREPAYMENTS: </div>
         
