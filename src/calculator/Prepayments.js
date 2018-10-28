@@ -5,7 +5,7 @@ import { onChangeHandlerPrepayments } from '../ducks/CalcReducer';
 class Prepayments extends Component {
   
   render() {
-    console.log("Prepayments.this.props:", this.props) 
+    // console.log("Prepayments.this.props:", this.props) 
     
     const { onChangeHandlerPrepayments } = this.props; 
     

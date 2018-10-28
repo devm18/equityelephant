@@ -56,22 +56,22 @@ export function saveInputs(user_id, prepayments, debts) {
 
 // ACTION CREATORS - UPDATING STATE (no axios calls)
 export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
-  console.log("onChangeHandlerPrepayments", eTargetName, eTargetValue);
+  // console.log("onChangeHandlerPrepayments", eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerPrepayments",
-    payload1: eTargetName,
-    payload2: eTargetValue
+    eTargetName: eTargetName,
+    eTargetValue: eTargetValue
   };
 }
 
-export function onChangeHandlerDebt(key2, eTargetName, eTargetValue) {
-  console.log("onChangeHandlerDebt", key2, eTargetName, eTargetValue);
-  return {
-    type: "onChangeHandlerDebt",
-    payload1: key2,
-    payload2: eTargetName,
-    payload3: eTargetValue
-  };
+export function onChangeHandlerDebt(eTargetIndex, eTargetName, eTargetValue) {
+  console.log("onChangeHandlerDebt", eTargetIndex, eTargetName, eTargetValue);
+    return {
+      type: "onChangeHandlerDebt",
+      eTargetIndex: eTargetIndex,
+      eTargetName: eTargetName,
+      eTargetValue: eTargetValue
+    };
 }
 
 // INITIAL STATE
@@ -186,6 +186,7 @@ export default function CalcReducer(state = initialState, action) {
         isLoading: true
       };
     case "addDebt_FULFILLED":
+      // verify I dont need this, and then cut: 
       // convert to JS camelCase
       let payloadData = action.payload.data.map((e, i) => {
         return {
@@ -265,21 +266,25 @@ export default function CalcReducer(state = initialState, action) {
         ...state,
         prepayments: {
           ...state.prepayments,
-          // name: value 
-          [action.payload1]: action.payload2
+          [action.eTargetName]: action.eTargetValue
         }
       };
     case "onChangeHandlerDebt":
-      // Loop debts, find key2 , update key:value.
-      this.state.debts.forEach((e, i) => {
-        if (e.debt_id === action.payload1) {
-          return {
-            ...state,
-            [e.action.payload2]: e.action.payload3
-          };
+      return {
+        ...state,
+        debts: {
+          ...state.debts, 
+          [action.eTargetName]: action.eTargetValue
         }
-      });
-      break;
+      };
+      
+      // this.state.debts.map((e, i) => {
+      //   return {
+      //     ...state,
+      //     [e.action.key]: e.action.value
+      //   };
+      // });
+      // break;
     default:
       return state;
   }

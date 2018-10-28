@@ -5,9 +5,7 @@ import { onChangeHandlerDebt, removeDebt } from "../ducks/CalcReducer";
 class Debt extends Component {
   
   render() {
-    console.log('THIS.PROPS.DEBTS',this.props.debts);
-    console.log('THIS.PROPS',this.props);
-
+    console.log('THIS.PROPS',this.props.key2);
 
     return (
       <div className="box">
@@ -21,10 +19,10 @@ class Debt extends Component {
           </button>
           <output
             className="boxRowTextRight sequence-number"
-            key2={this.props.key2}
-            name="key2"
+            index={this.props.index}
+            name="index"
           >
-            {this.props.key2 + 1}
+            {this.props.index + 1}
           </output>
         </div>
 
@@ -35,12 +33,12 @@ class Debt extends Component {
             className="input inputName"
             autoFocus
             placeholder="name of debt"
-            key2={this.props.key2}
+            index={this.props.index}
             name="debt_name"
             onChange={e =>
-              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+              onChangeHandlerDebt(this.props.key2, e.target.name, e.target.value)
             }
-            value={this.props.debts[this.props.index].debt_name}
+            value={this.props.debts[this.props.index].debt_name} 
           />
         </div>
 
@@ -63,10 +61,10 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            key2={this.props.key2}
+            index={this.props.index}
             name="rate"
             onChange={e =>
-              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
+              onChangeHandlerDebt(e.target.index, e.target.name, e.target.value)
             }
             value={this.props.debts[this.props.index].rate}
           />
