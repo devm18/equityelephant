@@ -47,10 +47,10 @@ export function removeDebt(user_id, debt_id) {
   };
 }
 
-export function saveInputs(user_id, prepayments/* , debts */) {
+export function saveInputs(user_id, prepayments, debts) {
   return {
     type: "saveInputs",
-    payload: axios.put(`/saveInputs/${user_id}`, { prepayments/* , debts */ })
+    payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
   };
 }
 
@@ -230,12 +230,42 @@ export default function CalcReducer(state = initialState, action) {
         ...state
       };
 
+      case "saveInputs_PENDING":
+      return {
+        ...state,
+        isLoading: true
+      };
+    case "saveInputs_FULFILLED":
+    // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
+      return {
+        ...state,
+        isLoading: false,
+        prepayments: {
+          // needs something like: 
+          // action.payload.data.prepayments
+        },
+        debts: [
+          // needs something like: 
+          // { action.payload.data.debt1 obj}
+          // { action.payload.data.debt2 obj }
+        ]
+      };
+    case "saveInputs_REJECTED":
+      console.log("Error in removeDebt");
+      return {
+        ...state
+      };
+
+
+
+
     // ACTION CREATIONS - UPDATING STATE (no axios calls)
     case "onChangeHandlerPrepayments":
       return {
         ...state,
         prepayments: {
           ...state.prepayments,
+          // name: value 
           [action.payload1]: action.payload2
         }
       };

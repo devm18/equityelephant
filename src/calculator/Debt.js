@@ -40,7 +40,7 @@ class Debt extends Component {
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
-            value={this.props.debts.debt_name}
+            value={this.props.debts[this.props.index].debt_name}
           />
         </div>
 
@@ -54,7 +54,7 @@ class Debt extends Component {
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
-            value={this.props.debts.beg_bal}
+            value={this.props.debts[this.props.index].beg_bal}
           />
         </div>
 
@@ -68,7 +68,7 @@ class Debt extends Component {
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
-            value={this.props.debts.rate}
+            value={this.props.debts[this.props.index].rate}
           />
         </div>
 
@@ -82,14 +82,14 @@ class Debt extends Component {
             onChange={e =>
               onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
             }
-            value={this.props.debts.mpmt}
+            value={this.props.debts[this.props.index].mpmt}
           />
         </div>
 
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            {this.props.debts[this.props.key2].term}
+            {this.props.debts[this.props.index].term}
           </output>
         </div>
         

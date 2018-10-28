@@ -59,6 +59,8 @@ https://github.com/anthony62490/personal-project-photo-manager/blob/master/serve
 controller.js  33 searchQuery
 editPicInfoController.js  151 QueryStr 
 
+
+
 // Example of inserting scalar values from redux to db
 let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, yearly_prepayment_date, one_time_prepayment, one_time_prepayment_date) VALUES (${monthly_prepayment}, ${yearly_prepayment}, '${yearly_prepayment_date}', ${one_time_prepayment}, '${one_time_prepaymentDate}') WHERE user_id = '${user_id}';`
 
