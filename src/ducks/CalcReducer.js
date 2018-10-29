@@ -54,7 +54,7 @@ export function saveInputs(user_id, prepayments, debts) {
   };
 }
 
-// ACTION CREATORS - UPDATING STATE (no axios calls)
+// ACTION CREATORS 
 export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   return {
     type: "onChangeHandlerPrepayments",
@@ -63,11 +63,15 @@ export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   };
 }
 
-export function onChangeHandlerDebt(eTargetIndex, eTargetName, eTargetValue) {
-  // console.log("onChangeHandlerDebt", eTargetIndex, eTargetName, eTargetValue);
+export function onChangeHandlerDebt(
+  index, 
+  eTargetName, 
+  eTargetValue
+  ) {
+  console.log("onChangeHandlerDebt", index, eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerDebt",
-    eTargetIndex: eTargetIndex,
+    index: index,
     eTargetName: eTargetName,
     eTargetValue: eTargetValue
   };
@@ -234,20 +238,26 @@ export default function CalcReducer(state = initialState, action) {
         ...state
       };
 
+    // saveInputs - ACTION.PAYLOAD.DATA 
+    // 0: monthly_prepayment: 0,
+
+
     case "saveInputs_PENDING":
       return {
         ...state,
-        isLoading: true
+        // isLoading: true
       };
+
     case "saveInputs_FULFILLED":
       console.log('ACTION.PAYLOAD.DATA: ', action.payload.data);
       // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
       return {
         ...state,
-        isLoading: false,
-        prepayments: action.payload.data[0]
+        // isLoading: false,
+        prepayments: action.payload.data[0],
         // debts: action.payload.data.debts
       };
+
     case "saveInputs_REJECTED":
       console.log("Error in removeDebt");
       return {
@@ -264,13 +274,42 @@ export default function CalcReducer(state = initialState, action) {
       };
 
     case "onChangeHandlerDebt":
-      const { eTargetIndex, eTargetName, eTargetValue } = action;
+      const { index, eTargetName, eTargetValue } = action;
+      let debtsUpdated = state.debts.map((elem,i)=>{
+          return i===index ?
+             Object.assign({}, elem, {[eTargetName]:eTargetValue}) : elem
+        })
       return {
         ...state,
-        debts: (state.debts[eTargetIndex][eTargetName] = eTargetValue)
+        debts: debtsUpdated
       };
 
     default:
       return state;
   }
 }
+/*
+TypeError: this.props.debts.map is not a function
+
+How do I update an object within array within redux (inside the reducer)? 
+
+I have an input field, debt_name, that I want to 
+I'm trying to The object is  
+
+
+const initialState = {
+  user: {  }, 
+  debts: [{
+    debt_id: 1,
+    user_id: 1,
+    key2: 0,
+    debt_name: '',
+    beg_bal: 0,
+    rate: 0,
+    term: '',
+    mpmt: 0
+  }]
+}
+
+
+*/

@@ -67,8 +67,14 @@ let query1 = `INSERT INTO prepayments (monthly_prepayment, yearly_prepayment, ye
 
 Object.keys(obj) // returns an array of key from obj, and then map key:value pairs to state. 
 
-
-
 // Middleware supplies the _PENDING, _FULFILLED, _REJECTED 
+
+
+
+src/calculator/CalcReducer.js
+src/calculator/Debts.js
+src/calculator/Debt.js
+server/calcCtrl.js
+
 
 */

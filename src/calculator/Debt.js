@@ -5,7 +5,7 @@ import { onChangeHandlerDebt, removeDebt } from "../ducks/CalcReducer";
 class Debt extends Component {
   
   render() {
-    // console.log('THIS.PROPS',this.props.key2);
+    console.log('THIS.PROPS: ',this.props);
 
     return (
       <div className="box">
@@ -32,13 +32,14 @@ class Debt extends Component {
             type="text"
             className="input inputName"
             autoFocus
-            index={this.props.index}
             name="debt_name"
             onChange={e =>
-              onChangeHandlerDebt(this.props.index, e.target.name, e.target.value)
-            } // The onChange cannot directly change value bc the index is coming from debt.map. So use placeholder instead.  
-            // value={this.props.debts[this.props.index].debt_name} 
-            placeholder={this.props.debts[this.props.index].debt_name}
+              this.props.onChangeHandlerDebt(
+                this.props.index, 
+                e.target.name, 
+                e.target.value)
+            } 
+            value={this.props.debts[this.props.index].debt_name} 
           />
         </div>
 
@@ -47,13 +48,15 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            key2={this.props.key2}
             name="beg_bal"
             onChange={e =>
-              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
-            } // The onChange cannot directly change value bc the index is coming from debt.map. So use placeholder instead.  
-            // value={this.props.debts[this.props.index].beg_bal}
-            placeholder={this.props.debts[this.props.index].beg_bal}
+              this.props.onChangeHandlerDebt(
+                this.props.index, 
+                e.target.name, 
+                e.target.value)
+            } 
+            value={this.props.debts[this.props.index].beg_bal}
+            
           />
         </div>
 
@@ -62,14 +65,14 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            index={this.props.index}
             name="rate"
             onChange={e =>
-              onChangeHandlerDebt(e.target.index, e.target.name, e.target.value)
-            } // The onChange cannot directly change value bc the index is coming from debt.map. So use placeholder instead.  
-            // value={this.props.debts[this.props.index].rate}
-            placeholder={this.props.debts[this.props.index].rate}
-
+              this.props.onChangeHandlerDebt(
+                this.props.index, 
+                e.target.name, 
+                e.target.value)
+            } 
+            value={this.props.debts[this.props.index].rate}
           />
         </div>
 
@@ -78,13 +81,14 @@ class Debt extends Component {
           <input
             type="number"
             className="input inputNumber"
-            key2={this.props.key2}
             name="mpmt"
             onChange={e =>
-              onChangeHandlerDebt(e.target.key2, e.target.name, e.target.value)
-            } // The onChange cannot directly change value bc the index is coming from debt.map. So use placeholder instead.  
-            // value={this.props.debts[this.props.index].mpmt}
-            placeholder={this.props.debts[this.props.index].mpmt} 
+              this.props.onChangeHandlerDebt(
+                this.props.index, 
+                e.target.name, 
+                e.target.value)
+            } 
+            value={this.props.debts[this.props.index].mpmt}
           />
         </div>
 

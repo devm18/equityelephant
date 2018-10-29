@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { /* addDebt, */ removeDebt } from "../ducks/CalcReducer";
+import { removeDebt } from "../ducks/CalcReducer";
 import Debt from "./Debt";
 
 class Debts extends Component {
-  componentDidUpdate(prevProps) {
-    //console.log('PREVPROPS: ', prevProps.debts);
-    //console.log('THIS.PROPS.DEBTS: ', this.props.debts);
-  }
+
+
+
+  // componentDidUpdate(prevProps) {
+  //   //console.log('PREVPROPS: ', prevProps.debts);
+  //   //console.log('THIS.PROPS.DEBTS: ', this.props.debts);
+  // }
 
   render() {
+    console.log('THIS.PROPS: ', this.props);
+
+
     let debtsList = this.props.debts.map((elem, i) => {
-      // console.log('i and elem: ', i, elem);
 
       return (
         <Debt
@@ -21,16 +26,19 @@ class Debts extends Component {
           index={i}
           user_id={elem.user_id}
           debt_id={elem.debt_id}
-          // un-used?:
-          debt_name={elem.debt_name} 
-          beg_bal={elem.beg_bal}
-          rate={elem.rate}
-          term={elem.term}
-          mpmt={elem.mpmt}
+          // un-used:
+          // debt_name={elem.debt_name} 
+          // beg_bal={elem.beg_bal}
+          // rate={elem.rate}
+          // term={elem.term}
+          // mpmt={elem.mpmt}
         />
       );
     });
 
+
+
+    // Beautiful dnd 
     let dndDebtsList = () => debtsList.map((e, i) => e);
 
     return (
