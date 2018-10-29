@@ -95,7 +95,7 @@ class Debt extends Component {
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            {this.props.debts[this.props.index].term}
+            {`${this.props.debts[this.props.index].term} months `}
           </output>
         </div>
         

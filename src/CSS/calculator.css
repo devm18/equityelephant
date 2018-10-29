@@ -58,7 +58,7 @@ output[name=debt-term], output[name=sequence-number] {
 
 /* .textInputRow{ */
 .boxRow {
-  margin: 0px; 
+  margin: 1px; 
   /* border: 1px solid red; */
   padding: 0px; 
   display: flex;
@@ -73,26 +73,10 @@ output[name=debt-term], output[name=sequence-number] {
   display: flex;
   justify-content: space-between;
 }
-
-/* ********** placeholder ********** */
-::-webkit-input-placeholder { /* Chrome */
-  color: black;
-  /* font-weight: 500; */
+.term {
+  font-size: .8em;
+  font-weight: lighter; 
 }
-:-moz-placeholder { /* Firefox -18 */
-  /* font-weight: bold; */
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: black;
-  /* font-weight: 500; */
-}
-:-ms-input-placeholder { /* Internet Explorer */
-  color: black;
-  /* font-weight: 500; */
-}
-.element:-o-input-placeholder { /* Opera */
-  /* font-weight: bold; */
-} 
 
 
 /* ********** summary ********** */

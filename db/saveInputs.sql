@@ -5,6 +5,13 @@ saveInputs is performed in server/calcCtrljs:
   - updates rows in debts, where user_id = debts.user_id 
  */
 
+/* 
+dummy debts: 
+1	1	4	VISA	900	12	3	320
+2	1	2	MCCC	600	10	4	200
+3	1	3	cars	15000	6	40	500
+4	1	1	mort	325000	6	360	2200
+*/
 
 /* https://stackoverflow.com/questions/18797608/update-multiple-rows-in-same-query-using-postgresql
 
@@ -24,7 +31,7 @@ update users set
 -- WORKS IN POSTICO: 
 UPDATE debts 
 SET
-  key2 = tt.key2,
+  seq_num = tt.seq_num,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -37,7 +44,7 @@ SET
   (590, 1, 3, 'loan', 3333, 3, 'term', 333)
   )
   AS 
-  tt(debt_id, user_id, key2, debt_name, beg_bal, rate, term, mpmt)
+  tt(debt_id, user_id, seq_num, debt_name, beg_bal, rate, term, mpmt)
   WHERE tt.debt_id = debts.debt_id 
   AND tt.user_id = debts.user_id; 
 */
@@ -66,7 +73,7 @@ SET
 	"debts": [{
 		"debt_id": 587,
     	"user_id" : 1,
-    	"key2": 0,
+    	"seq_num": 0,
     	"debt_name" : "Visa",
     	"beg_bal" : 100,
     	"rate" : 1,
@@ -76,7 +83,7 @@ SET
 	{
 		"debt_id": 589,
     	"user_id" : 1,
-    	"key2": 1,
+    	"seq_num": 1,
     	"debt_name" : "MC",
     	"beg_bal" : 200,
     	"rate" : 2,
@@ -86,7 +93,7 @@ SET
     {
     	"debt_id": 590,
     	"user_id" : 1,
-    	"key2": 2,
+    	"seq_num": 2,
     	"debt_name" : "Loan shark",
     	"beg_bal" : 300,
     	"rate" : 3,

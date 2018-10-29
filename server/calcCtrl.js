@@ -33,10 +33,10 @@ const getPrepayments = (req, res, next) => {
 
 const addDebt = (req, res, next) => {
   console.log("calcCtrl-addDebt-req.body", req.body);
-  const { user_id, key2, debt_name, beg_bal, rate, term, mpmt } = req.body;
+  const { user_id, seq_num, debt_name, beg_bal, rate, term, mpmt } = req.body;
 
   let db = req.app.get("db");
-  db.addDebt([user_id, key2, debt_name, beg_bal, rate, term, mpmt])
+  db.addDebt([user_id, seq_num, debt_name, beg_bal, rate, term, mpmt])
     .then(response => {
       res.status(200).json(response);
     })
@@ -74,10 +74,10 @@ const saveInputs = (req, res, next) => {
   WHERE user_id = ${req.params.user_id}
   RETURNING *;`;
 
-  // tt == temp_table
+  // tt = temp_table
   let query2 = `UPDATE debts 
   SET
-  key2 = tt.key2,
+  seq_num = tt.seq_num,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -87,12 +87,12 @@ const saveInputs = (req, res, next) => {
   (VALUES ` 
   + debts.map(debtObj => {
     return (
-      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.key2},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
+      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.seq_num},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
     )})
     .join(",") 
     + `)
     AS 
-    tt(debt_id, user_id, key2, debt_name, beg_bal, rate, term, mpmt) 
+    tt(debt_id, user_id, seq_num, debt_name, beg_bal, rate, term, mpmt) 
     WHERE tt.debt_id = debts.debt_id
     AND tt.user_id = debts.user_id;
     SELECT * from debts WHERE user_id = ${req.params.user_id};`

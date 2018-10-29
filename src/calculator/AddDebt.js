@@ -12,7 +12,7 @@ class AddDebt extends Component {
     let blankDebtObj = {
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
-      key2: this.props.debts.length,
+      seq_num: this.props.debts.length,
       debt_name: ' ',
       beg_bal: 0, 
       rate: 0, 

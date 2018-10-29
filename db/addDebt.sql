@@ -1,7 +1,7 @@
 INSERT INTO debts ( 
   -- // addDebt.sql doesnt insert debt_id, but does retrieve it.  
   user_id,  
-  key2,  
+  seq_num,  
   debt_name,  
   beg_bal,  
   rate,  

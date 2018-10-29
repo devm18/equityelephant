@@ -77,4 +77,18 @@ src/calculator/Debt.js
 server/calcCtrl.js
 
 
+TODO: 
+UX goal: 
+1. type in info for prepayment box and default debt box, 
+2. click Add Debt button, and type in info, etc, 
+3. click Save Inputs or Save & Calculate to save to DB. 
+
+PROBLEM: The <Add-Debt> button refreshes the screen and wipes out the inputs, which get reloaded with data from DB. 
+
+SOLUTION: 
+1. Add <Save-Inputs> button with axios call to each box of inputs = poorer user interface. 
+2. use Onblur to update the database when the focus leaves box of inputs. - should work, 
+3. delay refreshing of screen ... 
+
+
 */

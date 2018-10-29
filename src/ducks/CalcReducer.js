@@ -101,7 +101,7 @@ const initialState = {
   // debts: [{
   //   debt_id: 1,
   //   user_id: 1,
-  //   key2: 0,
+  //   seq_num: 0,
   //   debt_name: ' ',
   //   beg_bal: 0,
   //   rate: 0,
@@ -200,7 +200,7 @@ export default function CalcReducer(state = initialState, action) {
           // addDebt's payload includes debt_id
           debt_id: e.debt_id,
           user_id: e.user_id,
-          key2: e.key2,
+          seq_num: e.seq_num,
           debt_name: e.debt_name,
           beg_bal: e.beg_bal,
           rate: e.rate,
@@ -212,6 +212,8 @@ export default function CalcReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         debts: payloadData
+        // debts: action.payload.data
+
       };
     case "addDebt_REJECTED":
       console.log("Error in addDebts");
@@ -240,7 +242,6 @@ export default function CalcReducer(state = initialState, action) {
 
     // saveInputs - ACTION.PAYLOAD.DATA 
     // 0: monthly_prepayment: 0,
-
 
     case "saveInputs_PENDING":
       return {
@@ -276,8 +277,7 @@ export default function CalcReducer(state = initialState, action) {
     case "onChangeHandlerDebt":
       const { index, eTargetName, eTargetValue } = action;
       let debtsUpdated = state.debts.map((elem,i)=>{
-          return i===index ?
-             Object.assign({}, elem, {[eTargetName]:eTargetValue}) : elem
+          return i===index ? Object.assign({}, elem, {[eTargetName]:eTargetValue}) : elem
         })
       return {
         ...state,
@@ -289,20 +289,13 @@ export default function CalcReducer(state = initialState, action) {
   }
 }
 /*
-TypeError: this.props.debts.map is not a function
-
-How do I update an object within array within redux (inside the reducer)? 
-
-I have an input field, debt_name, that I want to 
-I'm trying to The object is  
-
 
 const initialState = {
   user: {  }, 
   debts: [{
     debt_id: 1,
     user_id: 1,
-    key2: 0,
+    seq_num: 0,
     debt_name: '',
     beg_bal: 0,
     rate: 0,

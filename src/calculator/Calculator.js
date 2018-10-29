@@ -63,6 +63,8 @@ class Calculator extends Component {
 
           <SaveInputs />
 
+          {/* <SaveResultsAs /> */}
+          
           <Calculate />
         </div>
 
