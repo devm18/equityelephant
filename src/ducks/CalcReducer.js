@@ -56,7 +56,6 @@ export function saveInputs(user_id, prepayments, debts) {
 
 // ACTION CREATORS - UPDATING STATE (no axios calls)
 export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
-  // console.log("onChangeHandlerPrepayments", eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerPrepayments",
     eTargetName: eTargetName,
@@ -65,13 +64,13 @@ export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
 }
 
 export function onChangeHandlerDebt(eTargetIndex, eTargetName, eTargetValue) {
-  console.log("onChangeHandlerDebt", eTargetIndex, eTargetName, eTargetValue);
-    return {
-      type: "onChangeHandlerDebt",
-      eTargetIndex: eTargetIndex,
-      eTargetName: eTargetName,
-      eTargetValue: eTargetValue
-    };
+  // console.log("onChangeHandlerDebt", eTargetIndex, eTargetName, eTargetValue);
+  return {
+    type: "onChangeHandlerDebt",
+    eTargetIndex: eTargetIndex,
+    eTargetName: eTargetName,
+    eTargetValue: eTargetValue
+  };
 }
 
 // INITIAL STATE
@@ -86,7 +85,7 @@ const initialState = {
   isAuthenticated: false,
   debtComps: [],
   prepayments: {},
-  // {
+  // prepayments: {
   //   user_id: 1,
   //   monthly_prepayment: 0,
   //   yearly_prepayment: 0,
@@ -95,7 +94,7 @@ const initialState = {
   //   one_time_prepayment_date: yyy/mm/dd
   // }
   debts: [],
-  // 0: {
+  // debts: [{
   //   debt_id: 1,
   //   user_id: 1,
   //   key2: 0,
@@ -104,9 +103,12 @@ const initialState = {
   //   rate: 0,
   //   term: ' ',
   //   mpmt: 0
-  // }
+  // },
+  // { debt_id: 2,
+  //   etc.
+  //  }],
   results: {},
-  // {
+  // results: {
   //   result_id: 1,
   //   user_id: 1,
   //   total_debt: ' ',
@@ -150,6 +152,7 @@ export default function CalcReducer(state = initialState, action) {
         isLoading: true
       };
     case "getPrepayments_FULFILLED":
+      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,
@@ -186,7 +189,7 @@ export default function CalcReducer(state = initialState, action) {
         isLoading: true
       };
     case "addDebt_FULFILLED":
-      // verify I dont need this, and then cut: 
+      // verify I dont need this, and then cut:
       // convert to JS camelCase
       let payloadData = action.payload.data.map((e, i) => {
         return {
@@ -231,25 +234,19 @@ export default function CalcReducer(state = initialState, action) {
         ...state
       };
 
-      case "saveInputs_PENDING":
+    case "saveInputs_PENDING":
       return {
         ...state,
         isLoading: true
       };
     case "saveInputs_FULFILLED":
-    // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
+      console.log('ACTION.PAYLOAD.DATA: ', action.payload.data);
+      // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
       return {
         ...state,
         isLoading: false,
-        prepayments: {
-          // needs something like: 
-          // action.payload.data.prepayments
-        },
-        debts: [
-          // needs something like: 
-          // { action.payload.data.debt1 obj}
-          // { action.payload.data.debt2 obj }
-        ]
+        prepayments: action.payload.data[0]
+        // debts: action.payload.data.debts
       };
     case "saveInputs_REJECTED":
       console.log("Error in removeDebt");
@@ -257,10 +254,6 @@ export default function CalcReducer(state = initialState, action) {
         ...state
       };
 
-
-
-
-    // ACTION CREATIONS - UPDATING STATE (no axios calls)
     case "onChangeHandlerPrepayments":
       return {
         ...state,
@@ -269,22 +262,14 @@ export default function CalcReducer(state = initialState, action) {
           [action.eTargetName]: action.eTargetValue
         }
       };
+
     case "onChangeHandlerDebt":
+      const { eTargetIndex, eTargetName, eTargetValue } = action;
       return {
         ...state,
-        debts: {
-          ...state.debts, 
-          [action.eTargetName]: action.eTargetValue
-        }
+        debts: (state.debts[eTargetIndex][eTargetName] = eTargetValue)
       };
-      
-      // this.state.debts.map((e, i) => {
-      //   return {
-      //     ...state,
-      //     [e.action.key]: e.action.value
-      //   };
-      // });
-      // break;
+
     default:
       return state;
   }

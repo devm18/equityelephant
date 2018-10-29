@@ -33,7 +33,7 @@ class Calculator extends Component {
   }
 
   render() {
-    console.log("THIS.PROPS", this.props)
+    // console.log("THIS.PROPS", this.props)
     return (
       // {this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" /> ) : null}
 

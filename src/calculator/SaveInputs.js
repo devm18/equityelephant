@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { saveInputs } from '../ducks/CalcReducer'; 
+import { saveInputs, getPrepayments, getDebts } from '../ducks/CalcReducer'; 
 
 class SaveInputs extends Component {
-  saveInputs = (prepayments, debts) => {
-    axios.post("/saveInputs", {
-      prepayments,
-      debts
-    });
-  };
+  
+  saveInputsAndGetData = () => {
+    const { user_id } = this.props.user; 
+    this.props.saveInputs(this.props.user.user_id, this.props.prepayments, this.props.debts)
+    .then(() => {
+      this.props.getPrepayments(user_id);
+      this.props.getDebts(user_id);
+    })
+  }
 
   render() {
     // console.log(this.props);
+    
     return (
       <div className="calc-page-buttons">
         <button
           className="save-inputs"
-          onClick={() =>
-            this.props.saveInputs(this.props.user.user_id, this.props.prepayments, this.props.debts)
-          }
+          onClick={ () => this.saveInputsAndGetData() }
         >
           Save Inputs
         </button>
@@ -30,4 +32,4 @@ class SaveInputs extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { saveInputs })(SaveInputs);
+export default connect(mapStateToProps, { saveInputs,getPrepayments, getDebts })(SaveInputs);

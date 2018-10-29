@@ -52,10 +52,10 @@ let term;                      // number of monthly payments remaining
 
 term = -Math.log(1 - 0.005*300000/1798.65) / Math.log(1 + 0.005);
 
-console.log(term);
-console.log(monthlyPayment(300000, 6, 360));
-console.log(termInMonths(300000, 6, 1798.65)); 
-console.log(termInYears(300000, 6, 1800)); 
+// console.log(term);
+// console.log(monthlyPayment(300000, 6, 360));
+// console.log(termInMonths(300000, 6, 1798.65)); 
+// console.log(termInYears(300000, 6, 1800)); 
 */
 
 /*********************************************************************/

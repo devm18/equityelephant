@@ -6,18 +6,17 @@ import Debt from "./Debt";
 
 class Debts extends Component {
   componentDidUpdate(prevProps) {
-    console.log('PREVPROPS: ', prevProps.debts);
-    console.log('THIS.PROPS.DEBTS: ', this.props.debts);
+    //console.log('PREVPROPS: ', prevProps.debts);
+    //console.log('THIS.PROPS.DEBTS: ', this.props.debts);
   }
 
   render() {
-    console.log("THIS.PROPS", this.props);
-    let debtsList = this.state.debts.map((elem, i) => {
-      console.log('elem and i: ', elem, i);
+    let debtsList = this.props.debts.map((elem, i) => {
+      // console.log('i and elem: ', i, elem);
 
       return (
         <Debt
-          key={i} // redux reserved keyword
+          key={i} // redux reserved word
           key2={i}
           index={i}
           user_id={elem.user_id}

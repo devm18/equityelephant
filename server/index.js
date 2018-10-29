@@ -69,7 +69,7 @@ app.get('/login', passport.authenticate('auth0', {
 
 function authenticated (req, res, next) {
   if (req.user) { 
-    console.log("\nAUTHENTICATED.REQ.USER", req.user); 
+    //console.log("\nAUTHENTICATED.REQ.USER", req.user); 
     next(); 
   } else {
     res.sendStatus(403); 

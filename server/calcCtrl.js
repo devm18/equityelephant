@@ -68,7 +68,8 @@ const saveInputs = (req, res, next) => {
   yearly_prepayment_date = '${prepayments.yearly_prepayment_date}',
   one_time_prepayment = ${prepayments.one_time_prepayment},
   one_time_prepayment_date = '${prepayments.one_time_prepayment_date}'
-  WHERE user_id = ${req.params.user_id};`;
+  WHERE user_id = ${req.params.user_id}
+  RETURNING *;`;
 
   // tt == temp_table
   let query2 = `UPDATE debts 
@@ -90,7 +91,9 @@ const saveInputs = (req, res, next) => {
     AS 
     tt(debt_id, user_id, key2, debt_name, beg_bal, rate, term, mpmt) 
     WHERE tt.debt_id = debts.debt_id
-    AND tt.user_id = debts.user_id;`; 
+    AND tt.user_id = debts.user_id; 
+    SELECT * FROM debts;`
+    
 
   // (
   //   (1, 1, 100, 1000, '2018/12/12', 344567, '2018/12/12'),
@@ -116,7 +119,9 @@ const saveInputs = (req, res, next) => {
   console.log("\n query2", query2);
 
   db.query(query1, query2)
-  .then(response => { res.status(200).json(response) })
+  .then(response => { 
+    console.log("\n response", response);
+    res.status(200).json(response) })
   .catch(error => {
     console.log(error);
   })

@@ -6,8 +6,45 @@ saveInputs is performed in server/calcCtrljs:
  */
 
 
- -- EXAMPLE INPUT: 
+/* https://stackoverflow.com/questions/18797608/update-multiple-rows-in-same-query-using-postgresql
 
+-- example 1, u2 is a temporary table 
+update users set 
+  email = u2.email,
+  first_name = u2.first_name,
+  last_name = u2.last_name
+  from 
+  (values
+    (1, 'hollis@weimann.biz', 'Hollis', 'Connell'),
+    (2, 'robert@duncan.info', 'Robert', 'Duncan')
+  ) as u2(id, email, first_name, last_name)
+  where u2.id = users.id;
+
+
+-- WORKS IN POSTICO: 
+UPDATE debts 
+SET
+  key2 = tt.key2,
+  debt_name = tt.debt_name, 
+  beg_bal = tt.beg_bal, 
+  rate = tt.rate,
+  term = tt.term, 
+  mpmt = tt.mpmt
+  FROM 
+  (VALUES 
+  (588, 1, 1, 'VISA', 1111, 1, 'term', 111),
+  (589, 1, 2, 'MCcc', 2222, 2, 'term', 222),
+  (590, 1, 3, 'loan', 3333, 3, 'term', 333)
+  )
+  AS 
+  tt(debt_id, user_id, key2, debt_name, beg_bal, rate, term, mpmt)
+  WHERE tt.debt_id = debts.debt_id 
+  AND tt.user_id = debts.user_id; 
+*/
+
+
+/*
+-- EXAMPLE INPUT: 
 -- query1: 
   {
     "monthly_prepayment": 111,
@@ -58,41 +95,4 @@ saveInputs is performed in server/calcCtrljs:
     }
   ]
 }
-
-
--- https://stackoverflow.com/questions/18797608/update-multiple-rows-in-same-query-using-postgresql
-
--- example 1, u2 is a temporary table 
-update users set 
-  email = u2.email,
-  first_name = u2.first_name,
-  last_name = u2.last_name
-  from 
-  (values
-    (1, 'hollis@weimann.biz', 'Hollis', 'Connell'),
-    (2, 'robert@duncan.info', 'Robert', 'Duncan')
-  ) as u2(id, email, first_name, last_name)
-  where u2.id = users.id;
-
-
--- WORKS IN POSTICO: 
-UPDATE debts 
-SET
-  key2 = tt.key2,
-  debt_name = tt.debt_name, 
-  beg_bal = tt.beg_bal, 
-  rate = tt.rate,
-  term = tt.term, 
-  mpmt = tt.mpmt
-  FROM 
-  (VALUES 
-  (588, 1, 1, 'VISA', 1111, 1, 'term', 111),
-  (589, 1, 2, 'MCcc', 2222, 2, 'term', 222),
-  (590, 1, 3, 'loan', 3333, 3, 'term', 333)
-  )
-  AS 
-  tt(debt_id, user_id, key2, debt_name, beg_bal, rate, term, mpmt)
-  WHERE tt.debt_id = debts.debt_id 
-  AND tt.user_id = debts.user_id; 
-
-
+*/
