@@ -34,7 +34,7 @@ class Debt extends Component {
             type="text"
             className="input inputName"
             autoFocus
-            placeholder='debt name'
+            placeholder='debt name...'
             name="debt_name"
             onChange={e =>
               this.props.onChangeHandlerDebts(

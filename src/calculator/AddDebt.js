@@ -9,12 +9,14 @@ class AddDebt extends Component {
   
     let { addDebt } = this.props; 
     
+
+    // IDEA: to get the placeholder to work, pass in the a blank <Debt /> component.
     let blankDebtObj = {
       // values are nec to prevent error
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
       index: this.props.debts.length,
-      debt_name: 'debt name...',
+      debt_name: '',
       beg_bal: 0,
       rate: 0, 
       term: '',
