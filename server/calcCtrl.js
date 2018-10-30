@@ -32,11 +32,11 @@ const getPrepayments = (req, res, next) => {
 };
 
 const addDebt = (req, res, next) => {
-  console.log("calcCtrl-addDebt-req.body", req.body);
-  const { user_id, seq_num, debt_name, beg_bal, rate, term, mpmt } = req.body;
+  console.log("\n log: ADD-DEBT-REQ.BODY: \n", req.body);
+  const { user_id, index, debt_name, beg_bal, rate, term, mpmt } = req.body;
 
   let db = req.app.get("db");
-  db.addDebt([user_id, seq_num, debt_name, beg_bal, rate, term, mpmt])
+  db.addDebt([user_id, index, debt_name, beg_bal, rate, term, mpmt])
     .then(response => {
       res.status(200).json(response);
     })
@@ -44,12 +44,12 @@ const addDebt = (req, res, next) => {
 };
 
 const removeDebt = (req, res, next) => {
-  console.log("\nREMOVE-DEBT-req.params", req.params);
+  console.log("\n log: REMOVE-DEBT-REQ.PARAMS \n", req.params);
   let { user_id, debt_id } = req.params;
   let db = req.app.get("db");
   db.removeDebt([user_id, debt_id])
     .then(response => {
-      console.log(response);
+      console.log('\n log: REMOVE-DEBT-response\n', response);
       res.status(200).json(response);
     })
     .catch(error => console.log(error));
@@ -57,7 +57,7 @@ const removeDebt = (req, res, next) => {
 
 // USE db.query to loop thru array of this.props.debt to insert into db.
 const saveInputs = (req, res, next) => {
-  console.log("\n SAVE-INPUTS-REQ.BODY", req.body);
+  console.log("\n log: SAVE-INPUTS-REQ.BODY: \n", req.body);
   
   const { prepayments, debts } = req.body;
   const user_id  = req.params;
@@ -77,7 +77,7 @@ const saveInputs = (req, res, next) => {
   // tt = temp_table
   let query2 = `UPDATE debts 
   SET
-  seq_num = tt.seq_num,
+  index = tt.index,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -87,22 +87,20 @@ const saveInputs = (req, res, next) => {
   (VALUES ` 
   + debts.map(debtObj => {
     return (
-      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.seq_num},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
+      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.index},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
     )})
     .join(",") 
     + `)
     AS 
-    tt(debt_id, user_id, seq_num, debt_name, beg_bal, rate, term, mpmt) 
+    tt(debt_id, user_id, index, debt_name, beg_bal, rate, term, mpmt) 
     WHERE tt.debt_id = debts.debt_id
     AND tt.user_id = debts.user_id;
-    SELECT * from debts WHERE user_id = ${req.params.user_id};`
+    RETURNING *;`;
+    // SELECT * from debts WHERE user_id = ${req.params.user_id};`; 
     
-  console.log("\n QUERY1 \n", query1);
-  console.log("\n QUERY2 \n", query2);
-
   db.query(query1, query2)
   .then(response => { 
-    console.log("\n response", response);
+    console.log("\n log: db.query.RESPONSE \n", response);
     res.status(200).json(response) })
   .catch(error => {
     console.log(error);

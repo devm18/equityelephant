@@ -101,7 +101,7 @@ const initialState = {
   // debts: [{
   //   debt_id: 1,
   //   user_id: 1,
-  //   seq_num: 0,
+  //   index: 0,
   //   debt_name: ' ',
   //   beg_bal: 0,
   //   rate: 0,
@@ -186,34 +186,36 @@ export default function CalcReducer(state = initialState, action) {
       return {
         ...state
       };
-
     case "addDebt_PENDING":
       return {
         ...state,
         isLoading: true
       };
     case "addDebt_FULFILLED":
+    console.log('action.payload.data: ', action.payload.data);
+      
       // verify I dont need this, and then cut:
       // convert to JS camelCase
-      let payloadData = action.payload.data.map((e, i) => {
-        return {
-          // addDebt's payload includes debt_id
-          debt_id: e.debt_id,
-          user_id: e.user_id,
-          seq_num: e.seq_num,
-          debt_name: e.debt_name,
-          beg_bal: e.beg_bal,
-          rate: e.rate,
-          term: e.term,
-          mpmt: e.mpmt
-        };
-      });
+      // let payloadData = action.payload.data.map((e, i) => {
+      //   return {
+      //     // addDebt's payload includes debt_id
+      //     debt_id: e.debt_id,
+      //     user_id: e.user_id,
+      //     index: e.index,
+      //     debt_name: e.debt_name,
+      //     beg_bal: e.beg_bal,
+      //     rate: e.rate,
+      //     term: e.term,
+      //     mpmt: e.mpmt
+      //   };
+      // });
+      
+
       return {
         ...state,
         isLoading: false,
-        debts: payloadData
-        // debts: action.payload.data
-
+        // debts: payloadData
+        debts: [ ...state.debts, action.payload.data ]
       };
     case "addDebt_REJECTED":
       console.log("Error in addDebts");
@@ -295,7 +297,7 @@ const initialState = {
   debts: [{
     debt_id: 1,
     user_id: 1,
-    seq_num: 0,
+    index: 0,
     debt_name: '',
     beg_bal: 0,
     rate: 0,

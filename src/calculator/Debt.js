@@ -5,7 +5,7 @@ import { onChangeHandlerDebt, removeDebt } from "../ducks/CalcReducer";
 class Debt extends Component {
   
   render() {
-    console.log('THIS.PROPS: ',this.props);
+    console.log('DEBT-THIS.PROPS: ',this.props);
 
     return (
       <div className="box">

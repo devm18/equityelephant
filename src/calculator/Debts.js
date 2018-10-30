@@ -6,8 +6,6 @@ import Debt from "./Debt";
 
 class Debts extends Component {
 
-
-
   // componentDidUpdate(prevProps) {
   //   //console.log('PREVPROPS: ', prevProps.debts);
   //   //console.log('THIS.PROPS.DEBTS: ', this.props.debts);
@@ -16,13 +14,11 @@ class Debts extends Component {
   render() {
     console.log('THIS.PROPS: ', this.props);
 
-
     let debtsList = this.props.debts.map((elem, i) => {
 
       return (
         <Debt
           key={i} // redux reserved word
-          seq_num={i}
           index={i}
           user_id={elem.user_id}
           debt_id={elem.debt_id}

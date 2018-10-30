@@ -15,7 +15,6 @@ class Debts extends Component {
       
         <Debt
           key={i} // redux reserved word
-          seq_num={i}
           index={i}
           user_id={elem.user_id}
           debt_id={elem.debt_id}

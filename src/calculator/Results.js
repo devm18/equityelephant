@@ -14,10 +14,6 @@ export default class Results extends Component {
     return (
       <div className="results">
         <div className="box">
-          <div className="boxRow">
-            <label className="boxRowTextLeft">Scenario:</label>
-            <output className="boxRowTextRight">{this.props.total_debt}</output>
-          </div>
 
           <div className="boxRow">
             <label className="boxRowTextLeft">Total debt:</label>

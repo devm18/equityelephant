@@ -31,7 +31,7 @@ update users set
 -- WORKS IN POSTICO: 
 UPDATE debts 
 SET
-  seq_num = tt.seq_num,
+  index = tt.index,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -44,7 +44,7 @@ SET
   (590, 1, 3, 'loan', 3333, 3, 'term', 333)
   )
   AS 
-  tt(debt_id, user_id, seq_num, debt_name, beg_bal, rate, term, mpmt)
+  tt(debt_id, user_id, index, debt_name, beg_bal, rate, term, mpmt)
   WHERE tt.debt_id = debts.debt_id 
   AND tt.user_id = debts.user_id; 
 */
@@ -62,18 +62,18 @@ SET
   }
 
 -- query1 & query2: 
-  {
+{
 	"prepayments": {
 		"monthly_prepayment": 222,
-    	"yearly_prepayment": 222,
-    	"yearly_prepayment_date" : "2018/12/12",
-    	"one_time_prepayment" : 222,
-    	"one_time_prepayment_date" : "2018/12/12"
+    "yearly_prepayment": 222,
+    "yearly_prepayment_date" : "2018/12/12",
+    "one_time_prepayment" : 222,
+    "one_time_prepayment_date" : "2018/12/12"
 	},
 	"debts": [{
-		"debt_id": 587,
+		"debt_id": 1,
     	"user_id" : 1,
-    	"seq_num": 0,
+    	"index": 0,
     	"debt_name" : "Visa",
     	"beg_bal" : 100,
     	"rate" : 1,
@@ -81,9 +81,9 @@ SET
     	"mpmt" : 10
 	}, 
 	{
-		"debt_id": 589,
+		"debt_id": 2,
     	"user_id" : 1,
-    	"seq_num": 1,
+    	"index": 1,
     	"debt_name" : "MC",
     	"beg_bal" : 200,
     	"rate" : 2,
@@ -91,9 +91,9 @@ SET
     	"mpmt" : 20
     },
     {
-    	"debt_id": 590,
+    	"debt_id": 3,
     	"user_id" : 1,
-    	"seq_num": 2,
+    	"index": 2,
     	"debt_name" : "Loan shark",
     	"beg_bal" : 300,
     	"rate" : 3,
