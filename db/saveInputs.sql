@@ -31,7 +31,7 @@ update users set
 -- WORKS IN POSTICO: 
 UPDATE debts 
 SET
-  index = tt.index,
+  num_seq = tt.num_seq,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -44,7 +44,7 @@ SET
   (590, 1, 3, 'loan', 3333, 3, 'term', 333)
   )
   AS 
-  tt(debt_id, user_id, index, debt_name, beg_bal, rate, term, mpmt)
+  tt(debt_id, user_id, num_seq, debt_name, beg_bal, rate, term, mpmt)
   WHERE tt.debt_id = debts.debt_id 
   AND tt.user_id = debts.user_id; 
 */
@@ -73,7 +73,7 @@ SET
 	"debts": [{
 		"debt_id": 1,
     	"user_id" : 1,
-    	"index": 0,
+    	"num_seq": 0,
     	"debt_name" : "Visa",
     	"beg_bal" : 100,
     	"rate" : 1,
@@ -83,7 +83,7 @@ SET
 	{
 		"debt_id": 2,
     	"user_id" : 1,
-    	"index": 1,
+    	"num_seq": 1,
     	"debt_name" : "MC",
     	"beg_bal" : 200,
     	"rate" : 2,
@@ -93,7 +93,7 @@ SET
     {
     	"debt_id": 3,
     	"user_id" : 1,
-    	"index": 2,
+    	"num_seq": 2,
     	"debt_name" : "Loan shark",
     	"beg_bal" : 300,
     	"rate" : 3,

@@ -33,10 +33,10 @@ const getPrepayments = (req, res, next) => {
 
 const addDebt = (req, res, next) => {
   console.log("\n log: ADD-DEBT-REQ.BODY: \n", req.body);
-  const { user_id, index, debt_name, beg_bal, rate, term, mpmt } = req.body;
+  const { user_id, num_seq, debt_name, beg_bal, rate, term, mpmt } = req.body;
 
   let db = req.app.get("db");
-  db.addDebt([user_id, index, debt_name, beg_bal, rate, term, mpmt])
+  db.addDebt([user_id, num_seq, debt_name, beg_bal, rate, term, mpmt])
     .then(response => {
       res.status(200).json(response);
     })
@@ -59,11 +59,11 @@ const removeDebt = (req, res, next) => {
 
 // USE db.query to loop thru array of this.props.debt to insert into db.
 const saveInputs = (req, res, next) => {
-  console.log("\n log: SAVE-INPUTS-REQ.BODY: \n", req.body);
-  
-  const { prepayments, debts } = req.body;
   const user_id  = req.params;
-  console.log('user_id: ', user_id);
+  const { prepayments, debts } = req.body;
+
+  console.log('\n log: SAVE-INPUTS-REQ.PARAMS: \n', req.params);
+  console.log("\n log: SAVE-INPUTS-REQ.BODY: \n", req.body);
 
   let db = req.app.get("db");
 
@@ -79,7 +79,7 @@ const saveInputs = (req, res, next) => {
   // tt = temp_table
   let query2 = `UPDATE debts 
   SET
-  index = tt.index,
+  num_seq = tt.num_seq,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -89,12 +89,12 @@ const saveInputs = (req, res, next) => {
   (VALUES ` 
   + debts.map(debtObj => {
     return (
-      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.index},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
+      `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.num_seq},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${debtObj.mpmt} )`
     )})
     .join(",") 
     + `)
     AS 
-    tt(debt_id, user_id, index, debt_name, beg_bal, rate, term, mpmt) 
+    tt(debt_id, user_id, num_seq, debt_name, beg_bal, rate, term, mpmt) 
     WHERE tt.debt_id = debts.debt_id
     AND tt.user_id = debts.user_id;
     RETURNING *;`;
@@ -102,7 +102,7 @@ const saveInputs = (req, res, next) => {
     
   db.query(query1, query2)
   .then(response => { 
-    console.log("\n log: db.query.RESPONSE \n", response);
+    console.log("\n log: DB.QUERY(query1, query2)'s RESPONSE \n", response);
     res.status(200).json(response) })
   .catch(error => {
     console.log(error);

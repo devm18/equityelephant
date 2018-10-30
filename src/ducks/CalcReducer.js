@@ -63,11 +63,11 @@ export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   };
 }
 
-export function onChangeHandlerDebts(index, eTargetName, eTargetValue) {
-  console.log("onChangeHandlerDebts", index, eTargetName, eTargetValue);
+export function onChangeHandlerDebts(num_seq, eTargetName, eTargetValue) {
+  console.log("onChangeHandlerDebts", num_seq, eTargetName, eTargetValue);
   return {
     type: "onChangeHandlerDebts",
-    index: index,
+    num_seq: num_seq,
     eTargetName: eTargetName,
     eTargetValue: eTargetValue
   };
@@ -97,7 +97,7 @@ const initialState = {
   // debts: [{
   //   debt_id: 1,
   //   user_id: 1,
-  //   index: 0,
+  //   num_seq: 0,
   //   debt_name: ' ',
   //   beg_bal: 0,
   //   rate: 0,
@@ -202,9 +202,9 @@ export default function CalcReducer(state = initialState, action) {
       };
 
     case "onChangeHandlerDebts":
-      const { index, eTargetName, eTargetValue } = action;
+      const { num_seq, eTargetName, eTargetValue } = action;
       let debtsUpdated = state.debts.map((elem, i) => {
-        return i === index
+        return i === num_seq
           ? Object.assign({}, elem, { [eTargetName]: eTargetValue })
           : elem;
       });
@@ -242,7 +242,7 @@ const initialState = {
   debts: [{
     debt_id: 1,
     user_id: 1,
-    index: 0,
+    num_seq: 0,
     debt_name: '',
     beg_bal: 0,
     rate: 0,

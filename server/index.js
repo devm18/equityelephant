@@ -39,7 +39,7 @@ app.use(passport.session());
 passport.use(strategy); 
 
 passport.serializeUser((user, done) => {
-  console.log('\n PASSPORT.SERIALIZERUSER', user);
+  console.log('\n PASSPORT.SERIALIZERUSER: \n', user);
   const db = app.get('db'); 
   db.getUserByAuthId([user.id])
   .then(response => {

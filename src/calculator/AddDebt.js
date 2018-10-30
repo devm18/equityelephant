@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { addDebt } from '../ducks/CalcReducer';
-import Debt from './Debt';
+// import Debt from './Debt';
 
 class AddDebt extends Component {
 
@@ -11,11 +11,12 @@ class AddDebt extends Component {
     
 
     // IDEA: to get the placeholder to work, pass in the a blank <Debt /> component.
+
     let blankDebtObj = {
-      // values are nec to prevent error
+      // values are nec for adding to db
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
-      index: this.props.debts.length,
+      num_seq: this.props.debts.length,
       debt_name: '',
       beg_bal: 0,
       rate: 0, 

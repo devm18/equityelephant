@@ -42,8 +42,6 @@ class Calculator extends Component {
 
       <div className="calculator-page">
         
-        { this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" alt="is loading..." /> ) : null }
-
         <br />
         <br />
 
@@ -54,12 +52,16 @@ class Calculator extends Component {
         <Prepayments />
 
         <div> DEBTS: </div>
-
+        
         <Debts />
-
+        
+        { this.props.isLoading ? ( <img
+        src="https://stackoverflow.com/content/img/progress-dots.gif"
+         alt="is loading..." 
+         /> ) : <div> &nbsp; </div> }
+         
         <div className="addDebt-saveInput-Save&Calc">
-          <br />
-
+          
           <AddDebt />
 
           <SaveInputs />

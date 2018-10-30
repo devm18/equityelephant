@@ -21,10 +21,10 @@ class Debt extends Component {
           </button>
           <output
             className="boxRowTextRight sequence-number"
-            index={this.props.index}
-            name="index"
+            num_seq={this.props.num_seq}
+            name="num_seq"
           >
-            {this.props.index + 1}
+            {this.props.num_seq + 1} &nbsp;&nbsp;
           </output>
         </div>
 
@@ -38,11 +38,11 @@ class Debt extends Component {
             name="debt_name"
             onChange={e =>
               this.props.onChangeHandlerDebts(
-                this.props.index, 
+                this.props.num_seq, 
                 e.target.name, 
                 e.target.value)
             } 
-            value={this.props.debts[this.props.index].debt_name} 
+            value={this.props.debts[this.props.num_seq].debt_name} 
           />
         </div>
 
@@ -54,11 +54,11 @@ class Debt extends Component {
             name="beg_bal"
             onChange={e =>
               this.props.onChangeHandlerDebts(
-                this.props.index, 
+                this.props.num_seq, 
                 e.target.name, 
                 e.target.value)
             } 
-            value={this.props.debts[this.props.index].beg_bal}
+            value={this.props.debts[this.props.num_seq].beg_bal}
             
           />
         </div>
@@ -71,11 +71,11 @@ class Debt extends Component {
             name="rate"
             onChange={e =>
               this.props.onChangeHandlerDebts(
-                this.props.index, 
+                this.props.num_seq, 
                 e.target.name, 
                 e.target.value)
             } 
-            value={this.props.debts[this.props.index].rate}
+            value={this.props.debts[this.props.num_seq].rate}
           />
         </div>
 
@@ -87,20 +87,20 @@ class Debt extends Component {
             name="mpmt"
             onChange={e =>
               this.props.onChangeHandlerDebts(
-                this.props.index, 
+                this.props.num_seq, 
                 e.target.name, 
                 e.target.value)
             } 
-            value={this.props.debts[this.props.index].mpmt}
+            value={this.props.debts[this.props.num_seq].mpmt}
           />
         </div>
 
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            { this.props.debts[this.props.index].term 
-            ? `${this.props.debts[this.props.index].term} months `
-            : ``}
+            { this.props.debts[this.props.num_seq].term 
+            ? `${this.props.debts[this.props.num_seq].term} months `
+            : `... months`} &nbsp;&nbsp;&nbsp;
           </output>
         </div>
         
