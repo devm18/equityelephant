@@ -10,13 +10,14 @@ class AddDebt extends Component {
     let { addDebt } = this.props; 
     
     let blankDebtObj = {
+      // values are nec to prevent error
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
       index: this.props.debts.length,
-      debt_name: ' ',
-      beg_bal: 0, 
+      debt_name: 'debt name...',
+      beg_bal: 0,
       rate: 0, 
-      term: ' ',
+      term: '',
       mpmt: 0
     }  
 
@@ -26,7 +27,8 @@ class AddDebt extends Component {
         // addDebt(blankDebtObj); // NEED TO FIX: it inserts twice before response changes the debts array.
         return ( 
           <button 
-          onClick={ () => addDebt(blankDebtObj) } > 
+          onClick={ 
+            () => addDebt(blankDebtObj) } > 
             Add Debt </button> 
         )
       } else {

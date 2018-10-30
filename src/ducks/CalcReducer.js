@@ -6,13 +6,13 @@ import AddDebt from "../calculator/AddDebt";
 // ACTION CREATORS
 export function getUser() {
   return {
-    type: "GET_USER",
+    type: "getUser",
     payload: axios.get("/getUser")
   };
 }
 export function logout() {
   return {
-    type: "LOG_OUT",
+    type: "logout",
     payload: axios.get("/logout")
   };
 }
@@ -54,7 +54,7 @@ export function saveInputs(user_id, prepayments, debts) {
   };
 }
 
-// ACTION CREATORS 
+// ACTION CREATORS
 export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   return {
     type: "onChangeHandlerPrepayments",
@@ -63,14 +63,10 @@ export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   };
 }
 
-export function onChangeHandlerDebt(
-  index, 
-  eTargetName, 
-  eTargetValue
-  ) {
-  console.log("onChangeHandlerDebt", index, eTargetName, eTargetValue);
+export function onChangeHandlerDebts(index, eTargetName, eTargetValue) {
+  console.log("onChangeHandlerDebts", index, eTargetName, eTargetValue);
   return {
-    type: "onChangeHandlerDebt",
+    type: "onChangeHandlerDebts",
     index: index,
     eTargetName: eTargetName,
     eTargetValue: eTargetValue
@@ -87,7 +83,7 @@ const initialState = {
   //   auth_id: "auth0|5bb4f869bdd7bf2d95bd6ed7"
   // }
   isAuthenticated: false,
-  debtComps: [],
+  // debtComps: [],
   prepayments: {},
   // prepayments: {
   //   user_id: 1,
@@ -128,33 +124,30 @@ const initialState = {
 
 // REDUCER
 export default function CalcReducer(state = initialState, action) {
-  console.log(state);
+  console.log("action: ", action);
 
   switch (action.type) {
-    case `GET_USER_PENDING`:
+    case `getUser_PENDING`:
+    case `getPrepayments_PENDING`:
+    case `getDebts_PENDING`:
+    case `addDebt_PENDING`:
+    case `removeDebt_PENDING`:
+    case `saveInputs_PENDING`:
+    case `onChangeHandlerPrepayments_PENDING`:
+    case `onChangeHandlerDebts_PENDING`:
       return {
-        ...state,
+        ...state, 
         isLoading: true
       };
-    case `GET_USER_FULFILLED`:
+
+    case `getUser_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true,
         user: { ...state.user, user_id: action.payload.data.user_id }
       };
-    case `GET_USER_REJECTED`:
-      console.log("Error in getUser");
-      return {
-        ...state,
-        isAuthenticated: false
-      };
 
-    case "getPrepayments_PENDING":
-      return {
-        ...state,
-        isLoading: true
-      };
     case "getPrepayments_FULFILLED":
       console.log(action.payload.data);
       return {
@@ -163,17 +156,7 @@ export default function CalcReducer(state = initialState, action) {
         prepayments: action.payload.data[0],
         gotPrepayments: true
       };
-    case "getPrepayments_REJECTED":
-      console.log("Error in getPrepayments");
-      return {
-        ...state
-      };
 
-    case "getDebts_PENDING":
-      return {
-        ...state,
-        isLoading: true
-      };
     case "getDebts_FULFILLED":
       return {
         ...state,
@@ -181,90 +164,32 @@ export default function CalcReducer(state = initialState, action) {
         debts: action.payload.data,
         gotDebts: true
       };
-    case "getDebts_REJECTED":
-      console.log("Error in getDebts");
-      return {
-        ...state
-      };
-    case "addDebt_PENDING":
-      return {
-        ...state,
-        isLoading: true
-      };
+    
     case "addDebt_FULFILLED":
-    console.log('action.payload.data: ', action.payload.data);
-      
-      // verify I dont need this, and then cut:
-      // convert to JS camelCase
-      // let payloadData = action.payload.data.map((e, i) => {
-      //   return {
-      //     // addDebt's payload includes debt_id
-      //     debt_id: e.debt_id,
-      //     user_id: e.user_id,
-      //     index: e.index,
-      //     debt_name: e.debt_name,
-      //     beg_bal: e.beg_bal,
-      //     rate: e.rate,
-      //     term: e.term,
-      //     mpmt: e.mpmt
-      //   };
-      // });
-      
-
+      console.log("action.payload.data: ", action.payload.data);
       return {
         ...state,
         isLoading: false,
         // debts: payloadData
-        debts: [ ...state.debts, action.payload.data ]
-      };
-    case "addDebt_REJECTED":
-      console.log("Error in addDebts");
-      return {
-        ...state
+        debts: [...state.debts, action.payload.data[0]]
       };
 
-    case "removeDebt_PENDING":
-      return {
-        ...state,
-        isLoading: true
-      };
     case "removeDebt_FULFILLED":
-      // state.debts.splice(action.payload2, 1);
-      // state.debtComps.splice(action.payload2, 1);
+      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,
         debts: action.payload.data
       };
-    case "removeDebt_REJECTED":
-      console.log("Error in removeDebt");
-      return {
-        ...state
-      };
-
-    // saveInputs - ACTION.PAYLOAD.DATA 
-    // 0: monthly_prepayment: 0,
-
-    case "saveInputs_PENDING":
-      return {
-        ...state,
-        // isLoading: true
-      };
-
+    
     case "saveInputs_FULFILLED":
-      console.log('ACTION.PAYLOAD.DATA: ', action.payload.data);
+      console.log("ACTION.PAYLOAD.DATA: ", action.payload.data);
       // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
       return {
         ...state,
-        // isLoading: false,
-        prepayments: action.payload.data[0],
+        isLoading: false,
+        prepayments: action.payload.data[0]
         // debts: action.payload.data.debts
-      };
-
-    case "saveInputs_REJECTED":
-      console.log("Error in removeDebt");
-      return {
-        ...state
       };
 
     case "onChangeHandlerPrepayments":
@@ -276,14 +201,34 @@ export default function CalcReducer(state = initialState, action) {
         }
       };
 
-    case "onChangeHandlerDebt":
+    case "onChangeHandlerDebts":
       const { index, eTargetName, eTargetValue } = action;
-      let debtsUpdated = state.debts.map((elem,i)=>{
-          return i===index ? Object.assign({}, elem, {[eTargetName]:eTargetValue}) : elem
-        })
+      let debtsUpdated = state.debts.map((elem, i) => {
+        return i === index
+          ? Object.assign({}, elem, { [eTargetName]: eTargetValue })
+          : elem;
+      });
       return {
         ...state,
         debts: debtsUpdated
+      };
+
+    case `getUser_REJECTED`:
+      console.log(`Error: ${action.type}`);
+      return {
+        ...state,
+        isAuthenticated: false
+      };
+    case `getPrepayments_REJECTED`:
+    case `getDebts_REJECTED`:
+    case `addDebt_REJECTED`:
+    case `removeDebt_REJECTED`:
+    case `saveInputs_REJECTED`:
+    case `onChangeHandlerPrepayments_REJECTED`:
+    case `onChangeHandlerDebts_REJECTED`:
+      console.log(`Error: ${action.type}`);
+      return {
+        ...state
       };
 
     default:

@@ -45,6 +45,7 @@ const addDebt = (req, res, next) => {
 
 const removeDebt = (req, res, next) => {
   console.log("\n log: REMOVE-DEBT-REQ.PARAMS \n", req.params);
+  
   let { user_id, debt_id } = req.params;
   let db = req.app.get("db");
   db.removeDebt([user_id, debt_id])
@@ -54,6 +55,7 @@ const removeDebt = (req, res, next) => {
     })
     .catch(error => console.log(error));
 };
+
 
 // USE db.query to loop thru array of this.props.debt to insert into db.
 const saveInputs = (req, res, next) => {

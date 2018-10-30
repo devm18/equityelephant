@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { onChangeHandlerDebt, removeDebt } from "../ducks/CalcReducer";
+import { onChangeHandlerDebts, removeDebt} from "../ducks/CalcReducer";
 
 class Debt extends Component {
+
   
+
   render() {
     console.log('DEBT-THIS.PROPS: ',this.props);
 
@@ -12,8 +14,8 @@ class Debt extends Component {
         <div className="boxRow ">
           <button
             className="boxRoxTextLeft removeDebt"
-            onClick={() => { this.props.removeDebt( this.props.user_id, this.props.debt_id);
-       }}
+            onClick={() => this.props.removeDebt( this.props.user_id, 
+            this.props.debt_id)}
           >
             X
           </button>
@@ -32,9 +34,10 @@ class Debt extends Component {
             type="text"
             className="input inputName"
             autoFocus
+            placeholder='debt name'
             name="debt_name"
             onChange={e =>
-              this.props.onChangeHandlerDebt(
+              this.props.onChangeHandlerDebts(
                 this.props.index, 
                 e.target.name, 
                 e.target.value)
@@ -50,7 +53,7 @@ class Debt extends Component {
             className="input inputNumber"
             name="beg_bal"
             onChange={e =>
-              this.props.onChangeHandlerDebt(
+              this.props.onChangeHandlerDebts(
                 this.props.index, 
                 e.target.name, 
                 e.target.value)
@@ -67,7 +70,7 @@ class Debt extends Component {
             className="input inputNumber"
             name="rate"
             onChange={e =>
-              this.props.onChangeHandlerDebt(
+              this.props.onChangeHandlerDebts(
                 this.props.index, 
                 e.target.name, 
                 e.target.value)
@@ -83,7 +86,7 @@ class Debt extends Component {
             className="input inputNumber"
             name="mpmt"
             onChange={e =>
-              this.props.onChangeHandlerDebt(
+              this.props.onChangeHandlerDebts(
                 this.props.index, 
                 e.target.name, 
                 e.target.value)
@@ -95,7 +98,9 @@ class Debt extends Component {
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            {`${this.props.debts[this.props.index].term} months `}
+            { this.props.debts[this.props.index].term 
+            ? `${this.props.debts[this.props.index].term} months `
+            : ``}
           </output>
         </div>
         
@@ -108,5 +113,5 @@ const mapStateToProps = state => state;
 
 export default connect(
   mapStateToProps,
-  { onChangeHandlerDebt, removeDebt }
+  { onChangeHandlerDebts, removeDebt }
 )(Debt);

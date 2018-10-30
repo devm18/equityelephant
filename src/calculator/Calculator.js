@@ -36,13 +36,14 @@ class Calculator extends Component {
     // console.log("THIS.PROPS", this.props)
     
     return (
-      // {this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" /> ) : null}
 
-      // render only after getPrepayments & getDebts are exe: 
+      // render only after getPrepayments & getDebts are executed: 
       this.props.gotPrepayments && this.props.gotDebts ? 
 
       <div className="calculator-page">
-      
+        
+        { this.props.isLoading ? ( <img src="https://editionsdelarose.com/wp-content/themes/edr/img/loading.gif" alt="is loading..." /> ) : null }
+
         <br />
         <br />
 
