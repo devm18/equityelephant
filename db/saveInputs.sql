@@ -95,3 +95,15 @@ const debts = [
 ];
 
 */
+
+UPDATE results 
+SET
+user_id = 1,
+total_debt = 0,
+original_term = 0,
+new_term = 0,
+original_cost = 0,
+new_cost = 0,
+eliminated_cost = 0
+WHERE
+user_id = 1;

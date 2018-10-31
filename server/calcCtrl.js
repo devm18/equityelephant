@@ -92,11 +92,7 @@ const saveInputs = (req, res, next) => {
   (VALUES ` +
     debts
       .map(debtObj => {
-        return `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.seq_num},'${
-          debtObj.debt_name
-        }', ${debtObj.beg_bal}, ${debtObj.rate}, '${debtObj.term}', ${
-          debtObj.mpmt
-        } )`;
+        return `( ${debtObj.debt_id}, ${debtObj.user_id}, ${debtObj.seq_num},'${debtObj.debt_name}', ${debtObj.beg_bal}, ${debtObj.rate}, ${debtObj.term}, ${debtObj.mpmt} )`;
       })
       .join(",") +
     `)
@@ -124,7 +120,7 @@ const calculate = (req, res, next) => {
   console.log("\n log: CALCULATE-REQ.BODY: \n", req.body);
 
   const results = {
-    result_id: 1,
+    // result_id: 1,
     user_id: 1,
     total_debt: 0,
     original_term: 0,
@@ -139,16 +135,18 @@ const calculate = (req, res, next) => {
   },0); 
 
   results.original_term = debts.reduce((acc, elem, i, arr)=>{
-    let greatestTerm = 0; 
-    return acc + elem.term
-  }, '')
+    return elem.term > acc ? elem.term : acc 
+    // ALT: 
+    // let acc = 0; 
+    // if (elem.term > acc) {
+    //   acc = elem.term;
+    // }
+    // return acc; 
+    //
+  }, 0)
 
 
-
-
-
-
-
+  
 
   let db = req.app.get("db");
   db.calculate()

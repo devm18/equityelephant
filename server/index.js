@@ -8,7 +8,7 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getPrepayments, getDebts, addDebt, removeDebt, saveInputs/*, calculate*/ } = require("./calcCtrl");
+const { test, getPrepayments, getDebts, addDebt, removeDebt, saveInputs, calculate } = require("./calcCtrl");
 
 const app = express();
 
@@ -62,11 +62,6 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 }); 
 
-app.get('/login', passport.authenticate('auth0', { 
-  successRedirect: process.env.REACT_APP_CALCULATOR,
-  failureRedirect: '/login'
-}));
-
 function authenticated (req, res, next) {
   if (req.user) { 
     //console.log("\nAUTHENTICATED.REQ.USER", req.user); 
@@ -76,23 +71,23 @@ function authenticated (req, res, next) {
   }
 }; 
 
+app.get('/login', passport.authenticate('auth0', { 
+  successRedirect: process.env.REACT_APP_CALCULATOR,
+  failureRedirect: '/login'
+}));
 app.get('/getUser', authenticated, getUser); 
 app.get('/logout', logout);
 /* end of auth0 *************************************** */
 
 
-
-// endpoints
-app.get('/test', test); // postman check 
-
-app.get('/getDebts/:user_id', getDebts); 
+// endpoints 
+app.get('/test', test); 
 app.get('/getPrepayments/:user_id', getPrepayments); 
-
+app.get('/getDebts/:user_id', getDebts); 
 app.post('/addDebt', addDebt); 
 app.delete('/removeDebt/:user_id/:debt_id', removeDebt); 
-
 app.put('/saveInputs/:user_id', saveInputs);
-// app.post('/calculate/:user_id', calculate); 
+app.post('/calculate', calculate); 
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening to port ${port}`));
