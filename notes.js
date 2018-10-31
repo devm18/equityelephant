@@ -54,6 +54,9 @@ Jerry Chen
     FIRE (Financial Independent Retire Early)
     Burn Rate 
 
+// login credentials 
+jmi.auth0.com johnmi@protonmail.com Timpffa78&*
+
 Anthony Magno  
 https://github.com/anthony62490/personal-project-photo-manager/blob/master/server/controller.js
 controller.js  33 searchQuery

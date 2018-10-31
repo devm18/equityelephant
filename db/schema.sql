@@ -18,7 +18,7 @@ CREATE TABLE prepayments (
 CREATE TABLE debts (
   debt_id SERIAL PRIMARY KEY, 
   FOREIGN KEY (user_id) references users (user_id) integer,
-  num_seq integer,
+  seq_num integer,
   debt_name VARCHAR(20),
   beg_bal FLOAT,
   rate FLOAT,

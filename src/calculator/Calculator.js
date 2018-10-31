@@ -11,9 +11,8 @@ import Calculate from "./Calculate";
 import Results from "./Results";
 
 class Calculator extends Component {
-
-  // componentDidMount executes before data is retrieved, 
-  // so use both DidMount and DidUpdate to get data 
+  // componentDidMount executes before data is retrieved,
+  // so use both DidMount and DidUpdate to get data
   // runs first
   componentDidMount() {
     // Use the && to prevent logging out ~jonw.
@@ -34,51 +33,42 @@ class Calculator extends Component {
 
   render() {
     // console.log("THIS.PROPS", this.props)
-    
+
     return (
+      // render only after getPrepayments & getDebts are executed:
+      this.props.gotPrepayments && this.props.gotDebts ? (
+        <div className="calculator-page">
+          <br />
 
-      // render only after getPrepayments & getDebts are executed: 
-      this.props.gotPrepayments && this.props.gotDebts ? 
+          <br />
+          <div>PREPAYMENTS: </div>
 
-      <div className="calculator-page">
-        
-        <br />
-        <br />
+          <Prepayments />
 
-        <div> {this.props.user.user_id || `NO USER ID`} </div>
-        <br />
-        <div>PREPAYMENTS: </div>
-        
-        <Prepayments />
+          <div> DEBTS: </div>
 
-        <div> DEBTS: </div>
-        
-        <Debts />
-        
-        { this.props.isLoading ? ( <img
-        src="https://stackoverflow.com/content/img/progress-dots.gif"
-         alt="is loading..." 
-         /> ) : <div> &nbsp; </div> }
-         
-        <div className="addDebt-saveInput-Save&Calc">
-          
-          <AddDebt />
+          <Debts />
 
-          <SaveInputs />
+          {this.props.isLoading ? (
+            <img
+              src="https://stackoverflow.com/content/img/progress-dots.gif"
+              alt="is loading..."
+            />
+          ) : (
+            <div> &nbsp; </div>
+          )}
 
-          {/* <SaveResultsAs /> */}
-          
-          <Calculate />
+          <div className="addDebt-saveInput-Save&Calc">
+            <AddDebt />
+            <SaveInputs />
+            <Calculate />
+          </div>
+          <br />
+          <div> RESULTS: </div>
+          <Results />
+          {/* <SaveResults /> */}
         </div>
-
-        <br />
-
-        <div> RESULTS: </div>
-
-        <Results />
-        
-        </div>
-      : null 
+      ) : null
     );
   }
 }

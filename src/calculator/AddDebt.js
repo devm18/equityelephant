@@ -16,7 +16,7 @@ class AddDebt extends Component {
       // values are nec for adding to db
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
-      num_seq: this.props.debts.length,
+      seq_num: this.props.debts.length,
       debt_name: '',
       beg_bal: 0,
       rate: 0, 
@@ -28,6 +28,7 @@ class AddDebt extends Component {
       
       if(this.props.debts.length === 0) { 
         // addDebt(blankDebtObj); // NEED TO FIX: it inserts twice before response changes the debts array.
+        // use async and await to fix?  
         return ( 
           <button 
           onClick={ 

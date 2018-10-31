@@ -27,11 +27,10 @@ update users set
   ) as u2(id, email, first_name, last_name)
   where u2.id = users.id;
 
-
 -- WORKS IN POSTICO: 
 UPDATE debts 
 SET
-  num_seq = tt.num_seq,
+  seq_num = tt.seq_num,
   debt_name = tt.debt_name, 
   beg_bal = tt.beg_bal, 
   rate = tt.rate,
@@ -44,7 +43,7 @@ SET
   (590, 1, 3, 'loan', 3333, 3, 'term', 333)
   )
   AS 
-  tt(debt_id, user_id, num_seq, debt_name, beg_bal, rate, term, mpmt)
+  tt(debt_id, user_id, seq_num, debt_name, beg_bal, rate, term, mpmt)
   WHERE tt.debt_id = debts.debt_id 
   AND tt.user_id = debts.user_id; 
 */
@@ -53,52 +52,55 @@ SET
 /*
 -- EXAMPLE INPUT: 
 -- query1: 
-  {
-    "monthly_prepayment": 111,
-    "yearly_prepayment": 111,
-    "yearly_prepayment_date" : "2018/12/12",
-    "one_time_prepayment" : 111,
-    "one_time_prepayment_date" : "2018/12/12"
-  }
+{
+  "monthly_prepayment": 111,
+  "yearly_prepayment": 111,
+  "yearly_prepayment_date" : "2019/12/01",
+  "one_time_prepayment" : 111,
+  "one_time_prepayment_date" : "2019/12/01"
+}
 
 -- query1 & query2: 
 {
-	"prepayments": {
-		"monthly_prepayment": 222,
+  "prepayments":
+  {
+    "monthly_prepayment": 222,
     "yearly_prepayment": 222,
     "yearly_prepayment_date" : "2018/12/12",
     "one_time_prepayment" : 222,
-    "one_time_prepayment_date" : "2018/12/12"
-	},
-	"debts": [{
-		"debt_id": 1,
-    	"user_id" : 1,
-    	"num_seq": 0,
-    	"debt_name" : "Visa",
-    	"beg_bal" : 100,
-    	"rate" : 1,
-    	"term" : " ",
-    	"mpmt" : 10
-	}, 
-	{
-		"debt_id": 2,
-    	"user_id" : 1,
-    	"num_seq": 1,
-    	"debt_name" : "MC",
-    	"beg_bal" : 200,
-    	"rate" : 2,
-    	"term" : " ",
-    	"mpmt" : 20
+    "one_time_prepayment_date" : "2018/12/12" 
+    },
+  "debts": 
+  [
+    {
+      "debt_id": 1,
+      "user_id" : 1,
+      "seq_num": 0,
+      "debt_name" : "Visa",
+      "beg_bal" : 100,
+      "rate" : 1,
+      "term" : " ",
+      "mpmt" : 10
+    }, 
+    {
+      "debt_id": 2,
+      "user_id" : 1,
+      "seq_num": 1,
+      "debt_name" : "MC",
+      "beg_bal" : 200,
+      "rate" : 2,
+      "term" : " ",
+      "mpmt" : 20
     },
     {
-    	"debt_id": 3,
-    	"user_id" : 1,
-    	"num_seq": 2,
-    	"debt_name" : "Loan shark",
-    	"beg_bal" : 300,
-    	"rate" : 3,
-    	"term" : " ",
-    	"mpmt" : 30
+      "debt_id": 3,
+      "user_id" : 1,
+      "seq_num": 2,
+      "debt_name" : "Loan shark",
+      "beg_bal" : 300,
+      "rate" : 3,
+      "term" : " ",
+      "mpmt" : 30
     }
   ]
 }

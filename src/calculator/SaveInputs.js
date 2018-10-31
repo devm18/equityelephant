@@ -8,9 +8,7 @@ class SaveInputs extends Component {
     const { user_id } = this.props.user;
     const { prepayments, debts } = this.props;
 
-    this.props
-    .saveInputs(user_id, prepayments, debts)
-    .then(() => {
+    this.props.saveInputs(user_id, prepayments, debts).then(() => {
       this.props.getPrepayments(user_id);
       this.props.getDebts(user_id);
     });

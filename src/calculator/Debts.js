@@ -19,7 +19,7 @@ class Debts extends Component {
       return (
         <Debt
           key={i} // redux reserved word
-          num_seq={i}
+          seq_num={i}
           user_id={elem.user_id}
           debt_id={elem.debt_id}
           // un-used:
