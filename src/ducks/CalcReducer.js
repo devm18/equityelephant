@@ -101,7 +101,7 @@ const initialState = {
   //   debt_name: ' ',
   //   beg_bal: 0,
   //   rate: 0,
-  //   term: ' ',
+  //   term: 0,
   //   mpmt: 0
   // },
   // { debt_id: 2,

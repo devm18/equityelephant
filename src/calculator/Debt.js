@@ -99,7 +99,7 @@ class Debt extends Component {
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
             { this.props.debts[this.props.seq_num].term 
-            ? `${this.props.debts[this.props.seq_num].term} months `
+            ? `${this.props.debts[this.props.seq_num].term} months {&nbsp;&nbsp;&nbsp;}`
             : `... months`} &nbsp;&nbsp;&nbsp;
           </output>
         </div>

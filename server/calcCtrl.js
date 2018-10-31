@@ -69,7 +69,8 @@ const saveInputs = (req, res, next) => {
 
   let db = req.app.get("db");
 
-  let query1 = `UPDATE prepayments SET 
+  let query1 = `UPDATE prepayments 
+  SET 
   monthly_prepayment = ${prepayments.monthly_prepayment},
   yearly_prepayment = ${prepayments.yearly_prepayment},
   yearly_prepayment_date = '${prepayments.yearly_prepayment_date}',
@@ -79,8 +80,7 @@ const saveInputs = (req, res, next) => {
   RETURNING *;`;
 
   // temp = temp_table
-  let query2 =
-    `UPDATE debts 
+  let query2 = `UPDATE debts 
   SET
   seq_num = temp.seq_num,
   debt_name = temp.debt_name, 
@@ -127,8 +127,8 @@ const calculate = (req, res, next) => {
     result_id: 1,
     user_id: 1,
     total_debt: 0,
-    original_term: '' ,
-    new_term: ' ',
+    original_term: 0,
+    new_term: 0,
     original_cost: 0,
     new_cost: 0,
     eliminated_cost: 0
@@ -138,7 +138,10 @@ const calculate = (req, res, next) => {
     return acc + elem.beg_bal;
   },0); 
 
-  results.original_term = debts.
+  results.original_term = debts.reduce((acc, elem, i, arr)=>{
+    let greatestTerm = 0; 
+    return acc + elem.term
+  }, '')
 
 
 
