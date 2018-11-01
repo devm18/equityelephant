@@ -12,7 +12,7 @@ class Debts extends Component {
   // }
 
   render() {
-    console.log('DEBTS - THIS.PROPS: ', this.props);
+    // console.log('DEBTS - THIS.PROPS: ', this.props);
 
     let debtsList = this.props.debts.map((elem, i) => {
 

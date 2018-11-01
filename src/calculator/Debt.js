@@ -7,7 +7,7 @@ class Debt extends Component {
   
 
   render() {
-    console.log('DEBT-THIS.PROPS: ',this.props);
+    // console.log('DEBT-THIS.PROPS: ',this.props);
 
     return (
       <div className="box">

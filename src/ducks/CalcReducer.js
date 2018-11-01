@@ -10,6 +10,7 @@ export function getUser() {
     payload: axios.get("/getUser")
   };
 }
+
 export function logout() {
   return {
     type: "logout",
@@ -51,6 +52,13 @@ export function saveInputs(user_id, prepayments, debts) {
   return {
     type: "saveInputs",
     payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
+  };
+}
+
+export function calculate(prepayments, debts) {
+  return {
+    type: "calculate",
+    payload: axios.post(`/calculate`, { prepayments, debts })
   };
 }
 
@@ -124,7 +132,7 @@ const initialState = {
 
 // REDUCER
 export default function CalcReducer(state = initialState, action) {
-  console.log("action: ", action);
+  console.log("Reducer action: ", action);
 
   switch (action.type) {
     case `getUser_PENDING`:
@@ -149,7 +157,6 @@ export default function CalcReducer(state = initialState, action) {
       };
 
     case "getPrepayments_FULFILLED":
-      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,
@@ -170,12 +177,11 @@ export default function CalcReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        // debts: payloadData
         debts: [...state.debts, action.payload.data[0]]
       };
 
     case "removeDebt_FULFILLED":
-      console.log(action.payload.data);
+      console.log("action.payload.data:", action.payload.data);
       return {
         ...state,
         isLoading: false,
@@ -184,12 +190,29 @@ export default function CalcReducer(state = initialState, action) {
     
     case "saveInputs_FULFILLED":
       console.log("ACTION.PAYLOAD.DATA: ", action.payload.data);
-      // payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
+      // action object = { 
+      //   type: saveInput,
+      //   payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
+      // }
       return {
         ...state,
-        isLoading: false,
-        prepayments: action.payload.data[0]
-        // debts: action.payload.data.debts
+        isLoading: false//,
+        // prepayments: action.payload.data[0], // dup of getDebts() 
+        // debts: action.payload.data[1] // dup of getPrepayments()   
+        // ??? 
+        // index.js:1452 Warning: A component is changing a controlled input of type number to be uncontrolled. Input elements should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
+      };
+    
+      case "calculate":
+      console.log("ACTION.PAYLOAD.DATA: ", action.payload.data);
+      return {
+        ...state,
+        isLoading: false
+        // NEED TO FINISH backend calcCtrl function. 
+        // NEED TO recheck payload.data first: 
+        // results: {
+        //   ...state.results
+        // }
       };
 
     case "onChangeHandlerPrepayments":

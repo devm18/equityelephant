@@ -22,17 +22,17 @@ CREATE TABLE debts (
   debt_name VARCHAR(20),
   beg_bal FLOAT,
   rate FLOAT,
-  term FLOAT, /* calculate from bal, rate, mpmt */
-  mpmt FLOAT,
-  ipmt FLOAT,
-  ppmt FLOAT,
-  prepmt FLOAT,
-  end_bal FLOAT
+  term FLOAT, 
+  mpmt FLOAT--,
+  -- ipmt FLOAT,
+  -- ppmt FLOAT,
+  -- prepmt FLOAT,
+  -- end_bal FLOAT
 ); 
 
 CREATE TABLE results (
   result_id SERIAL PRIMARY KEY,
-  FOREIGN KEY (user_id) references users (user_id) integer,
+  FOREIGN KEY (user_id) references users (user_id) NOT NULL INTEGER,
   total_debt FLOAT,
   original_term_in_years FLOAT,
   new_term_in_years FLOAT,

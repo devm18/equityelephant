@@ -8,10 +8,11 @@ const passport = require('passport');
 
 const { /*login*/strategy, getUser, logout } = require(`${__dirname}/authCtrl`);
 
-const { test, getPrepayments, getDebts, addDebt, removeDebt, saveInputs, calculate } = require("./calcCtrl");
+const { test, getPrepayments, getDebts, addDebt, removeDebt, saveInputs } = require("./inputsCtrl");
+
+const { calculate } = require("./calcCtrl");
 
 const app = express();
-
 app.use(json());
 app.use(cors());
 
@@ -31,7 +32,6 @@ app.use(session({
     /* 1000ms * 60sec * 60min * 24hrs */
   })
 );
-
 
 /* beg of Auth0 *************************************** */
 app.use(passport.initialize());
@@ -71,6 +71,7 @@ function authenticated (req, res, next) {
   }
 }; 
 
+// endpoints (for authCtrl)
 app.get('/login', passport.authenticate('auth0', { 
   successRedirect: process.env.REACT_APP_CALCULATOR,
   failureRedirect: '/login'
@@ -79,8 +80,7 @@ app.get('/getUser', authenticated, getUser);
 app.get('/logout', logout);
 /* end of auth0 *************************************** */
 
-
-// endpoints 
+// endpoints (for calcCtrl)
 app.get('/test', test); 
 app.get('/getPrepayments/:user_id', getPrepayments); 
 app.get('/getDebts/:user_id', getDebts); 

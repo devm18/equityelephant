@@ -1,8 +1,6 @@
-
 /*
 npm i express express-session body-parser massive axios react-router-dom dotenv redux react-redux redux-promise-middleware passport passport-auth0 
 https://github.com/steven-isbell/bcrypt-demo
-
 
 PRIORITIES 
   FIRST - top priorities: 
@@ -72,26 +70,52 @@ Object.keys(obj) // returns an array of key from obj, and then map key:value pai
 
 // Middleware supplies the _PENDING, _FULFILLED, _REJECTED 
 
-
-
 src/calculator/CalcReducer.js
 src/calculator/Debts.js
 src/calculator/Debt.js
 server/calcCtrl.js
 
 
-TODO: 
-UX goal: 
-1. type in info for prepayment box and default debt box, 
-2. click Add Debt button, and type in info, etc, 
-3. click Save Inputs or Save & Calculate to save to DB. 
+Seven steps for efficiently creating a web app: 
 
-PROBLEM: The <Add-Debt> button refreshes the screen and wipes out the inputs, which get reloaded with data from DB. 
+1. Wireframe   
+  Create a crud, stick-figured picture of every interactive UI part of the app (every input, button, link, etc). (Use a pencil & notepad. If you already know how to use digital wireframe technology, fine, but now is not the time learn how to use one.) 
 
-SOLUTION: 
-1. Add <Save-Inputs> button with axios call to each box of inputs = poorer user interface. 
-2. use Onblur to update the database when the focus leaves box of inputs. - should work, 
-3. delay refreshing of screen ... 
+  Define every consequence of the user's use of every UI interactive feature. (If clicking on a button causes data to be sent from the front-end to the back-end to & from the database back to the back-end to the front-end, then list every one of those actions until the app returns to a state of rest. This list will provide a chain of causality that you can follow to debug errors. 
+  
+  (It's easier to add than remove features. So, if building both a mobile & desktop responsive app, design mobile interactivity first, and then add features a second wireframe for that desktop that contains just those additional features.) 
 
+2. Database (heroku.com - postico/pgweb)
+  Define the tables and columns. Use your wireframe as a guide.
+  
+  Use postico/pgweb and hard-coded data to create every single SQL command you will need. And test them all in postico/pgweb. (Again, use your Wireframe as a guide for what inputs and outputs you want from the database.)
+  
+  Save the SQL statements with the hard-coded data. (You will use them later to copy & paste into the backend db.)
 
+3. Backend 
+  In the db, create files for sql statements. 
+  Copy & paste the SQL statements from postico/pgweb, and replace the hard-coded data with variables ($1, $2, $3, etc). 
+
+  In server/controller.js, create the js functions that pass-thru the arguments for those db sql statements.   
+
+  In server/index.js, create endpoints for connecting to the frontend. 
+
+4. Frontend: Postman 
+  Translate the hard coded data in the postico/pgweb SQL statements into JSON files for use in Postman. 
+
+  Create postman commands (get, post, put, delete) that correspond to the database SQL commands (get, insert into, update, delete).
+
+  Test the endpoints. (Do the postman commands affect the database?) 
+  
+5. Frontend: Interactive Elements
+  Create basic react/html pages to contain User Interface interactive elements: inputs, buttons, form fields, etc, and outputs from (local or redux) state. 
+    
+6. Frontend: Axios
+  Create/insert axios calls, componentDidMounts, etc. Test them. (If you completed steps 1-4, then you know that any errors you encounter are in the front end.)
+
+7. Frontend: Face
+  Create the html/css stuff, headers, footers, logos, pictures, media queries, etc. 
+  
+  Add third party software (auth0, chartJS, etc). 
+  
 */
