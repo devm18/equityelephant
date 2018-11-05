@@ -61,7 +61,6 @@ const calculate = (req, res, next) => {
   console.log("\n log: CALCULATE-REQ.PARAMS: \n", req.params);
   console.log("\n log: CALCULATE-REQ.BODY: \n", req.body);
 
-  
   // RECURSIVE FUNCTION 
   const payoffDebt = (name, beg_bal, rate, mpmt, prepmt, prepmtSnowball=true, remainder=0, new_term=0, new_cost=0) => {
     let ipmt = beg_bal * rate;
@@ -85,53 +84,42 @@ const calculate = (req, res, next) => {
   }
 
   const paidOffDebtsArray = debts.reduce((acc,elem,i,arr)=>{
-    // paidOffdebtsArr.push(results.paidOffDebt)
-
-    payoffDebt(elem.name, elem.beg_bal, elem.rate, elem.mpmt, prepayments.monthly_prepayment, true, 0, 0, 0); 
-
-    for (let i = 0; i <= debts.length; i++) {
-      // let prepmtRemainder = 0;
-      // if(debts[i].bal <= mprepmt) {
-      //   mprepmtRemainder = mprepmt - debts[0].bal;
-      // }
-      accTerm = 0; 
-      let currTerm = 0;
-      currTerm = findTermWmprepmt(debts[i].bal, debts[i].rate, debts[i].mpmt, mprepmt);
-      accTerm += currTerm; 
-      newTermsArr.push(accTerm); 
-    }
-    return newTermsArr.reduce((acc,elem,i,arr)=>{ 
-      return acc > e ? acc : e 
-    },{}); 
-    
+    // The acc is initialized in the second argument of the reduce function. 
+    // recursive function call
+    let paidOffDebtInfo = payoffDebt(elem.name, elem.beg_bal, elem.rate, elem.mpmt, prepayments.monthly_prepayment, true, 0, 0, 0); 
+    // paidOffDebtInfo = { remainder, prepmt, paidOffDebt }
+    return acc.push(paidOffDebtInfo.paidOffDebt);     
    },[]);
   
   /////////////////////////////////////////////////////////////////////////////
   const total_debt = debts.reduce((acc, elem, i, arr)=>{
     return acc + elem.beg_bal;
   }, 0); 
-  // console.log(results.total_debt); 
+  // console.log(total_debt); //check
 
   const original_term = debts.reduce((acc, elem, i, arr)=>{
     return (elem.term > acc) ? elem.term : acc;
   }, 0);
-  // console.log(results.original_term); 
+  // console.log(original_term); //check
 
-  const new_term = paidOffDebts.reduce((acc,elem,i,arr)=>{
+  const new_term = paidOffDebtsArray.reduce((acc,elem,i,arr)=>{
     return (elem.term > acc) ? elem.term : acc;
   }, 0);
+  console.log(new_term);
 
   const original_cost = debts.reduce((acc, elem, i, arr)=>{ 
     return acc + findInterestCost(elem.beg_bal, elem.rate, elem.mpmt);   
   }, 0);
-  // console.log(result.original_cost); 
+  // console.log(original_cost); //check
 
-  const new_cost = paidOffDebts.reduce((acc, elem, i, arr)=>{  
+  const new_cost = paidOffDebtsArray.reduce((acc, elem, i, arr)=>{  
     return acc + elem.cost;
   }, 0);
-  
+  console.log(new_cost); 
+
   const eliminated_cost = original_cost - new_cost;
-  
+  console.log(eliminated_cost); 
+
   /////////////////////////////////////////////////////////////////////////////
   let db = req.app.get("db");
   db.calculate([user_id, total_debt, original_term, new_term, original_cost, new_cost, eliminated_cost])
