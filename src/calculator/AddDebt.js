@@ -16,7 +16,7 @@ class AddDebt extends Component {
       // values are nec for adding to db
       // debt_id will be created by the db. 
       user_id: this.props.user.user_id,
-      seq_num: this.props.debts.length,
+      seq_num: this.props.debts.length+1,
       debt_name: '',
       beg_bal: 0,
       rate: 0, 

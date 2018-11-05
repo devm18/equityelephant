@@ -4,10 +4,23 @@ import { onChangeHandlerDebts, removeDebt} from "../ducks/CalcReducer";
 
 class Debt extends Component {
 
-  
+  round = (value, decimalPoint) => {
+    return Number(Math.round(value+'e'+decimalPoint)+'e-'+decimalPoint);
+  }
 
+  findTerm = (bal, rate, payment) => {
+    const mRate = rate/100/12; // convert to monthly rate in decimal form 
+    const numOfPayments = -Math.log(1 - mRate*bal/payment) / Math.log(1 + mRate);
+    return this.round(numOfPayments, 2);
+  }
+  
   render() {
-    // console.log('DEBT-THIS.PROPS: ',this.props);
+    console.log('DEBT-THIS.PROPS: ',this.props);
+
+    let term = this.findTerm(
+      this.props.debts[this.props.seq_num].beg_bal,
+      this.props.debts[this.props.seq_num].rate, 
+      this.props.debts[this.props.seq_num].mpmt); 
 
     return (
       <div className="box">
@@ -24,7 +37,7 @@ class Debt extends Component {
             seq_num={this.props.seq_num}
             name="seq_num"
           >
-            {this.props.seq_num + 1} &nbsp;&nbsp;
+            {this.props.seq_num + 1} &nbsp;
           </output>
         </div>
 
@@ -98,9 +111,10 @@ class Debt extends Component {
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            { this.props.debts[this.props.seq_num].term 
-            ? `${this.props.debts[this.props.seq_num].term} months {&nbsp;&nbsp;&nbsp;}`
-            : `... months`} &nbsp;&nbsp;&nbsp;
+            { // if term is not 0, x months..., else 0 months...
+              term 
+            ? `${term} monthly payments` 
+            : `0 monthly payments`} &nbsp;
           </output>
         </div>
         

@@ -7,12 +7,11 @@ CREATE TABLE users (
 
 CREATE TABLE prepayments (
   FOREIGN KEY (user_id) references users (user_id) PRIMARY KEY, 
-  monthly_pmt FLOAT,
-  yearly_pmt FLOAT,
-  yearly_pmt_date DATE,
-  one_time_pmt FLOAT,
-  one_time_pmt_date DATE
-
+  m_prepmt FLOAT,
+  y_prepmt FLOAT,
+  y_prepmt_date DATE,
+  one_time_prepmt FLOAT,
+  one_time_prepmt_date DATE
 );
 
 CREATE TABLE debts (

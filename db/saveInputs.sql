@@ -53,11 +53,11 @@ SET
 -- EXAMPLE INPUT: 
 -- query1: 
 const prepayments = {
-  "monthly_prepayment": 111,
-  "yearly_prepayment": 111,
-  "yearly_prepayment_date" : "2019/12/01",
-  "one_time_prepayment" : 111,
-  "one_time_prepayment_date" : "2019/12/01"
+  "m_prepmt": 111,
+  "y_prepmt": 111,
+  "y_prepmt_date" : "2019/12/01",
+  "one_time_prepmt" : 111,
+  "one_time_prepmt_date" : "2019/12/01"
 }
 
 -- query2: 

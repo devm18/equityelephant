@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const { findTerm } = require("./finFuncs");
 
 const test = (req, res, next) => {
   res.status(200).json("Postman test passes.");
@@ -34,7 +35,7 @@ const getPrepayments = (req, res) => {
 const addDebt = (req, res, next) => {
   console.log("\n log: ADD-DEBT-REQ.BODY: \n", req.body);
   const { user_id, seq_num, debt_name, beg_bal, rate, term, mpmt } = req.body;
-
+  
   let db = req.app.get("db");
   db.addDebt([user_id, seq_num, debt_name, beg_bal, rate, term, mpmt])
     .then(response => {
@@ -71,11 +72,11 @@ const saveInputs = (req, res, next) => {
 
   let query1 = `UPDATE prepayments 
   SET 
-  monthly_prepayment = ${prepayments.monthly_prepayment},
-  yearly_prepayment = ${prepayments.yearly_prepayment},
-  yearly_prepayment_date = '${prepayments.yearly_prepayment_date}',
-  one_time_prepayment = ${prepayments.one_time_prepayment},
-  one_time_prepayment_date = '${prepayments.one_time_prepayment_date}'
+  m_prepmt = ${prepayments.m_prepmt},
+  y_prepmt = ${prepayments.y_prepmt},
+  y_prepmt_date = '${prepayments.y_prepmt_date}',
+  one_time_prepmt = ${prepayments.one_time_prepmt},
+  one_time_prepmt_date = '${prepayments.one_time_prepmt_date}'
   WHERE user_id = ${req.params.user_id}
   RETURNING *;`;
 

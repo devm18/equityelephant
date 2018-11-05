@@ -65,8 +65,10 @@ class Calculator extends Component {
           </div>
           <br />
           <div> RESULTS: </div>
-          <Results />
+          <Results />  
+          {/* for a comparison of different debt targeting order: */}
           {/* <SaveResults /> */}
+        
         </div>
       ) : null
     );

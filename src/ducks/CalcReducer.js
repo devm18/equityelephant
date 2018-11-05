@@ -94,11 +94,11 @@ const initialState = {
   prepayments: {},
   // prepayments: {
   //   user_id: 1,
-  //   monthly_prepayment: 0,
-  //   yearly_prepayment: 0,
-  //   yearly_prepayment_date: yyy/mm/dd,
-  //   one_time_prepayment: 0,
-  //   one_time_prepayment_date: yyy/mm/dd
+  //   m_prepmt: 0,
+  //   y_prepmt: 0,
+  //   y_prepmt_date: yyy/mm/dd,
+  //   one_time_prepmt: 0,
+  //   one_time_prepmt_date: yyy/mm/dd
   // }
   debts: [],
   // debts: [{
@@ -137,22 +137,27 @@ export default function CalcReducer(state = initialState, action) {
     case `getUser_PENDING`:
     case `getPrepayments_PENDING`:
     case `getDebts_PENDING`:
+    case `onChangeHandlerPrepayments_PENDING`:
+    case `onChangeHandlerDebts_PENDING`:
     case `addDebt_PENDING`:
     case `removeDebt_PENDING`:
     case `saveInputs_PENDING`:
-    case `onChangeHandlerPrepayments_PENDING`:
-    case `onChangeHandlerDebts_PENDING`:
+    case `calculate_PENDING`:
       return {
         ...state, 
         isLoading: true
       };
 
     case `getUser_FULFILLED`:
+      console.log(action.payload)
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: { ...state.user, user_id: action.payload.data.user_id }
+        user: { ...state.user, 
+          user_id: action.payload.data.user_id, 
+          name: action.payload.data.name 
+        }
       };
 
     case "getPrepayments_FULFILLED":
@@ -209,7 +214,7 @@ export default function CalcReducer(state = initialState, action) {
       };
     
     case "saveInputs_FULFILLED":
-      console.log("ACTION.PAYLOAD.DATA: ", action.payload.data);
+      console.log("saveInputs-ACTION.PAYLOAD.DATA: ", action.payload.data);
       // action object = { 
       //   type: saveInput,
       //   payload: axios.put(`/saveInputs/${user_id}`, { prepayments, debts })
@@ -217,21 +222,32 @@ export default function CalcReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false//,
-        // prepayments: action.payload.data[0], // dup of getDebts() 
-        // debts: action.payload.data[1] // dup of getPrepayments()   
+        // prepayments: action.payload.data[0], // dup of getDebts()
+        // debts: action.payload.data[1] // dup of getPrepayments() 
         // ??? 
         // index.js:1452 Warning: A component is changing a controlled input of type number to be uncontrolled. Input elements should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
       };
     
       case "calculate":
-      console.log("ACTION.PAYLOAD.DATA: ", action.payload.data);
+      console.log("calculate-ACTION.PAYLOAD.DATA: ", action.payload.data);
       return {
         ...state,
-        isLoading: false
-        // NEED TO FINISH backend calcCtrl function. 
-        // NEED TO recheck payload.data first: 
+        isLoading: false,
+        // NEED TO check payload.data first: 
+        results: {
+          ...state.results
+        }
+        ///////////////
+        // results: {},
         // results: {
-        //   ...state.results
+        //   result_id: 1,
+        //   user_id: 1,
+        //   total_debt: 0,
+        //   original_term: '' ,
+        //   new_term: ' ',
+        //   original_cost: 0,
+        //   new_cost: 0,
+        //   eliminated_cost: 0
         // }
       };
 

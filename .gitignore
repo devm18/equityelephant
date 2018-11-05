@@ -17,12 +17,9 @@
 .env.test.local
 .env.production.local
 
-db.notes.sql
-db.createInPostico.sql
 ErikGolden.js
 notes.js
 /server/codePen.js
-
 
 npm-debug.log*
 yarn-debug.log*

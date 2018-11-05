@@ -24,7 +24,7 @@ const findTerm = (bal, rate, payment) => {
   const numOfPayments = -Math.log(1 - mRate*bal/payment) / Math.log(1 + mRate);
   return round(numOfPayments, 2);
 }
-// console.log(findTerm(200000, 6, 1199.10)); // 360
+console.log(findTerm(200000, 6, 1199.10)); // 360
 
 const findTermInYearsMonths = (bal, rate, payment) => {
   // const mRate = rate/100/12; 
@@ -62,7 +62,7 @@ const findTermWmprepmt = (bal, rate, mpmt, mprepmt) => {
 // console.log(findTermMprepmt(200000, 6, 1199.10, 0)); // 360
 // console.log(findTermMprepmt(200000, 6, 1199.10, 100)); // 294.46
 
-const findCostWMprepmt = (bal, rate, mpmt, mprepmt) => {
+const findCostWmprepmt = (bal, rate, mpmt, mprepmt) => {
   const mRate = rate/100/12; // convert to monthly decimal form. 
   let term = findTermWmprepmt(bal, rate, mpmt, mprepmt); 
   let totalCost = 0;
@@ -87,7 +87,7 @@ module.exports = {
   findCost,
   //////////////
   findTermWmprepmt,
-  findCostWMprepmt
+  findCostWmprepmt
 };
 
 
