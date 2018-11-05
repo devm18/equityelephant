@@ -38,27 +38,56 @@ const findTermInYearsMonths = (bal, rate, payment) => {
 }
 // console.log(findTermInYearsMonths(200000, 6, 1199.10))
 
-const findInterestCost = (bal, rate, payment) => {
+const findCost = (bal, rate, mpmt) => {
   const mRate = rate/100/12; // convert to monthly decimal form. 
-  let term = findTerm(bal, rate, payment); 
+  let term = findTerm(bal, rate, mpmt); 
   let totalCost = 0; 
   let mBal = bal; 
   for (let numPmts = term; numPmts > 0; numPmts--) {
     let ipmt = mBal * mRate;  
-    mBal = mBal - (payment - ipmt);
+    mBal = mBal - (mpmt - ipmt);
     totalCost += ipmt; 
   }
   return round(totalCost,2); 
 }
-// console.log(findInterestCost(200000, 6, 1199.10)); // 231676.38
- 
+// console.log(findCost(200000, 6, 1199.10)); // 231676.38
+
+//////////////////////////////////////////////////////////////////////// 
+/////////////////////// with monthly prepayments /////////////////////// 
+const findTermWmprepmt = (bal, rate, mpmt, mprepmt) => {
+  const mRate = rate/100/12; // convert to monthly rate in decimal form 
+  const numOfPayments = -Math.log(1-mRate*bal/(mpmt+mprepmt))/Math.log(1+mRate);
+  return round(numOfPayments, 2);
+}
+// console.log(findTermMprepmt(200000, 6, 1199.10, 0)); // 360
+// console.log(findTermMprepmt(200000, 6, 1199.10, 100)); // 294.46
+
+const findCostWMprepmt = (bal, rate, mpmt, mprepmt) => {
+  const mRate = rate/100/12; // convert to monthly decimal form. 
+  let term = findTermWmprepmt(bal, rate, mpmt, mprepmt); 
+  let totalCost = 0;
+  let mBal = bal; 
+  for (let numPmts = term; numPmts > 0; numPmts--) {
+    let ipmt = mBal * mRate;  
+    mBal = mBal - (mpmt + mprepmt - ipmt);
+    totalCost += ipmt; 
+  }
+  return round(totalCost,2); 
+}
+// console.log(findCostwMprepmt(200000, 6, 1199.10, 0)); // 231677
+// console.log(findCostwMprepmt(200000, 6, 1199.10, 100)); // 182538
+
+
 module.exports = {
   today, yyyy, mm, dd,
   round,
   findMonthlyPayment,
   findTerm,
   findTermInYearsMonths,
-  findInterestCost
+  findCost,
+  //////////////
+  findTermWmprepmt,
+  findCostWMprepmt
 };
 
 

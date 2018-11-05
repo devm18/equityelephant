@@ -32,6 +32,24 @@ export function getDebts(user_id) {
   };
 }
 
+export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
+  return {
+    type: "onChangeHandlerPrepayments",
+    eTargetName: eTargetName,
+    eTargetValue: eTargetValue
+  };
+}
+
+export function onChangeHandlerDebts(seq_num, eTargetName, eTargetValue) {
+  console.log("onChangeHandlerDebts", seq_num, eTargetName, eTargetValue);
+  return {
+    type: "onChangeHandlerDebts",
+    seq_num: seq_num,
+    eTargetName: eTargetName,
+    eTargetValue: eTargetValue
+  };
+}
+
 export function addDebt(blankDebtObj) {
   console.log("BLANK DEBT OBJ: ", blankDebtObj);
   return {
@@ -59,25 +77,6 @@ export function calculate(prepayments, debts) {
   return {
     type: "calculate",
     payload: axios.post(`/calculate`, { prepayments, debts })
-  };
-}
-
-// ACTION CREATORS
-export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
-  return {
-    type: "onChangeHandlerPrepayments",
-    eTargetName: eTargetName,
-    eTargetValue: eTargetValue
-  };
-}
-
-export function onChangeHandlerDebts(seq_num, eTargetName, eTargetValue) {
-  console.log("onChangeHandlerDebts", seq_num, eTargetName, eTargetValue);
-  return {
-    type: "onChangeHandlerDebts",
-    seq_num: seq_num,
-    eTargetName: eTargetName,
-    eTargetValue: eTargetValue
   };
 }
 
@@ -172,6 +171,27 @@ export default function CalcReducer(state = initialState, action) {
         gotDebts: true
       };
     
+    case "onChangeHandlerPrepayments":
+      return {
+        ...state,
+        prepayments: {
+          ...state.prepayments,
+          [action.eTargetName]: action.eTargetValue
+        }
+      };
+
+    case "onChangeHandlerDebts":
+      const { seq_num, eTargetName, eTargetValue } = action;
+      let debtsUpdated = state.debts.map((elem, i) => {
+        return i === seq_num
+          ? Object.assign({}, elem, { [eTargetName]: eTargetValue })
+          : elem;
+      });
+      return {
+        ...state,
+        debts: debtsUpdated
+      };
+
     case "addDebt_FULFILLED":
       console.log("action.payload.data: ", action.payload.data);
       return {
@@ -215,27 +235,6 @@ export default function CalcReducer(state = initialState, action) {
         // }
       };
 
-    case "onChangeHandlerPrepayments":
-      return {
-        ...state,
-        prepayments: {
-          ...state.prepayments,
-          [action.eTargetName]: action.eTargetValue
-        }
-      };
-
-    case "onChangeHandlerDebts":
-      const { seq_num, eTargetName, eTargetValue } = action;
-      let debtsUpdated = state.debts.map((elem, i) => {
-        return i === seq_num
-          ? Object.assign({}, elem, { [eTargetName]: eTargetValue })
-          : elem;
-      });
-      return {
-        ...state,
-        debts: debtsUpdated
-      };
-
     case `getUser_REJECTED`:
       console.log(`Error: ${action.type}`);
       return {
@@ -244,11 +243,12 @@ export default function CalcReducer(state = initialState, action) {
       };
     case `getPrepayments_REJECTED`:
     case `getDebts_REJECTED`:
+    case `onChangeHandlerPrepayments_REJECTED`:
+    case `onChangeHandlerDebts_REJECTED`:
     case `addDebt_REJECTED`:
     case `removeDebt_REJECTED`:
     case `saveInputs_REJECTED`:
-    case `onChangeHandlerPrepayments_REJECTED`:
-    case `onChangeHandlerDebts_REJECTED`:
+    case `calculate_REJECTED`:
       console.log(`Error: ${action.type}`);
       return {
         ...state
