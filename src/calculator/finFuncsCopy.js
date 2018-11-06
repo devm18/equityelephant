@@ -36,7 +36,7 @@ const exprTermInYearsMonths = (term) => {
   const m = (termMonths === 1) ? 'month' : 'months'; 
   return termYears+' '+y+', '+termMonths+' '+m; 
 }
-// console.log(exprTermInYearsMonths(348))
+// console.log(exprTermInYearsMonths(349))
 
 const findCost = (bal, rate, mpmt) => {
   const mRate = rate/100/12; // convert to monthly decimal form. 

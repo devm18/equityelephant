@@ -8,11 +8,11 @@ class Results extends Component {
     return (
       <div className="results">
         <div className="box">
-          {/* Include this row for badging: */}
-          <div className="boxRow">
+          {/* Include this row for join for badging: */}
+          {/* <div className="boxRow">
             <label className="boxRowTextLeft">User name:</label>
             <output className="boxRowTextRight">{this.props.user.name}</output>
-          </div>
+          </div> */}
 
           <div className="boxRow">
             <label className="boxRowTextLeft">Total debt:</label>

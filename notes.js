@@ -8,13 +8,13 @@ PRIORITIES
       - post a row in users 
       - post a row in prepayments 
       - post a row in debts
-      - enables access to calculator
+      - enable access to calculator
 
     removeUser (delete)
       - delete row in users 
       - delete row in prepayments 
       - delete row(s) in debts
-      - disables access to calculator
+      - disable access to calculator
 
     login (get)
       - gets user_id from row in user, where ??????.auth_id = users.auth_id
@@ -26,23 +26,23 @@ PRIORITIES
       - update row in prepayments, where users.user_id = prepayments.user_id
       - update row(s) in debts, where users.user_id = debts.user_id
 
-    calculate (put, get)
+    calculate (put)
       - update row in prepayments, where users.user_id = prepayments.user_id
       - update row(s) in debts, where users.user_id = debts.user_id
       - update row(s) in results, where users.user_id = results.user_id
-    
-    Add a isLoading gif, eg sim-Fullstack_app_demo
 
   SECOND 
   - mediaQuery for iphone 
   - mediaQuery for tablet 
-
   - dropdown 
   - links
-
   - graph (placeholder)
    
 /// Need to read docs on massive.query. 
+
+//// EDGE CASE 
+1. when rate is 0! Some algorithms will fail if rate is 0. 
+
 
 USE balance instead of principle bc: 
 beg balance

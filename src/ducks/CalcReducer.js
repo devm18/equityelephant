@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import Debt from "../calculator/Debt";
 import AddDebt from "../calculator/AddDebt";
+import { round, findTerm } from '../calculator/finFuncsCopy'; 
 
 // ACTION CREATORS
 export function getUser() {
@@ -40,13 +41,14 @@ export function onChangeHandlerPrepayments(eTargetName, eTargetValue) {
   };
 }
 
-export function onChangeHandlerDebts(seq_num, eTargetName, eTargetValue) {
-  console.log("onChangeHandlerDebts", seq_num, eTargetName, eTargetValue);
+export function onChangeHandlerDebts(seq_num, eTargetName, eTargetValue, term) {
+  console.log("onChangeHandlerDebts", seq_num, eTargetName, eTargetValue, term);
   return {
     type: "onChangeHandlerDebts",
     seq_num: seq_num,
     eTargetName: eTargetName,
-    eTargetValue: eTargetValue
+    eTargetValue: eTargetValue,
+    term: term
   };
 }
 
@@ -62,7 +64,8 @@ export function removeDebt(user_id, debt_id) {
   console.log(user_id, debt_id);
   return {
     type: "removeDebt",
-    payload: axios.delete(`/removeDebt/${user_id}/${debt_id}`)
+    payload1: axios.delete(`/removeDebt/${user_id}/${debt_id}`)/* ,
+    payload2: axios.put()... */
   };
 }
 
@@ -186,16 +189,21 @@ export default function CalcReducer(state = initialState, action) {
       };
 
     case "onChangeHandlerDebts":
-      const { seq_num, eTargetName, eTargetValue } = action;
+      const { seq_num, eTargetName, eTargetValue, term } = action;
+      
       let debtsUpdated = state.debts.map((elem, i) => {
         return i === seq_num
-          ? Object.assign({}, elem, { [eTargetName]: eTargetValue })
+          ? Object.assign({}, elem, {[eTargetName]: eTargetValue}, {[elem.term]: term})
           : elem;
       });
       return {
         ...state,
         debts: debtsUpdated
       };
+
+    // case "updateTerm": 
+      
+    //   return ; 
 
     case "addDebt_FULFILLED":
       console.log("action.payload.data: ", action.payload.data);
@@ -206,11 +214,13 @@ export default function CalcReducer(state = initialState, action) {
       };
 
     case "removeDebt_FULFILLED":
-      console.log("action.payload.data:", action.payload.data);
+      console.log("payload1.data:", action.payload1.data);
+      console.log("payload2.data:", action.payload2.data);
       return {
         ...state,
         isLoading: false,
-        debts: action.payload.data
+        debts: action.payload1.data/* ,
+        debts: action.payload2.data */
       };
     
     case "saveInputs_FULFILLED":

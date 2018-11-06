@@ -1,27 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { onChangeHandlerDebts, removeDebt} from "../ducks/CalcReducer";
+import { round, findTerm, exprTermInYearsMonths } from './finFuncsCopy.js'; 
 
 class Debt extends Component {
 
-  round = (value, decimalPoint) => {
-    return Number(Math.round(value+'e'+decimalPoint)+'e-'+decimalPoint);
-  }
-
-  findTerm = (bal, rate, payment) => {
-    const mRate = rate/100/12; // convert to monthly rate in decimal form 
-    const numOfPayments = -Math.log(1 - mRate*bal/payment) / Math.log(1 + mRate);
-    return this.round(numOfPayments, 2);
-  }
-  
   render() {
     console.log('DEBT-THIS.PROPS: ',this.props);
 
-    let term = this.findTerm(
-      this.props.debts[this.props.seq_num].beg_bal,
-      this.props.debts[this.props.seq_num].rate, 
-      this.props.debts[this.props.seq_num].mpmt); 
-
+    let term = findTerm( 
+      this.props.beg_bal,
+      this.props.rate, 
+      this.props.mpmt); 
+    
     return (
       <div className="box">
         <div className="boxRow ">
@@ -53,7 +44,8 @@ class Debt extends Component {
               this.props.onChangeHandlerDebts(
                 this.props.seq_num, 
                 e.target.name, 
-                e.target.value)
+                e.target.value,
+                term)
             } 
             value={this.props.debts[this.props.seq_num].debt_name} 
           />
@@ -67,9 +59,10 @@ class Debt extends Component {
             name="beg_bal"
             onChange={e =>
               this.props.onChangeHandlerDebts(
-                this.props.seq_num, 
-                e.target.name, 
-                e.target.value)
+                this.props.seq_num,
+                e.target.name,
+                e.target.value,
+                term)
             } 
             value={this.props.debts[this.props.seq_num].beg_bal}
             
@@ -86,7 +79,8 @@ class Debt extends Component {
               this.props.onChangeHandlerDebts(
                 this.props.seq_num, 
                 e.target.name, 
-                e.target.value)
+                e.target.value,
+                term)
             } 
             value={this.props.debts[this.props.seq_num].rate}
           />
@@ -102,7 +96,8 @@ class Debt extends Component {
               this.props.onChangeHandlerDebts(
                 this.props.seq_num, 
                 e.target.name, 
-                e.target.value)
+                e.target.value,
+                term)
             } 
             value={this.props.debts[this.props.seq_num].mpmt}
           />
@@ -111,10 +106,11 @@ class Debt extends Component {
         <div className="boxRow">
           <label className="boxRowTextLeft">Term:</label>
           <output className="term">
-            { // if term is not 0, x months..., else 0 months...
-              term 
-            ? `${term} monthly payments` 
-            : `0 monthly payments`} &nbsp;
+            { // if term exists, # months, else ...months
+            term
+            ? exprTermInYearsMonths(term)
+            : `...monthly payments`
+            } &nbsp;
           </output>
         </div>
         

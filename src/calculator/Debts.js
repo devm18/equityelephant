@@ -12,27 +12,23 @@ class Debts extends Component {
   // }
 
   render() {
-    // console.log('DEBTS - THIS.PROPS: ', this.props);
+    console.log('DEBTS - THIS.PROPS: ', this.props);
 
     let debtsList = this.props.debts.map((elem, i) => {
-
       return (
         <Debt
           key={i} // redux reserved word
           seq_num={i}
           user_id={elem.user_id}
           debt_id={elem.debt_id}
-          // un-used:
-          // debt_name={elem.debt_name} 
-          // beg_bal={elem.beg_bal}
-          // rate={elem.rate}
-          // term={elem.term}
-          // mpmt={elem.mpmt}
+          debt_name={elem.debt_name} 
+          beg_bal={elem.beg_bal}
+          rate={elem.rate}
+          term={elem.term}
+          mpmt={elem.mpmt}
         />
       );
     });
-
-
 
     // Beautiful dnd 
     let dndDebtsList = () => debtsList.map((e, i) => e);
